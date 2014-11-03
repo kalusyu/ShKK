@@ -11,6 +11,6 @@ public class MainActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 	}
-	
+	//https://github.com/kalusyu/fontxiuxiu.git
 	// 1024 * 600
 }

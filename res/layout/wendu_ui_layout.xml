@@ -2,17 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:gravity="center_vertical|center_horizontal"
     android:orientation="horizontal" >
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:onClick="templatrueReduce"
         android:src="@drawable/wendu_r_btn" >
     </ImageView>
 
     <RelativeLayout
+        android:id="@+id/wendu_ui_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
         <TextView 
@@ -39,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:onClick="templatruePlus"
         android:src="@drawable/wendu_p_btn" >
     </ImageView>
 

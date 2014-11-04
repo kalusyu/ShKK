@@ -3,8 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/beijing_xia" >
+    
+    <include layout="@layout/main_ui_layout"
+        android:layout_marginLeft="100dip"
+        android:layout_marginTop="100dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
+        android:id="@+id/bottom_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -24,6 +31,45 @@
             android:clickable="true"
             android:src="@drawable/baocun_btn">
         </ImageView>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_ll"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            android:clickable="true"
+            android:src="@drawable/dengguan_btn">
+        </ImageView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/yinyue_btn">
+        </ImageView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            android:clickable="true"
+            android:src="@drawable/lanya_btn">
+        </ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="21:30"
+            android:textSize="@dimen/time_text_size"
+            android:textColor="@color/time_color"
+            android:src="@drawable/baocun_btn">
+        </TextView>
     </LinearLayout>
 
 </RelativeLayout>

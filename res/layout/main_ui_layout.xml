@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <ImageButton android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <RelativeLayout 
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center">
+            <ImageView android:id="@+id/center"
+                android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:src="@drawable/yinyueanniu_normal"/>
+            <ImageView android:id="@+id/left"
+                android:layout_toLeftOf="@id/center"
+                android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:src="@drawable/cepen_chunqiu_normal"/>
+            <ImageView android:id="@+id/right"
+                android:layout_toRightOf="@id/center"
+                android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:src="@drawable/pubu_chunqiu_normal"/>
+            <ImageView android:id="@+id/top"
+                android:layout_above="@id/center"
+                android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:src="@drawable/dingpen_chunqiu_normal"/>
+            <ImageView android:id="@+id/bottom"
+                android:layout_below="@id/center"
+                android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:src="@drawable/shouchi_chunqiu_normal"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>

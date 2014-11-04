@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_vertical"
     android:orientation="horizontal" >
 
     <ImageView
@@ -13,9 +14,10 @@
 
     <ImageView
         android:background="@drawable/liuliangkuang_normal"
-        android:layout_width="wrap_content"
+        android:layout_width="198.5dip"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:scaleType="fitStart"
         android:src="@drawable/liuliangtiao2_chun_normal" >
     </ImageView>
 

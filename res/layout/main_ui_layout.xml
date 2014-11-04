@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
     
-    <ImageButton android:layout_width="wrap_content"
+    <ImageButton android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         
-        <RelativeLayout 
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="center">
+        <FrameLayout 
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content">
             <ImageView android:id="@+id/center"
+                android:layout_marginTop="85dip"
+                android:layout_marginLeft="90dip"
                 android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
-        		android:src="@drawable/yinyueanniu_normal"/>
+        		android:clickable="true"
+        		android:src="@drawable/zhongjian_btn"/>
             <ImageView android:id="@+id/left"
-                android:layout_toLeftOf="@id/center"
+                android:layout_marginTop="40dip"
                 android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
-        		android:src="@drawable/cepen_chunqiu_normal"/>
-            <ImageView android:id="@+id/right"
-                android:layout_toRightOf="@id/center"
-                android:layout_width="wrap_content"
-        		android:layout_height="wrap_content"
-        		android:src="@drawable/pubu_chunqiu_normal"/>
-            <ImageView android:id="@+id/top"
-                android:layout_above="@id/center"
-                android:layout_width="wrap_content"
-        		android:layout_height="wrap_content"
-        		android:src="@drawable/dingpen_chunqiu_normal"/>
+        		android:clickable="true"
+        		android:src="@drawable/cepeng_btn"/>
             <ImageView android:id="@+id/bottom"
-                android:layout_below="@id/center"
+                android:layout_marginTop="175dip"
+                android:layout_marginLeft="40dip"
                 android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
-        		android:src="@drawable/shouchi_chunqiu_normal"/>
-        </RelativeLayout>
+        		android:clickable="true"
+        		android:src="@drawable/shouchi_btn"/>
+            
+            <ImageView android:id="@+id/right"
+                android:layout_marginTop="40dip"
+                android:layout_marginLeft="175dip"
+                android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:clickable="true"
+        		android:src="@drawable/pubu_btn"/>
+            <ImageView android:id="@+id/top"
+                android:layout_marginLeft="40dip"
+                android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:clickable="true"
+        		android:src="@drawable/dingpeng_btn"/>
+            
+        </FrameLayout>
     </LinearLayout>
 
 </FrameLayout>

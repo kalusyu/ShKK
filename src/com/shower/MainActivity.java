@@ -1,5 +1,6 @@
 package com.shower;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.res.Resources;
@@ -7,70 +8,90 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IInterface;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.PopupWindow.OnDismissListener;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
 
 	RelativeLayout mTemplatureUI;
-	TextView mTemplatureTen,mTemplatureUnit;
+	TextView mTemplatureTen, mTemplatureUnit;
 	int mTemplature;
 	int mOldTemplature;
-	
+
 	ImageView mFlowScrollBar;
-	
+
 	SkinController mController;
-	
-	int mFlowRate,mOldFlowRate;
-	
+
+	int mFlowRate, mOldFlowRate;
+
 	IShower mShower;
-	
+	View dateView;
+	PopupWindow mDatetimePicker;
+
 	public static final int ON = 101;
 	public static final int OFF = 100;
-	
+
 	public static final int DINGPENG = 2;
 	public static final int CEPENG = 2 << 1;
 	public static final int PUBU = 2 << 2;
 	public static final int SHOUCHI = 2 << 3;
-	public static final int LAUNCH  = 2 << 4;
-	
+	public static final int LAUNCH = 2 << 4;
+
+	int mWindowWidth;
+	int mWindowHeight;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		mShower = new ShowerImpl();
-		
+
 		super.onCreate(savedInstanceState);
 		// 1024 * 600
 		setContentView(R.layout.main);
 		initUI();
+		initWindowSize();
 		mController = new SkinController();
-		if (1==1){
+		if (1 == 1) {
 			mController.setSkin(SkinController.CHUN);
 		}
-		setCurrentTemplatrue(98);//38 test  
-//		setCurrentTemplatrue(mShower.getTempalture()); // actual
+		setCurrentTemplatrue(98);// 38 test
+		// setCurrentTemplatrue(mShower.getTempalture()); // actual
 		setTemplatureTag(0);
 		handleTemplature(0);
 		setCurrentFlow(1); // 1 test
-//		setCurrentFlow(mShower.getFlow());// actual
+		// setCurrentFlow(mShower.getFlow());// actual
 		setFlowTag(0);
 		handleFlow(1);
 	}
-	
+
+	private void initWindowSize() {
+		DisplayMetrics metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		mWindowWidth = metrics.widthPixels;
+		mWindowHeight = metrics.heightPixels;
+	}
+
 	private void handleFlow(int i) {
 		handleUI(i);
 	}
 
 	private void handleUI(int i) {
-		int identifyFlow= getResources().getIdentifier(String.format("liuliangtiao%d_chun_normal", i), "drawable", "com.shower");
+		int identifyFlow = getResources().getIdentifier(
+				String.format("liuliangtiao%d_chun_normal", i), "drawable",
+				"com.shower");
 		mFlowScrollBar.setImageResource(identifyFlow);
 	}
 
 	private boolean setFlowTag(int plusReduce) {
-		mOldFlowRate = mFlowRate = (Integer)mFlowScrollBar.getTag();
+		mOldFlowRate = mFlowRate = (Integer) mFlowScrollBar.getTag();
 		mFlowRate += plusReduce;
-		if (mFlowRate != 4 && mFlowRate != 0){
+		if (mFlowRate != 4 && mFlowRate != 0) {
 			mFlowScrollBar.setTag(mFlowRate);
 			return true;
 		} else {
@@ -92,70 +113,70 @@ public class MainActivity extends Activity{
 		mTemplatureTen = (TextView) findViewById(R.id.templature_shi);
 		mTemplatureUnit = (TextView) findViewById(R.id.templature_ge);
 		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar);
+		initPicker();
 	}
 
 	// templature
-	public void templatrueReduce(View v){
-		if (setTemplatureTag(-1)){
+	public void templatrueReduce(View v) {
+		if (setTemplatureTag(-1)) {
 			handleTemplature(-1);
 			mShower.reduceTemplatuer(1);
 		}
 	}
-	
 
-	public void templatruePlus(View v){
-		if(setTemplatureTag(1)){
+	public void templatruePlus(View v) {
+		if (setTemplatureTag(1)) {
 			handleTemplature(1);
 			mShower.addTemplatuer(1);
 		}
 	}
-	
-	// flow 
-	public void flowReduce(View v){
-		if(setFlowTag(-1)){
+
+	// flow
+	public void flowReduce(View v) {
+		if (setFlowTag(-1)) {
 			handleFlow(mFlowRate);
 			mShower.reduceFlow(1);
 		}
 	}
-	
-	public void flowPlus(View v){
-		if(setFlowTag(1)){
+
+	public void flowPlus(View v) {
+		if (setFlowTag(1)) {
 			handleFlow(mFlowRate);
 			mShower.addFlow(1);
 		}
 	}
-	
-	//shower button
+
+	// shower button
 	public void cepeng(View v) {
-		ImageView img = (ImageView)v;
+		ImageView img = (ImageView) v;
 		handShower(img, CEPENG);
 	}
 
 	public void dingpeng(View v) {
-		ImageView img = (ImageView)v;
+		ImageView img = (ImageView) v;
 		handShower(img, DINGPENG);
 	}
 
 	public void pubu(View v) {
-		ImageView img = (ImageView)v;
+		ImageView img = (ImageView) v;
 		handShower(img, PUBU);
 	}
 
 	public void shouchi(View v) {
-		ImageView img = (ImageView)v;
+		ImageView img = (ImageView) v;
 		handShower(img, SHOUCHI);
 	}
-	
-	public void zhongjian(View v){
-		ImageView img = (ImageView)v;
+
+	public void zhongjian(View v) {
+		ImageView img = (ImageView) v;
 		handShower(img, LAUNCH);
 	}
-	
-	public void handShower(ImageView img,int type){
+
+	public void handShower(ImageView img, int type) {
 		Object tag = img.getTag();
-		if (tag == null){
+		if (tag == null) {
 			img.setTag(ON);
-			switch(type){
+			switch (type) {
 			case CEPENG:
 				img.setImageResource(R.drawable.cepeng_btn_on);
 				mShower.cepengOn();
@@ -178,9 +199,9 @@ public class MainActivity extends Activity{
 				break;
 			}
 		} else {
-			if (tag instanceof Integer){
-				int status = (Integer)tag;
-				if (status == ON){
+			if (tag instanceof Integer) {
+				int status = (Integer) tag;
+				if (status == ON) {
 					img.setTag(OFF);
 					if (type == CEPENG) {
 						mShower.cepengOff();
@@ -228,14 +249,14 @@ public class MainActivity extends Activity{
 			}
 		}
 	}
-	
+
 	private void handleTemplature(int i) {
-		int ten = mOldTemplature/10;
-		int unit = mOldTemplature%10;
-		switch(i){
+		int ten = mOldTemplature / 10;
+		int unit = mOldTemplature % 10;
+		switch (i) {
 		case -1:
-			if (unit == 0){
-				if (ten > 0){
+			if (unit == 0) {
+				if (ten > 0) {
 					ten -= 1;
 					unit = 9;
 				}
@@ -244,8 +265,8 @@ public class MainActivity extends Activity{
 			}
 			break;
 		case 1:
-			if (unit == 9){
-				if (ten < 9){
+			if (unit == 9) {
+				if (ten < 9) {
 					ten += 1;
 					unit = 0;
 				}
@@ -253,33 +274,65 @@ public class MainActivity extends Activity{
 				unit += 1;
 			}
 			break;
-			default:
-				break;
+		default:
+			break;
 		}
-		
-		handleUI(ten,unit);
+
+		handleUI(ten, unit);
 	}
-	
-	//wendushuzi0_chun_normal.png
+
+	// wendushuzi0_chun_normal.png
 	private void handleUI(int ten, int unit) {
-		int identifyTen= getResources().getIdentifier(String.format("wendushuzi%d_chun_normal", ten), "drawable", "com.shower");
-		int identifyUnit= getResources().getIdentifier(String.format("wendushuzi%d_chun_normal", unit), "drawable", "com.shower");
+		int identifyTen = getResources().getIdentifier(
+				String.format("wendushuzi%d_chun_normal", ten), "drawable",
+				"com.shower");
+		int identifyUnit = getResources().getIdentifier(
+				String.format("wendushuzi%d_chun_normal", unit), "drawable",
+				"com.shower");
 		mTemplatureTen.setBackgroundResource(identifyTen);
 		mTemplatureUnit.setBackgroundResource(identifyUnit);
 	}
 
-	public boolean setTemplatureTag(int plusReduce){
-		mOldTemplature = mTemplature = (Integer)mTemplatureUI.getTag();
+	public boolean setTemplatureTag(int plusReduce) {
+		mOldTemplature = mTemplature = (Integer) mTemplatureUI.getTag();
 		mTemplature += plusReduce;
-		if (mTemplature != 100 && mTemplature!=-1){
+		if (mTemplature != 100 && mTemplature != -1) {
 			mTemplatureUI.setTag(mTemplature);
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	
-	public void setDateTime(View v){
+
+	public void setDateTime(View v) {
+		mDatetimePicker.showAtLocation(v, Gravity.RIGHT | Gravity.BOTTOM, 0, 100);
 	}
+	
+	private void initPicker(){
+		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+		View dateView = inflater.inflate(R.layout.datetime_picker_ui, null);
+
+		mDatetimePicker = new PopupWindow(dateView,
+				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
+				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+		mDatetimePicker.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.datetime_picker_background)); // 有这个 点击空白处才会消失
+		mDatetimePicker.getBackground().setAlpha(0);
+		mDatetimePicker.setOutsideTouchable(true);
+
+		// use system animation
+		mDatetimePicker.setAnimationStyle(android.R.style.Animation_Dialog);
+		mDatetimePicker.update();
+		mDatetimePicker.setTouchable(true);
+		mDatetimePicker.setFocusable(true);
+
+		mDatetimePicker.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				// dismissDimBackground();
+			}
+		});
+	}
+
 }

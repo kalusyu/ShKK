@@ -1,8 +1,10 @@
 package com.shower;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IInterface;
 import android.view.View;
@@ -275,5 +277,9 @@ public class MainActivity extends Activity{
 		} else {
 			return false;
 		}
+	}
+	
+	
+	public void setDateTime(View v){
 	}
 }

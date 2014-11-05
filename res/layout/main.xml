@@ -89,6 +89,7 @@
             android:layout_weight="1.45"
             android:clickable="true"
             android:text="21:30"
+            android:onClick="setDateTime"
             android:gravity="center"
             android:textSize="@dimen/time_text_size"
             android:textColor="@color/time_color">

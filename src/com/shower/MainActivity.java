@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,11 @@ public class MainActivity extends Activity{
 	int mTemplature;
 	int mOldTemplature;
 	
+	ImageView mFlowScrollBar;
+	
+	SkinController mController;
+	
+	int mFlowRate,mOldFlowRate;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +28,43 @@ public class MainActivity extends Activity{
 		// 1024 * 600
 		setContentView(R.layout.main);
 		initUI();
+		mController = new SkinController();
+		if (1==1){
+			mController.setSkin(SkinController.CHUN);
+		}
 		setCurrentTemplatrue(98);//38 test
 		setTemplatureTag(0);
 		handleTemplature(0);
+		setCurrentFlow(1);
+		setFlowTag(0);
+		handleFlow(1);
 	}
 	
+	private void handleFlow(int i) {
+		handleUI(i);
+	}
+
+	private void handleUI(int i) {
+		int identifyFlow= getResources().getIdentifier(String.format("liuliangtiao%d_chun_normal", i), "drawable", "com.shower");
+		mFlowScrollBar.setImageResource(identifyFlow);
+	}
+
+	private boolean setFlowTag(int plusReduce) {
+		mOldFlowRate = mFlowRate = (Integer)mFlowScrollBar.getTag();
+		mFlowRate += plusReduce;
+		if (mFlowRate != 4 && mFlowRate != 0){
+			mFlowScrollBar.setTag(mFlowRate);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// i should be 1 || 2 || 3
+	private void setCurrentFlow(int i) {
+		mFlowScrollBar.setTag(i);
+	}
+
 	private void setCurrentTemplatrue(int templature) {
 		mTemplatureUI.setTag(templature);
 	}
@@ -35,6 +73,7 @@ public class MainActivity extends Activity{
 		mTemplatureUI = (RelativeLayout) findViewById(R.id.wendu_ui_show);
 		mTemplatureTen = (TextView) findViewById(R.id.templature_shi);
 		mTemplatureUnit = (TextView) findViewById(R.id.templature_ge);
+		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar);
 	}
 
 	public void templatrueReduce(View v){
@@ -45,7 +84,17 @@ public class MainActivity extends Activity{
 
 	public void templatruePlus(View v){
 		if(setTemplatureTag(1))
-		handleTemplature(1);
+			handleTemplature(mFlowRate);
+	}
+	
+	public void flowReduce(View v){
+		if(setFlowTag(-1))
+			handleFlow(mFlowRate);
+	}
+	
+	public void flowPlus(View v){
+		if(setFlowTag(1))
+			handleFlow(1);
 	}
 	
 	private void handleTemplature(int i) {

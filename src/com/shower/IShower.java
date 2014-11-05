@@ -13,14 +13,25 @@ public interface IShower {
 	
 	void setTemplature(int templature);
 	
+	int getTempalture();
+	
 	void setFlow(int flow);
 	
-	void dingpeng();
+	int getFlow();
 	
-	void cepeng();
+	void dingpengOn();
+	void dingpengOff();
 	
-	void pubu();
+	void cepengOn();
+	void cepengOff();
 	
-	void shouchi();
+	void pubuOn();
+	void pubuOff();
+	
+	void shouchiOn();
+	void shouchiOff();
+	
+	void startShower();
+	void stopShower();
 	
 }

@@ -23,6 +23,8 @@ public class MainActivity extends Activity{
 	
 	int mFlowRate,mOldFlowRate;
 	
+	IShower mShower;
+	
 	public static final int ON = 101;
 	public static final int OFF = 100;
 	
@@ -30,9 +32,12 @@ public class MainActivity extends Activity{
 	public static final int CEPENG = 2 << 1;
 	public static final int PUBU = 2 << 2;
 	public static final int SHOUCHI = 2 << 3;
+	public static final int LAUNCH  = 2 << 4;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		mShower = new ShowerImpl();
+		
 		super.onCreate(savedInstanceState);
 		// 1024 * 600
 		setContentView(R.layout.main);
@@ -41,10 +46,12 @@ public class MainActivity extends Activity{
 		if (1==1){
 			mController.setSkin(SkinController.CHUN);
 		}
-		setCurrentTemplatrue(98);//38 test
+		setCurrentTemplatrue(98);//38 test  
+//		setCurrentTemplatrue(mShower.getTempalture()); // actual
 		setTemplatureTag(0);
 		handleTemplature(0);
 		setCurrentFlow(1); // 1 test
+//		setCurrentFlow(mShower.getFlow());// actual
 		setFlowTag(0);
 		handleFlow(1);
 	}
@@ -87,25 +94,33 @@ public class MainActivity extends Activity{
 
 	// templature
 	public void templatrueReduce(View v){
-		if (setTemplatureTag(-1))
+		if (setTemplatureTag(-1)){
 			handleTemplature(-1);
+			mShower.reduceTemplatuer(1);
+		}
 	}
 	
 
 	public void templatruePlus(View v){
-		if(setTemplatureTag(1))
+		if(setTemplatureTag(1)){
 			handleTemplature(1);
+			mShower.addTemplatuer(1);
+		}
 	}
 	
 	// flow 
 	public void flowReduce(View v){
-		if(setFlowTag(-1))
+		if(setFlowTag(-1)){
 			handleFlow(mFlowRate);
+			mShower.reduceFlow(1);
+		}
 	}
 	
 	public void flowPlus(View v){
-		if(setFlowTag(1))
+		if(setFlowTag(1)){
 			handleFlow(mFlowRate);
+			mShower.addFlow(1);
+		}
 	}
 	
 	//shower button
@@ -129,6 +144,11 @@ public class MainActivity extends Activity{
 		handShower(img, SHOUCHI);
 	}
 	
+	public void zhongjian(View v){
+		ImageView img = (ImageView)v;
+		handShower(img, LAUNCH);
+	}
+	
 	public void handShower(ImageView img,int type){
 		Object tag = img.getTag();
 		if (tag == null){
@@ -136,15 +156,23 @@ public class MainActivity extends Activity{
 			switch(type){
 			case CEPENG:
 				img.setImageResource(R.drawable.cepeng_btn_on);
+				mShower.cepengOn();
 				break;
 			case DINGPENG:
 				img.setImageResource(R.drawable.dingpeng_btn_on);
+				mShower.dingpengOn();
 				break;
 			case PUBU:
 				img.setImageResource(R.drawable.pubu_btn_on);
+				mShower.pubuOn();
 				break;
 			case SHOUCHI:
 				img.setImageResource(R.drawable.shouchi_btn_on);
+				mShower.shouchiOn();
+				break;
+			case LAUNCH:
+				img.setImageResource(R.drawable.zhongjian_btn_on);
+				mShower.startShower();
 				break;
 			}
 		} else {
@@ -152,16 +180,48 @@ public class MainActivity extends Activity{
 				int status = (Integer)tag;
 				if (status == ON){
 					img.setTag(OFF);
-					if (type == CEPENG) img.setImageResource(R.drawable.cepeng_btn);
-					if (type == DINGPENG) img.setImageResource(R.drawable.dingpeng_btn);
-					if (type == PUBU) img.setImageResource(R.drawable.pubu_btn);
-					if (type == SHOUCHI) img.setImageResource(R.drawable.shouchi_btn);
+					if (type == CEPENG) {
+						mShower.cepengOff();
+						img.setImageResource(R.drawable.cepeng_btn);
+					}
+					if (type == DINGPENG) {
+						mShower.dingpengOff();
+						img.setImageResource(R.drawable.dingpeng_btn);
+					}
+					if (type == PUBU) {
+						mShower.pubuOff();
+						img.setImageResource(R.drawable.pubu_btn);
+					}
+					if (type == SHOUCHI) {
+						mShower.shouchiOff();
+						img.setImageResource(R.drawable.shouchi_btn);
+					}
+					if (type == LAUNCH) {
+						mShower.stopShower();
+						img.setImageResource(R.drawable.zhongjian_btn);
+					}
 				} else {
 					img.setTag(ON);
-					if (type == CEPENG) img.setImageResource(R.drawable.cepeng_btn_on);
-					if (type == DINGPENG) img.setImageResource(R.drawable.dingpeng_btn_on);
-					if (type == PUBU) img.setImageResource(R.drawable.pubu_btn_on);
-					if (type == SHOUCHI) img.setImageResource(R.drawable.shouchi_btn_on);
+					if (type == CEPENG) {
+						mShower.cepengOn();
+						img.setImageResource(R.drawable.cepeng_btn_on);
+					}
+					if (type == DINGPENG) {
+						mShower.dingpengOn();
+						img.setImageResource(R.drawable.dingpeng_btn_on);
+					}
+					if (type == PUBU) {
+						mShower.pubuOn();
+						img.setImageResource(R.drawable.pubu_btn_on);
+					}
+					if (type == SHOUCHI) {
+						mShower.shouchiOn();
+						img.setImageResource(R.drawable.shouchi_btn_on);
+					}
+					if (type == LAUNCH) {
+						mShower.startShower();
+						img.setImageResource(R.drawable.zhongjian_btn_on);
+					}
 				}
 			}
 		}

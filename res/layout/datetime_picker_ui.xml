@@ -1,13 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/datetime_picker_month"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+   
+    <!-- 年 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/datetime_bg"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:clickable="true"
+            android:src="@drawable/rilingtou_shang_btn" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="2014"
+                android:textColor="#ffffff"
+                android:textSize="18.58dip" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/year"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@id/year"
+                android:text="年"
+                android:textColor="#ffffff"
+                android:textSize="8dip" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:padding="15dip"
+            android:src="@drawable/rilingtou_xia_btn" />
+    </LinearLayout>
+
+    <!-- 月 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/rilingtou_shang_btn" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="09"
+                android:textColor="#ffffff"
+                android:textSize="18.58dip" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/month"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@id/month"
+                android:text="月"
+                android:textColor="#ffffff"
+                android:textSize="8dip" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/rilingtou_xia_btn" />
+    </LinearLayout>
+
+    
+    <!-- 日 -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/rilingtou_shang_btn" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="10"
+                android:textColor="#ffffff"
+                android:textSize="18.58dip" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/day"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@id/day"
+                android:text="日"
+                android:textColor="#ffffff"
+                android:textSize="8dip" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/rilingtou_xia_btn" />
+    </LinearLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/datetime_picker_day" />
+        android:layout_weight="1"
+        android:onClick="changeHour"
+        android:text="21"
+        android:textColor="#ffffff"
+        android:textSize="18.58dip" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="changeMinute"
+        android:text="00"
+        android:textColor="#ffffff"
+        android:textSize="18.58dip" />
 
 </LinearLayout>

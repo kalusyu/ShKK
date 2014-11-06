@@ -12,7 +12,7 @@
 	    <include layout="@layout/first_main_ui"/>
 	    
 	    <include layout="@layout/second_main_ui"
-	        android:visibility="invisible"/>
+	        android:visibility="gone"/>
 	    
 	</FrameLayout>   
 

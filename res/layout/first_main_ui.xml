@@ -14,14 +14,14 @@
         android:clickable="true"
         android:src="@drawable/zuojian_select_btn" />
 
-    <FrameLayout
-        android:id="@+id/model_framelayout"
-        android:layout_width="wrap_content"
-        android:layout_height="210.5dip" >
-    </FrameLayout>
+    <com.shower.ShowerViewPager
+        android:id="@+id/pager"
+        android:layout_width="149.5dip"
+        android:layout_height="210.5dip"
+        />
 
     <ImageView
-        android:id="@+id/model_left"
+        android:id="@+id/model_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dip"

@@ -76,7 +76,7 @@
             android:text="21:30"
             android:onClick="setDateTime"
             android:gravity="center"
-            android:textSize="@dimen/time_text_size"
+            android:textSize="20dip"
             android:textColor="@color/time_color">
         </TextView>
     </LinearLayout>

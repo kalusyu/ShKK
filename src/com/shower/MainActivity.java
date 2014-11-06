@@ -2,7 +2,9 @@ package com.shower;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,10 +46,11 @@ public class MainActivity extends Activity {
 	int mWindowWidth;
 	int mWindowHeight;
 	
-	FrameLayout mModel;
 	static final int MODELSIZE = 5;
 	int mCurrentModelPosition = 2;
 	
+	ViewPager mPager;
+	ModelPagerAdapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,16 +118,47 @@ public class MainActivity extends Activity {
 		mTemplatureTen = (TextView) findViewById(R.id.templature_shi);
 		mTemplatureUnit = (TextView) findViewById(R.id.templature_ge);
 		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar);
-		mModel = (FrameLayout) findViewById(R.id.model_framelayout);
 		initPicker();
-		initModel();
+		initViewPager();
 	}
 
-	private void initModel() {
-		for (int i=0 ; i < MODELSIZE; i++){
-			View rl = getLayoutInflater().inflate(R.layout.model_item, null);
-			mModel.addView(rl);
-		}
+	private void initViewPager() {
+		
+		mPager = (ViewPager) findViewById(R.id.pager);
+		mAdapter = new ModelPagerAdapter(this,MODELSIZE);
+		mAdapter.setData(initData());
+		mPager.setAdapter(mAdapter);
+		mPager.setCurrentItem(2);
+	}
+
+	private SparseArray<Model> initData() {
+		int i = 0;
+		SparseArray<Model> s = new SparseArray<Model>();
+		Model model = new Model();
+		model.modelName = "自定义五";
+		model.modelResource = R.drawable.women_normal;
+		s.put(i++, model);
+		
+		model = new Model();
+		model.modelName = "常规一";
+		model.modelResource = R.drawable.men_normal;
+		s.put(i++, model);
+		
+		model = new Model();
+		model.modelName = "常规二";
+		model.modelResource = R.drawable.women_normal;
+		s.put(i++, model);
+		
+		model = new Model();
+		model.modelName = "常规三";
+		model.modelResource = R.drawable.men_normal;
+		s.put(i++, model);
+		
+		model = new Model();
+		model.modelName = "自定义一";
+		model.modelResource = R.drawable.women_normal;
+		s.put(i++, model);
+		return s;
 	}
 
 	// templature
@@ -356,23 +390,23 @@ public class MainActivity extends Activity {
 	
 	
 	public void modelLeft(View v){
+		mPager.arrowScroll(17);
 	}
 	
 	public void modelRight(View v){
-		View v0 = mModel.getChildAt(0);
-		View v1 = mModel.getChildAt(1);
-		dismissAnima(v0);
-		displayAnima(v1);
+		mPager.arrowScroll(66);
 	}
 
-	private void displayAnima(View v1) {
+	
+	// useless
+	public void displayAnima(View v1) {
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 		anim.setDuration(300);
 		v1.setAnimation(anim);
 		anim.start();
 	}
 
-	private void dismissAnima(View v0) {
+	public void dismissAnima(View v0) {
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_out);
 		anim.setDuration(300);
 		v0.setAnimation(anim);

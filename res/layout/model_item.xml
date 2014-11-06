@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/model_relative_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/mokuaikapian_shang_btn"
+    android:clickable="true" >
+
+    <ImageView
+        android:id="@+id/model_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:onClick="modelPhoto"
+        android:src="@drawable/men_normal" />
+
+    <TextView
+        android:id="@+id/model_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="modelText"
+        android:clickable="true"
+        android:text="常规模式"
+        android:textColor="#ffffff"
+        android:textSize="11.21dip" />
+
+</RelativeLayout>

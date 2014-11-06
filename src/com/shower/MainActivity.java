@@ -1,23 +1,19 @@
 package com.shower;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.IInterface;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.PopupWindow.OnDismissListener;
 
 public class MainActivity extends Activity {
 
@@ -47,6 +43,11 @@ public class MainActivity extends Activity {
 
 	int mWindowWidth;
 	int mWindowHeight;
+	
+	FrameLayout mModel;
+	static final int MODELSIZE = 5;
+	int mCurrentModelPosition = 2;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,16 @@ public class MainActivity extends Activity {
 		mTemplatureTen = (TextView) findViewById(R.id.templature_shi);
 		mTemplatureUnit = (TextView) findViewById(R.id.templature_ge);
 		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar);
+		mModel = (FrameLayout) findViewById(R.id.model_framelayout);
 		initPicker();
+		initModel();
+	}
+
+	private void initModel() {
+		for (int i=0 ; i < MODELSIZE; i++){
+			View rl = getLayoutInflater().inflate(R.layout.model_item, null);
+			mModel.addView(rl);
+		}
 	}
 
 	// templature
@@ -335,5 +345,40 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+	
+	public void modelPhoto(View v){
+		
+	}
+	
+	public void modelText(View v){
+		
+	}
+	
+	
+	public void modelLeft(View v){
+	}
+	
+	public void modelRight(View v){
+		View v0 = mModel.getChildAt(0);
+		View v1 = mModel.getChildAt(1);
+		dismissAnima(v0);
+		displayAnima(v1);
+	}
+
+	private void displayAnima(View v1) {
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+		anim.setDuration(300);
+		v1.setAnimation(anim);
+		anim.start();
+	}
+
+	private void dismissAnima(View v0) {
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+		anim.setDuration(300);
+		v0.setAnimation(anim);
+		anim.start();
+	}
+	
+	
 
 }

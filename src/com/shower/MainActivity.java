@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -51,6 +52,9 @@ public class MainActivity extends Activity {
 	
 	ViewPager mPager;
 	ModelPagerAdapter mAdapter;
+	
+	View mFirst;
+	View mScond;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -381,7 +385,9 @@ public class MainActivity extends Activity {
 	}
 	
 	public void modelPhoto(View v){
-		
+		mFirst = findViewById(R.id.first_main_ui_id);
+		mScond = findViewById(R.id.second_main_ui_id);
+		dismissAnima(mFirst);
 	}
 	
 	public void modelText(View v){
@@ -400,17 +406,31 @@ public class MainActivity extends Activity {
 	
 	// useless
 	public void displayAnima(View v1) {
-		Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-		anim.setDuration(300);
-		v1.setAnimation(anim);
-		anim.start();
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.zoomin);
+		v1.startAnimation(anim);
 	}
 
 	public void dismissAnima(View v0) {
-		Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-		anim.setDuration(300);
-		v0.setAnimation(anim);
-		anim.start();
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
+		anim.setAnimationListener(new AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				mFirst.setVisibility(View.GONE);
+				mScond.setVisibility(View.VISIBLE);
+				displayAnima(mScond);
+			}
+		});
+		v0.startAnimation(anim);
 	}
 	
 	

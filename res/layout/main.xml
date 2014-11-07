@@ -9,9 +9,11 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_centerHorizontal="true">
-	    <include layout="@layout/first_main_ui"/>
+	    <include layout="@layout/first_main_ui"
+	        android:id="@+id/first_main_ui_id"/>
 	    
 	    <include layout="@layout/second_main_ui"
+	        android:id="@+id/second_main_ui_id"
 	        android:visibility="gone"/>
 	    
 	</FrameLayout>   

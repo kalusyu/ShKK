@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,15 +17,14 @@ import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.DatePicker;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TimePicker;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -663,7 +663,18 @@ public class MainActivity extends Activity{
 	}
 	
 	public void modelText(View v){
-		
+//		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//		builder.setView(getLayoutInflater().inflate(R.layout.model_edit_ui_layout,null));
+//		AlertDialog dialog = builder.create();
+//		Window win = dialog.getWindow();
+//		WindowManager.LayoutParams lp = win.getAttributes();
+//		lp.x = 200;//设置x坐标
+//		lp.y = 100;//设置y坐标
+//		lp.width = 288;
+//		lp.height = 233;
+//		win.setAttributes(lp);
+//		builder.show();
+//		((TextView)v).setText("");
 	}
 	
 	
@@ -704,7 +715,6 @@ public class MainActivity extends Activity{
 		});
 		v0.startAnimation(anim);
 	}
-	
 	
 
 }

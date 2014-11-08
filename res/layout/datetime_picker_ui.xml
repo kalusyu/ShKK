@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/datetime_picker_ui_id"
     android:background="@drawable/datetime_picker"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
@@ -70,11 +71,14 @@
             android:padding="10dip"
             android:clickable="true"
             android:visibility="gone"
+            android:id="@+id/addMonth"
+            android:onClick="addMonth"
             android:src="@drawable/rilingtou_shang_btn" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:onClick="monthOnClick" >
 
             <TextView
                 android:id="@+id/month"
@@ -103,6 +107,8 @@
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
+            android:id="@+id/reduceMonth"
+            android:onClick="reduceMonth"
             android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 
@@ -121,11 +127,14 @@
             android:padding="10dip"
             android:clickable="true"
             android:visibility="gone"
+            android:id="@+id/addDay"
+            android:onClick="addDay"
             android:src="@drawable/rilingtou_shang_btn" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:onClick="dayOnClick"  >
 
             <TextView
                 android:id="@+id/day"
@@ -154,6 +163,8 @@
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
+            android:id="@+id/reduceDay"
+            android:onClick="reduceDay"
             android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 
@@ -171,12 +182,16 @@
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
+            android:id="@+id/addHour"
+            android:onClick="addHour"
             android:src="@drawable/rilingtou_shang_btn" />
 
         <TextView
+            android:id="@+id/hour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="changeHour"
+            android:onClick="hourOnClick" 
+            android:clickable="true"
             android:text="21"
             android:gravity="center_horizontal"
             android:textColor="#ffffff"
@@ -188,6 +203,8 @@
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
+            android:id="@+id/reduceHour"
+            android:onClick="reduceHour"
             android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 
@@ -206,14 +223,18 @@
             android:clickable="true"
             android:visibility="gone"
             android:padding="10dip"
+            android:id="@+id/addMinute"
+            android:onClick="addMinute"
             android:src="@drawable/rilingtou_shang_btn" />
 
         <TextView
+            android:id="@+id/minute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:onClick="changeMinute"
+            android:onClick="minuteOnClick" 
             android:text="00"
+            android:clickable="true"
             android:textColor="#ffffff"
             android:textSize="18.58dip" />
 
@@ -223,6 +244,8 @@
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
+            android:id="@+id/reduceMinute"
+            android:onClick="reduceMinute"
             android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 

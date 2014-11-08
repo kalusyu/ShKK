@@ -1,6 +1,14 @@
 package com.shower;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
@@ -11,15 +19,52 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TimePicker;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
 
+	public static final String PREF_DATE_SAVE_KEY = "pref_date_save_key";
+	public static final String PREF_DATE_SAVE = "pref_date_save";
+	public static final String FORMATTER = "yyyy-MM-dd HH:mm:ss";
+	
+	
+	interface OnShowerDateChangedListener {
+
+        /**
+         * Called upon a date change.
+         *
+         * @param view The view associated with this listener.
+         * @param year The year that was set.
+         * @param monthOfYear The month that was set (0-11) for compatibility
+         *            with {@link java.util.Calendar}.
+         * @param dayOfMonth The day of the month that was set.
+         */
+        void onDateChanged(Calendar cal);
+    }
+	
+	OnShowerDateChangedListener mDateChangeListener = new OnShowerDateChangedListener() {
+		
+		@Override
+		public void onDateChanged(Calendar cal) {
+			mYearText.setText(cal.get(Calendar.YEAR) + "");
+			mMonthText.setText(cal.get(Calendar.MONTH) + 1 + "");
+			mDayText.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
+			mHourText.setText(cal.get(Calendar.HOUR_OF_DAY) + "");
+			mMinuteText.setText(cal.get(Calendar.MINUTE) + "");
+			
+			// according to the save date
+			mController.setSkin(SkinController.CHUN);
+		}
+	};
+	
 	RelativeLayout mTemplatureUI;
 	TextView mTemplatureTen, mTemplatureUnit;
 	int mTemplature;
@@ -55,20 +100,31 @@ public class MainActivity extends Activity {
 	
 	View mFirst;
 	View mScond;
+	
+	LinearLayout mDateTimePickerBg;
+	ImageView addMonth;
+	ImageView reduceMonth;
+	ImageView addDay;
+	ImageView reduceDay;
+	ImageView addHour;
+	ImageView reduceHour;
+	ImageView addMinute;
+	ImageView reduceMinute;
+	Calendar mCurrentDate = Calendar.getInstance();
+	
+	TextView mYearText,mMonthText,mDayText,mHourText,mMinuteText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		mShower = new ShowerImpl();
+		mController = new SkinController();
 
 		super.onCreate(savedInstanceState);
 		// 1024 * 600
 		setContentView(R.layout.main);
 		initUI();
 		initWindowSize();
-		mController = new SkinController();
-		if (1 == 1) {
-			mController.setSkin(SkinController.CHUN);
-		}
+		
 		setCurrentTemplatrue(98);// 38 test
 		// setCurrentTemplatrue(mShower.getTempalture()); // actual
 		setTemplatureTag(0);
@@ -361,11 +417,14 @@ public class MainActivity extends Activity {
 		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		View dateView = inflater.inflate(R.layout.datetime_picker_ui, null);
 
+		mDateTimePickerBg = (LinearLayout) dateView.findViewById(R.id.datetime_picker_ui_id);
+		initPopupUI(dateView);
+		setupSaveData();
 		mDatetimePicker = new PopupWindow(dateView,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
 		mDatetimePicker.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.datetime_picker_bg)); // 有这个 点击空白处才会消失
+				R.drawable.datetime_picker_bg)); 
 		mDatetimePicker.getBackground().setAlpha(0);
 		mDatetimePicker.setOutsideTouchable(true);
 
@@ -379,10 +438,223 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onDismiss() {
-				// dismissDimBackground();
+				mDateTimePickerBg.setBackgroundResource(R.drawable.datetime_picker);
+				setAddReduceVisible(Integer.MAX_VALUE);
+				saveDate();
+			}
+
+			private void saveDate() {
+				String date = new SimpleDateFormat(FORMATTER).format(mCurrentDate.getTime());
+				SharedPreferences sp = getSharedPreferences(PREF_DATE_SAVE, Context.MODE_PRIVATE);
+				sp.edit().putString(PREF_DATE_SAVE_KEY, date).apply();
 			}
 		});
 	}
+	
+	// get date from share preferences
+	private void setupSaveData() {
+		SharedPreferences sp = getSharedPreferences(PREF_DATE_SAVE, Context.MODE_PRIVATE);
+		String date = sp.getString(PREF_DATE_SAVE_KEY, new SimpleDateFormat(FORMATTER).format(Calendar.getInstance().getTime()));
+		DateFormat df = new SimpleDateFormat(FORMATTER);
+		try {
+			Date d = df.parse(date);
+			mCurrentDate.setTime(d);
+			notifyDateChanged();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addMonth(View v) {
+		int oldVal = mCurrentDate.get(Calendar.MONTH);
+		int newVal = oldVal + 1;
+		onChangeMonth(oldVal, newVal);
+	}
+	
+	public void reduceMonth(View v) {
+		int oldVal = mCurrentDate.get(Calendar.MONTH);
+		int newVal = oldVal - 1;
+		onChangeMonth(oldVal, newVal);
+	}
+	
+	public void onChangeMonth(int oldVal, int newVal){
+		if (oldVal == 11 && newVal == 0) {
+            mCurrentDate.add(Calendar.MONTH, 1);
+        } else if (oldVal == 0 && newVal == 11) {
+            mCurrentDate.add(Calendar.MONTH, -1);
+        } else {
+            mCurrentDate.add(Calendar.MONTH, newVal - oldVal);
+        }
+		notifyDateChanged();
+	}
+	
+	
+	
+	public void notifyDateChanged(){
+		mDateChangeListener.onDateChanged(mCurrentDate);
+	}
+
+	public void addDay(View v) {
+		int oldVal = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+		int newVal = oldVal + 1;
+		onChangeDay(oldVal, newVal);
+	}
+
+	public void reduceDay(View v) {
+		int oldVal = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+		int newVal = oldVal - 1;
+		onChangeDay(oldVal, newVal);
+	}
+	
+	public void onChangeDay(int oldVal,int newVal){
+		int maxDayOfMonth = mCurrentDate.getActualMaximum(Calendar.DAY_OF_MONTH);
+        if (oldVal == maxDayOfMonth && newVal == 1) {
+            mCurrentDate.add(Calendar.DAY_OF_MONTH, 1);
+        } else if (oldVal == 1 && newVal == maxDayOfMonth) {
+            mCurrentDate.add(Calendar.DAY_OF_MONTH, -1);
+        } else {
+            mCurrentDate.add(Calendar.DAY_OF_MONTH, newVal - oldVal);
+        }
+        notifyDateChanged();
+	}
+
+	public void addHour(View v) {
+		int hour = mCurrentDate.get(Calendar.HOUR_OF_DAY);
+		hour += 1;
+		int newHour = Math.min(hour, 23);
+		onChangeHour(newHour);
+	}
+
+	public void reduceHour(View v) {
+		int hour = mCurrentDate.get(Calendar.HOUR_OF_DAY);
+		hour -= 1;
+		int newHour = Math.max(hour, 0);
+		onChangeHour(newHour);
+	}
+	
+	public void onChangeHour(int newVal){
+		mCurrentDate.set(Calendar.HOUR_OF_DAY, newVal);
+		notifyDateChanged();
+	}
+
+	public void addMinute(View v) {
+		int minute = mCurrentDate.get(Calendar.MINUTE);
+		minute += 1;
+		int newMinute = Math.min(minute, 59);
+		onChangeMinute(newMinute);
+	}
+
+	public void reduceMinute(View v) {
+		int minute = mCurrentDate.get(Calendar.MINUTE);
+		minute -= 1;
+		int newMinute = Math.max(minute, 0);
+		onChangeMinute(newMinute);
+	}
+	
+	public void onChangeMinute(int newVal){
+		mCurrentDate.set(Calendar.MINUTE, newVal);
+		notifyDateChanged();
+	}
+	
+	private void initPopupUI(View dateView) {
+		addMonth = (ImageView)dateView.findViewById(R.id.addMonth);
+		reduceMonth = (ImageView)dateView.findViewById(R.id.reduceMonth);
+		addDay = (ImageView)dateView.findViewById(R.id.addDay);
+		reduceDay = (ImageView)dateView.findViewById(R.id.reduceDay);
+		addHour = (ImageView)dateView.findViewById(R.id.addHour);
+		reduceHour = (ImageView)dateView.findViewById(R.id.reduceHour);
+		addMinute = (ImageView)dateView.findViewById(R.id.addMinute);
+		reduceMinute = (ImageView)dateView.findViewById(R.id.reduceMinute);
+		
+		mYearText = (TextView) dateView.findViewById(R.id.year);
+		mMonthText = (TextView) dateView.findViewById(R.id.month);
+		mDayText = (TextView) dateView.findViewById(R.id.day);
+		mHourText = (TextView) dateView.findViewById(R.id.hour);
+		mMinuteText = (TextView) dateView.findViewById(R.id.minute);
+	}
+
+	public static final int SHOWER_MONTH = -101;
+	public static final int SHOWER_DAY = -102;
+	public static final int SHOWER_HOUR = -103;
+	public static final int SHOWER_MINUTE = -104;
+	public void monthOnClick(View v) {
+		mDateTimePickerBg.setBackgroundResource(R.drawable.datetime_picker_month);
+		setAddReduceVisible(SHOWER_MONTH);
+	}
+
+	public void dayOnClick(View v) {
+		mDateTimePickerBg.setBackgroundResource(R.drawable.datetime_picker_day);
+		setAddReduceVisible(SHOWER_DAY);
+	}
+
+	public void hourOnClick(View v) {
+		mDateTimePickerBg.setBackgroundResource(R.drawable.datetime_picker_hour);
+		setAddReduceVisible(SHOWER_HOUR);
+	}
+
+	public void minuteOnClick(View v) {
+		mDateTimePickerBg.setBackgroundResource(R.drawable.datetime_picker_minute);
+		setAddReduceVisible(SHOWER_MINUTE);
+	}
+	
+	private void setAddReduceVisible(int showerMonth) {
+		switch(showerMonth){
+		case SHOWER_MONTH:
+			addMonth.setVisibility(View.VISIBLE);
+			reduceMonth.setVisibility(View.VISIBLE);
+			addDay.setVisibility(View.GONE);
+			reduceDay.setVisibility(View.GONE);
+			addHour.setVisibility(View.GONE);
+			reduceHour.setVisibility(View.GONE);
+			addMinute.setVisibility(View.GONE);
+			reduceMinute.setVisibility(View.GONE);
+			break;
+		case SHOWER_DAY:
+			addMonth.setVisibility(View.GONE);
+			reduceMonth.setVisibility(View.GONE);
+			addDay.setVisibility(View.VISIBLE);
+			reduceDay.setVisibility(View.VISIBLE);
+			addHour.setVisibility(View.GONE);
+			reduceHour.setVisibility(View.GONE);
+			addMinute.setVisibility(View.GONE);
+			reduceMinute.setVisibility(View.GONE);
+			break;
+		case SHOWER_HOUR:
+			addMonth.setVisibility(View.GONE);
+			reduceMonth.setVisibility(View.GONE);
+			addDay.setVisibility(View.GONE);
+			reduceDay.setVisibility(View.GONE);
+			addHour.setVisibility(View.VISIBLE);
+			reduceHour.setVisibility(View.VISIBLE);
+			addMinute.setVisibility(View.GONE);
+			reduceMinute.setVisibility(View.GONE);
+			break;
+		case SHOWER_MINUTE:
+			addMonth.setVisibility(View.GONE);
+			reduceMonth.setVisibility(View.GONE);
+			addDay.setVisibility(View.GONE);
+			reduceDay.setVisibility(View.GONE);
+			addHour.setVisibility(View.GONE);
+			reduceHour.setVisibility(View.GONE);
+			addMinute.setVisibility(View.VISIBLE);
+			reduceMinute.setVisibility(View.VISIBLE);
+			break;
+			default:
+				addMonth.setVisibility(View.GONE);
+				reduceMonth.setVisibility(View.GONE);
+				addDay.setVisibility(View.GONE);
+				reduceDay.setVisibility(View.GONE);
+				addHour.setVisibility(View.GONE);
+				reduceHour.setVisibility(View.GONE);
+				addMinute.setVisibility(View.GONE);
+				reduceMinute.setVisibility(View.GONE);
+				break;
+		}
+	}
+	
+	
+	
+	
 	
 	public void modelPhoto(View v){
 		mFirst = findViewById(R.id.first_main_ui_id);

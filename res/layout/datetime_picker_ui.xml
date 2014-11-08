@@ -2,24 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/datetime_picker_month"
+    android:background="@drawable/datetime_picker"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
-   
+
     <!-- 年 -->
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="68dip"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         android:orientation="vertical" >
 
-        <ImageView
+        <!-- <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dip"
             android:clickable="true"
-            android:src="@drawable/rilingtou_shang_btn" />
+            android:padding="15dip"
+            android:src="@drawable/rilingtou_shang_btn" /> -->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -46,26 +47,29 @@
                 android:textSize="8dip" />
         </RelativeLayout>
 
-        <ImageView
+        <!-- <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:padding="15dip"
-            android:src="@drawable/rilingtou_xia_btn" />
+            android:src="@drawable/rilingtou_xia_btn" /> -->
     </LinearLayout>
 
     <!-- 月 -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dip"
             android:clickable="true"
+            android:visibility="gone"
             android:src="@drawable/rilingtou_shang_btn" />
 
         <RelativeLayout
@@ -94,26 +98,29 @@
         </RelativeLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:padding="10dip"
+            android:visibility="gone"
             android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 
-    
     <!-- 日 -->
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dip"
             android:clickable="true"
+            android:visibility="gone"
             android:src="@drawable/rilingtou_shang_btn" />
 
         <RelativeLayout
@@ -142,28 +149,81 @@
         </RelativeLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:padding="10dip"
+            android:visibility="gone"
             android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 
-    <TextView
+     <!-- 时 -->
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:onClick="changeHour"
-        android:text="21"
-        android:textColor="#ffffff"
-        android:textSize="18.58dip" />
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
 
-    <TextView
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:padding="10dip"
+            android:visibility="gone"
+            android:src="@drawable/rilingtou_shang_btn" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="changeHour"
+            android:text="21"
+            android:gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="18.58dip" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:padding="10dip"
+            android:visibility="gone"
+            android:src="@drawable/rilingtou_xia_btn" />
+    </LinearLayout>
+
+     <!-- 分 -->
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dip"
         android:layout_weight="1"
-        android:onClick="changeMinute"
-        android:text="00"
-        android:textColor="#ffffff"
-        android:textSize="18.58dip" />
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:visibility="gone"
+            android:padding="10dip"
+            android:src="@drawable/rilingtou_shang_btn" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:onClick="changeMinute"
+            android:text="00"
+            android:textColor="#ffffff"
+            android:textSize="18.58dip" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:padding="10dip"
+            android:visibility="gone"
+            android:src="@drawable/rilingtou_xia_btn" />
+    </LinearLayout>
 
 </LinearLayout>

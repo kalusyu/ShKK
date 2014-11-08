@@ -365,7 +365,7 @@ public class MainActivity extends Activity {
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
 		mDatetimePicker.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.datetime_picker_background)); // 有这个 点击空白处才会消失
+				R.drawable.datetime_picker_bg)); // 有这个 点击空白处才会消失
 		mDatetimePicker.getBackground().setAlpha(0);
 		mDatetimePicker.setOutsideTouchable(true);
 

@@ -120,6 +120,8 @@ public class MainActivity extends Activity{
 		mController = new SkinController();
 
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		// 1024 * 600
 		setContentView(R.layout.main);
 		initUI();

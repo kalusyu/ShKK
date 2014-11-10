@@ -8,25 +8,20 @@
     <include 
         android:id="@+id/main_ui_layout"
         layout="@layout/main_ui_layout"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     
     <include 
         android:layout_marginTop="20dip"
-        android:layout_centerHorizontal="true"
         android:id="@+id/wendu_ui_layout"
-        android:layout_below="@id/main_ui_layout"
         layout="@layout/wendu_ui_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     
     <include 
-        android:layout_marginTop="35dip"
-        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68px"
         android:id="@+id/liuliang_ui_layout"
-        android:layout_below="@id/wendu_ui_layout"
         layout="@layout/liuliang_ui_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

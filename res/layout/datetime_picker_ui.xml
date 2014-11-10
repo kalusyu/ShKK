@@ -10,7 +10,7 @@
     <!-- 年 -->
 
     <LinearLayout
-        android:layout_width="68dip"
+        android:layout_width="142px"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
@@ -59,9 +59,8 @@
     <!-- 月 -->
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="78px"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical" >
 
@@ -78,6 +77,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:onClick="monthOnClick" >
 
             <TextView
@@ -115,9 +115,8 @@
     <!-- 日 -->
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="78px"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical" >
 
@@ -134,6 +133,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:onClick="dayOnClick"  >
 
             <TextView
@@ -170,9 +170,8 @@
 
      <!-- 时 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="78px"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 
@@ -210,10 +209,8 @@
 
      <!-- 分 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="90px"
         android:layout_height="match_parent"
-        android:layout_marginRight="5dip"
-        android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 

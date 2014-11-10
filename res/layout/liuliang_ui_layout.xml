@@ -15,7 +15,7 @@
 
      <!-- android:layout_width="198.5dip" -->
     <RelativeLayout
-        android:layout_width="241dip"
+        android:layout_width="447px"
         android:layout_height="wrap_content" >
 
         <ImageView
@@ -32,7 +32,7 @@
             android:layout_toRightOf="@id/flow_scroll_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="-20dip"
+            android:layout_marginLeft="-66px"
             android:clickable="true"
             android:layout_centerVertical="true"
             android:src="@drawable/liulianganniu_normal" />
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_marginLeft="-20dip"
+        android:layout_marginLeft="-60px"
         android:onClick="flowPlus"
         android:src="@drawable/liuliang_p_btn" >
     </ImageView>

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/beijing_chun"
+    android:id="@+id/main_bg"
+    android:background="@drawable/chunjibeijing_normal"
     android:gravity="center_horizontal" >
     
 	<FrameLayout 

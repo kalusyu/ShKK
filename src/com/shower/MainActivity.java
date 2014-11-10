@@ -12,29 +12,38 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity{
 
+	public static final String PREF_SAVE = "com.shower.prefer.save";
 	public static final String PREF_DATE_SAVE_KEY = "pref_date_save_key";
-	public static final String PREF_DATE_SAVE = "pref_date_save";
+	public static final String PREF_MODEL_SAVE_KEY = "pref_model_save_key";
 	public static final String FORMATTER = "yyyy-MM-dd HH:mm:ss";
-	
+	public static final String DEFAULT_MODEL_DATA = "自定义（五）:女人;常规模式:男人;常规模式:女人;常规模式:男人;自定义（一）:女人;";
 	
 	interface OnShowerDateChangedListener {
 
@@ -95,12 +104,24 @@ public class MainActivity extends Activity{
 	static final int MODELSIZE = 5;
 	int mCurrentModelPosition = 2;
 	
+	// model select
 	ViewPager mPager;
 	ModelPagerAdapter mAdapter;
+	
+	// model edit
+	PopupWindow mModelEditPop;
+	String mModelName;
+	String mSexy;
+	static final String MAN = "男";
+	static final String WOMEN = "女";
+	static final String NORMAL_MODEL = "常规模式";
+	static final String CUSTOM_MODEL_ONE = "自定义（一）";
+	static final String CUSTOM_MODEL_FIVE = "常规模式（五）";
 	
 	View mFirst;
 	View mScond;
 	
+	// date time
 	LinearLayout mDateTimePickerBg;
 	ImageView addMonth;
 	ImageView reduceMonth;
@@ -182,6 +203,91 @@ public class MainActivity extends Activity{
 		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar);
 		initPicker();
 		initViewPager();
+		initEditModel();
+	}
+
+	private void initEditModel() {
+		View dateView = getLayoutInflater().inflate(R.layout.model_edit_ui_layout, null);
+		initEditModelUI(dateView);
+		setupSaveData();
+		mModelEditPop = new PopupWindow(dateView,
+				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
+				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+		mModelEditPop.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.datetime_picker_bg)); 
+		mModelEditPop.getBackground().setAlpha(0);
+		mModelEditPop.setOutsideTouchable(false); // set false
+
+		// use system animation
+		mModelEditPop.setAnimationStyle(android.R.style.Animation_Dialog);
+		mModelEditPop.update();
+		mModelEditPop.setTouchable(true);
+		mModelEditPop.setFocusable(true);
+
+	}
+
+	/**
+	 * 
+	 * KaluYu
+	 * @param dateView
+	 * 2014年11月10日 下午9:39:57
+	 */
+	private void initEditModelUI(View dateView) {
+		EditText modelEdit = (EditText) dateView.findViewById(R.id.model_edit_name);
+		modelEdit.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				mModelName = s.toString() != null ? s.toString() 
+						: (mPager.getCurrentItem() > 2 ? CUSTOM_MODEL_ONE : CUSTOM_MODEL_FIVE);
+			}
+		});
+		
+		RadioGroup rg = (RadioGroup) dateView.findViewById(R.id.model_edit_rg);
+		rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if (checkedId == R.id.model_edit_rb_men){
+					mSexy = MAN;
+				} else if (checkedId == R.id.model_edit_rb_women){
+					mSexy = WOMEN;
+				}
+			}
+		});
+		
+		ImageView ok = (ImageView) dateView.findViewById(R.id.ok);
+		ok.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				saveEidtedModelData();
+				Toast.makeText(MainActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+				mModelEditPop.dismiss();
+			}
+		});
+		
+		ImageView cancel = (ImageView) dateView.findViewById(R.id.cancel);
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mModelEditPop.dismiss();
+			}
+		});
+	}
+	
+	public void saveEidtedModelData(){
+		// TODO
 	}
 
 	private void initViewPager() {
@@ -194,32 +300,17 @@ public class MainActivity extends Activity{
 	}
 
 	private SparseArray<Model> initData() {
-		int i = 0;
+		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
+		String data = sp.getString(PREF_MODEL_SAVE_KEY, DEFAULT_MODEL_DATA);
+		String[] dataArray = data.split(";");
 		SparseArray<Model> s = new SparseArray<Model>();
-		Model model = new Model();
-		model.modelName = "自定义五";
-		model.modelResource = R.drawable.women_normal;
-		s.put(i++, model);
-		
-		model = new Model();
-		model.modelName = "常规一";
-		model.modelResource = R.drawable.men_normal;
-		s.put(i++, model);
-		
-		model = new Model();
-		model.modelName = "常规二";
-		model.modelResource = R.drawable.women_normal;
-		s.put(i++, model);
-		
-		model = new Model();
-		model.modelName = "常规三";
-		model.modelResource = R.drawable.men_normal;
-		s.put(i++, model);
-		
-		model = new Model();
-		model.modelName = "自定义一";
-		model.modelResource = R.drawable.women_normal;
-		s.put(i++, model);
+		for (int i = 0, size = dataArray.length; i < size; i++){
+			String[] custom = dataArray[i].split(":");
+			Model model = new Model();
+			model.modelName = custom[0];
+			model.modelResource = custom[1].equals(MAN) ? R.drawable.men_normal:R.drawable.women_normal;
+			s.put(i, model);
+		}
 		return s;
 	}
 
@@ -447,7 +538,7 @@ public class MainActivity extends Activity{
 
 			private void saveDate() {
 				String date = new SimpleDateFormat(FORMATTER).format(mCurrentDate.getTime());
-				SharedPreferences sp = getSharedPreferences(PREF_DATE_SAVE, Context.MODE_PRIVATE);
+				SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
 				sp.edit().putString(PREF_DATE_SAVE_KEY, date).apply();
 			}
 		});
@@ -455,7 +546,7 @@ public class MainActivity extends Activity{
 	
 	// get date from share preferences
 	private void setupSaveData() {
-		SharedPreferences sp = getSharedPreferences(PREF_DATE_SAVE, Context.MODE_PRIVATE);
+		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
 		String date = sp.getString(PREF_DATE_SAVE_KEY, new SimpleDateFormat(FORMATTER).format(Calendar.getInstance().getTime()));
 		DateFormat df = new SimpleDateFormat(FORMATTER);
 		try {
@@ -665,18 +756,7 @@ public class MainActivity extends Activity{
 	}
 	
 	public void modelText(View v){
-//		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//		builder.setView(getLayoutInflater().inflate(R.layout.model_edit_ui_layout,null));
-//		AlertDialog dialog = builder.create();
-//		Window win = dialog.getWindow();
-//		WindowManager.LayoutParams lp = win.getAttributes();
-//		lp.x = 200;//设置x坐标
-//		lp.y = 100;//设置y坐标
-//		lp.width = 288;
-//		lp.height = 233;
-//		win.setAttributes(lp);
-//		builder.show();
-//		((TextView)v).setText("");
+		mModelEditPop.showAtLocation(v, Gravity.TOP, 65, 150);
 	}
 	
 	

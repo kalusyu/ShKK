@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="custom_five"></item>
+    <item type="id" name="custom_normal_one"></item>
+    <item type="id" name="custom_normal_two"></item>
+    <item type="id" name="custom_normal_three"></item>
+    <item type="id" name="custom_one"></item>
+</resources>

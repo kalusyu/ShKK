@@ -28,7 +28,7 @@
                     android:onClick="zhongjian"
                     android:src="@drawable/zhongjian_btn" />
 
-                <ImageView
+                <com.shower.ArcButton
                     android:id="@+id/left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                     android:onClick="cepeng"
                     android:src="@drawable/cepeng_btn" />
 
-                <ImageView
+                <com.shower.ArcButton
                     android:id="@+id/bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:onClick="shouchi"
                     android:src="@drawable/shouchi_btn" />
 
-                <ImageView
+                <com.shower.ArcButton
                     android:id="@+id/right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                     android:onClick="pubu"
                     android:src="@drawable/pubu_btn" />
 
-                <ImageView
+                <com.shower.ArcButton
                     android:id="@+id/top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

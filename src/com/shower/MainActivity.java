@@ -143,22 +143,30 @@ public class MainActivity extends Activity{
 		mController = new SkinController();
 
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
 		// 1024 * 600
 		setContentView(R.layout.main);
 		initUI();
 		initWindowSize();
-		initTempFlowData();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mFirst = findViewById(R.id.first_main_ui_id);
+		mScond = findViewById(R.id.second_main_ui_id);
+		mFirst.setVisibility(View.VISIBLE);
+		mScond.setVisibility(View.GONE);
 	}
 
 	private void initTempFlowData() {
+		int current = mPager.getCurrentItem();
 		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
-		int temp = sp.getInt(PREF_TEMP_SAVE_KEY, mShower.getTempalture());//mShower.getTempalture() default templature
+		int temp = sp.getInt(PREF_TEMP_SAVE_KEY+current, mShower.getTempalture());//mShower.getTempalture() default templature
 		setCurrentTemplatrue(temp);
 		setTemplatureTag(0);
 		handleTemplature(0);
-		int flow = sp.getInt(PREF_FLOW_SAVE_KEY, mShower.getFlow());
+		int flow = sp.getInt(PREF_FLOW_SAVE_KEY+current, mShower.getFlow());
 		setCurrentFlow(flow); 
 		setFlowTag(0);
 		handleFlow(flow);
@@ -784,6 +792,7 @@ public class MainActivity extends Activity{
 	
 	
 	public void modelPhoto(View v){
+		initTempFlowData();
 		mFirst = findViewById(R.id.first_main_ui_id);
 		mScond = findViewById(R.id.second_main_ui_id);
 		dismissAnima(mFirst);
@@ -844,9 +853,10 @@ public class MainActivity extends Activity{
 	}
 	
 	public void onSave(View v){
+		int current = mPager.getCurrentItem();
 		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
-		sp.edit().putInt(PREF_TEMP_SAVE_KEY, mTemplature)
-			.putInt(PREF_FLOW_SAVE_KEY, mFlowRate).apply();
+		sp.edit().putInt(PREF_TEMP_SAVE_KEY+current, mTemplature)
+			.putInt(PREF_FLOW_SAVE_KEY+current, mFlowRate).apply();
 		Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 	}
 	

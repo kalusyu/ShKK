@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_bg"
-    android:background="@drawable/beijing_chun"
+    android:background="@drawable/beijing_model_chun"
     android:gravity="center_horizontal" >
     
 	<FrameLayout 
@@ -74,6 +74,7 @@
             android:src="@drawable/lanya_btn">
         </ImageView>
         <TextView
+            android:id="@+id/main_datetime_text_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.45"

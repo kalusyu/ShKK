@@ -70,7 +70,16 @@ public class MainActivity extends Activity{
 			mMinuteText.setText(cal.get(Calendar.MINUTE) + "");
 			
 			// according to the save date
-			mController.setSkin(SkinController.CHUN);
+			int month = cal.get(Calendar.MONTH) + 1;
+			if (month > 2 && month <=5){
+				mController.setSkin(SkinController.CHUN);
+			} else if (month > 5 && month <= 8){
+				mController.setSkin(SkinController.XIA);
+			} else if (month > 8 && month <= 11) {
+				mController.setSkin(SkinController.QIU);
+			} else {
+				mController.setSkin(SkinController.DONG);
+			}
 		}
 	};
 	
@@ -82,7 +91,8 @@ public class MainActivity extends Activity{
 	ImageView mFlowScrollBar;
 
 	SkinController mController;
-
+	
+	View mBackground;
 	int mFlowRate, mOldFlowRate;
 
 	IShower mShower;
@@ -211,6 +221,7 @@ public class MainActivity extends Activity{
 	}
 
 	private void initUI() {
+		mBackground = findViewById(R.id.main_bg);
 		mTemplatureUI = (RelativeLayout) findViewById(R.id.wendu_ui_show);
 		mTemplatureTen = (TextView) findViewById(R.id.templature_shi);
 		mTemplatureUnit = (TextView) findViewById(R.id.templature_ge);
@@ -223,7 +234,6 @@ public class MainActivity extends Activity{
 	private void initEditModel() {
 		View dateView = getLayoutInflater().inflate(R.layout.model_edit_ui_layout, null);
 		initEditModelUI(dateView);
-		setupSaveData();
 		mModelEditPop = new PopupWindow(dateView,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
@@ -627,6 +637,9 @@ public class MainActivity extends Activity{
 	
 	public void notifyDateChanged(){
 		mDateChangeListener.onDateChanged(mCurrentDate);
+		TextView timeShow = (TextView)findViewById(R.id.main_datetime_text_show);
+		DateFormat df = new SimpleDateFormat("HH:mm");
+		timeShow.setText(df.format(mCurrentDate.getTime()));
 	}
 
 	public void addDay(View v) {
@@ -841,6 +854,7 @@ public class MainActivity extends Activity{
 			public void onAnimationEnd(Animation animation) {
 				mFirst.setVisibility(View.GONE);
 				mScond.setVisibility(View.VISIBLE);
+				mBackground.setBackgroundResource(R.drawable.beijing_chun);
 				displayAnima(mScond);
 			}
 		});

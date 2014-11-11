@@ -307,7 +307,6 @@ public class MainActivity extends Activity{
 	}
 	
 	public void saveEidtedModelData(){
-		// TODO
 		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
 		int position = mPager.getCurrentItem();
 		Model m = mMap.get(position);
@@ -846,8 +845,14 @@ public class MainActivity extends Activity{
 	public void onSave(View v){
 		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
 		sp.edit().putInt(PREF_TEMP_SAVE_KEY, mTemplature)
-			.putInt(PREF_FLOW_SAVE_KEY, mFlowRate).apply();;
+			.putInt(PREF_FLOW_SAVE_KEY, mFlowRate).apply();
+		Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 	}
 	
-
+	//TODO hide virtual key
+	public static void enterLightsOutMode(Window window) {
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        window.setAttributes(params);
+    }
 }

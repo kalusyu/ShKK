@@ -150,7 +150,7 @@ public class MainActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		mShower = new ShowerImpl();
-		mController = new SkinController();
+		mController = new SkinController(this);
 
 		super.onCreate(savedInstanceState);
 		

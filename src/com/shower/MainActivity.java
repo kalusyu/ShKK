@@ -9,6 +9,7 @@ import java.util.Date;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -30,6 +32,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -42,6 +45,8 @@ public class MainActivity extends Activity{
 	public static final String PREF_SAVE = "com.shower.prefer.save";
 	public static final String PREF_DATE_SAVE_KEY = "pref_date_save_key";
 	public static final String PREF_MODEL_SAVE_KEY = "pref_model_save_key";
+	public static final String PREF_TEMP_SAVE_KEY = "pref_temp_save_key";
+	public static final String PREF_FLOW_SAVE_KEY = "pref_flow_save_key";
 	public static final String FORMATTER = "yyyy-MM-dd HH:mm:ss";
 	public static final String DEFAULT_MODEL_DATA = "自定义（五）:女人;常规模式:男人;常规模式:女人;常规模式:男人;自定义（一）:女人;";
 	
@@ -117,6 +122,7 @@ public class MainActivity extends Activity{
 	static final String NORMAL_MODEL = "常规模式";
 	static final String CUSTOM_MODEL_ONE = "自定义（一）";
 	static final String CUSTOM_MODEL_FIVE = "常规模式（五）";
+	SparseArray<Model> mMap;
 	
 	View mFirst;
 	View mScond;
@@ -147,15 +153,19 @@ public class MainActivity extends Activity{
 		setContentView(R.layout.main);
 		initUI();
 		initWindowSize();
-		
-		setCurrentTemplatrue(98);// 38 test
-		// setCurrentTemplatrue(mShower.getTempalture()); // actual
+		initTempFlowData();
+	}
+
+	private void initTempFlowData() {
+		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
+		int temp = sp.getInt(PREF_TEMP_SAVE_KEY, mShower.getTempalture());//mShower.getTempalture() default templature
+		setCurrentTemplatrue(temp);
 		setTemplatureTag(0);
 		handleTemplature(0);
-		setCurrentFlow(1); // 1 test
-		// setCurrentFlow(mShower.getFlow());// actual
+		int flow = sp.getInt(PREF_FLOW_SAVE_KEY, mShower.getFlow());
+		setCurrentFlow(flow); 
 		setFlowTag(0);
-		handleFlow(1);
+		handleFlow(flow);
 	}
 
 	private void initWindowSize() {
@@ -213,10 +223,10 @@ public class MainActivity extends Activity{
 		mModelEditPop = new PopupWindow(dateView,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-		mModelEditPop.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.datetime_picker_bg)); 
-		mModelEditPop.getBackground().setAlpha(0);
-		mModelEditPop.setOutsideTouchable(false); // set false
+//		mModelEditPop.setBackgroundDrawable(getResources().getDrawable(
+//				R.drawable.datetime_picker_bg)); 
+//		mModelEditPop.getBackground().setAlpha(0);
+//		mModelEditPop.setOutsideTouchable(false); // set false
 
 		// use system animation
 		mModelEditPop.setAnimationStyle(android.R.style.Animation_Dialog);
@@ -233,7 +243,9 @@ public class MainActivity extends Activity{
 	 * 2014年11月10日 下午9:39:57
 	 */
 	private void initEditModelUI(View dateView) {
+		Model model = mMap.get(mPager.getCurrentItem());
 		EditText modelEdit = (EditText) dateView.findViewById(R.id.model_edit_name);
+		modelEdit.setText(model.modelName);
 		modelEdit.addTextChangedListener(new TextWatcher() {
 			
 			@Override
@@ -253,6 +265,13 @@ public class MainActivity extends Activity{
 		});
 		
 		RadioGroup rg = (RadioGroup) dateView.findViewById(R.id.model_edit_rg);
+		RadioButton rbm = (RadioButton) dateView.findViewById(R.id.model_edit_rb_men);
+		RadioButton rbw = (RadioButton) dateView.findViewById(R.id.model_edit_rb_women);
+		if(model.modelResource == R.drawable.men_normal){
+			 rbm.setChecked(true);
+		} else {
+			 rbw.setChecked(true);
+		}
 		rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
@@ -273,6 +292,7 @@ public class MainActivity extends Activity{
 				saveEidtedModelData();
 				Toast.makeText(MainActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
 				mModelEditPop.dismiss();
+				initViewPager();
 			}
 		});
 		
@@ -288,13 +308,27 @@ public class MainActivity extends Activity{
 	
 	public void saveEidtedModelData(){
 		// TODO
+		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
+		int position = mPager.getCurrentItem();
+		Model m = mMap.get(position);
+		m.modelName = mModelName;
+		m.mSexy = mSexy; 
+		StringBuilder sb = new  StringBuilder();
+		for (int i=0; i < mMap.size(); i++){
+			sb.append(mMap.get(i).toString());
+			if (i != mMap.size() - 1){
+				sb.append(";");
+			}
+		}
+		sp.edit().putString(PREF_MODEL_SAVE_KEY, sb.toString()).apply();
 	}
 
 	private void initViewPager() {
 		
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mAdapter = new ModelPagerAdapter(this,MODELSIZE);
-		mAdapter.setData(initData());
+		mMap = initData();
+		mAdapter.setData(mMap);
 		mPager.setAdapter(mAdapter);
 		mPager.setCurrentItem(2);
 	}
@@ -756,7 +790,13 @@ public class MainActivity extends Activity{
 	}
 	
 	public void modelText(View v){
+		initEditModel();
 		mModelEditPop.showAtLocation(v, Gravity.TOP, 65, 150);
+		Window win = getWindow();
+		LayoutParams lp = win.getAttributes();
+		lp.dimAmount = 0.5f;
+		getWindow().setAttributes(lp);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 	}
 	
 	
@@ -796,6 +836,17 @@ public class MainActivity extends Activity{
 			}
 		});
 		v0.startAnimation(anim);
+	}
+	
+	public void gotoMusic(View v){
+		Intent intent = new Intent(this,MusicActivity.class);
+		startActivity(intent);
+	}
+	
+	public void onSave(View v){
+		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
+		sp.edit().putInt(PREF_TEMP_SAVE_KEY, mTemplature)
+			.putInt(PREF_FLOW_SAVE_KEY, mFlowRate).apply();;
 	}
 	
 

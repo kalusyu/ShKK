@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/yinyuexiazaixuanzejiemian_chun_normal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawableTop="@drawable/music_download_btn"
+            android:onClick="downloadMusi"
+            android:text="音乐下载"
+            android:textColor="#53680E"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="10dip" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawableTop="@drawable/linyu_btn"
+            android:onClick="backToShower"
+            android:text="智能淋浴"
+            android:textColor="#53680E"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="10dip" />
+</LinearLayout>

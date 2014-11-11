@@ -15,40 +15,29 @@
 
     <!-- android:layout_width="198.5dip" -->
 
-    <FrameLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="447px"
         android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/flow_scroll_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:scaleType="fitStart"
+            android:src="@drawable/liuliangtiao2_chun_normal" >
+        </ImageView>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/liuliangkuang_normal" />
-
-        <RelativeLayout
-            android:layout_width="447px"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:id="@+id/flow_scroll_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:clickable="true"
-                android:scaleType="fitStart"
-                android:src="@drawable/liuliangtiao2_chun_normal" >
-            </ImageView>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="-66px"
-                android:layout_toRightOf="@id/flow_scroll_bar"
-                android:clickable="true"
-                android:src="@drawable/liulianganniu_normal" />
-        </RelativeLayout>
-    </FrameLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="-66px"
+            android:layout_toRightOf="@id/flow_scroll_bar"
+            android:clickable="true"
+            android:src="@drawable/liulianganniu_normal" />
+    </RelativeLayout>
 
     <ImageView
         android:layout_width="wrap_content"

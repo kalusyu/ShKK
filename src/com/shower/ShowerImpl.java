@@ -100,14 +100,13 @@ public class ShowerImpl implements IShower{
 
 	@Override
 	public int getTempalture() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 22;
 	}
 
 	@Override
 	public int getFlow() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 }

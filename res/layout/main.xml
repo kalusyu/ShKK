@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_bg"
-    android:background="@drawable/chunjibeijing_normal"
+    android:background="@drawable/beijing_chun"
     android:gravity="center_horizontal" >
     
 	<FrameLayout 
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" 
             android:clickable="true"
+            android:onClick="gotoMusic"
             android:src="@drawable/fanhui_btn">
         </ImageView>
         <ImageView
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
+            android:onClick="onSave"
             android:src="@drawable/baocun_btn">
         </ImageView>
     </LinearLayout>

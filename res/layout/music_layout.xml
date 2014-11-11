@@ -6,27 +6,29 @@
     android:gravity="center_horizontal"
     android:background="@drawable/yinyuexiazaixuanzejiemian_chun_normal" >
 
-        <TextView
+        <com.shower.ShowerTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:clickable="true"
             android:drawableTop="@drawable/music_download_btn"
             android:onClick="downloadMusi"
+            android:drawablePadding="5dip"
             android:text="音乐下载"
             android:textColor="#53680E"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal"
             android:textSize="10dip" />
 
-        <TextView
+        <com.shower.ShowerTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:clickable="true"
             android:drawableTop="@drawable/linyu_btn"
             android:onClick="backToShower"
             android:text="智能淋浴"
+            android:drawablePadding="5dip"
             android:textColor="#53680E"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal"
             android:textSize="10dip" />
 </LinearLayout>

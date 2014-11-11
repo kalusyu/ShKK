@@ -55,11 +55,6 @@ public class MainActivity extends Activity{
         /**
          * Called upon a date change.
          *
-         * @param view The view associated with this listener.
-         * @param year The year that was set.
-         * @param monthOfYear The month that was set (0-11) for compatibility
-         *            with {@link java.util.Calendar}.
-         * @param dayOfMonth The day of the month that was set.
          */
         void onDateChanged(Calendar cal);
     }
@@ -123,6 +118,7 @@ public class MainActivity extends Activity{
 	static final String CUSTOM_MODEL_ONE = "自定义（一）";
 	static final String CUSTOM_MODEL_FIVE = "常规模式（五）";
 	SparseArray<Model> mMap;
+	int mBeforeSettingPosition = -1;
 	
 	View mFirst;
 	View mScond;
@@ -292,6 +288,7 @@ public class MainActivity extends Activity{
 				saveEidtedModelData();
 				Toast.makeText(MainActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
 				mModelEditPop.dismiss();
+				mBeforeSettingPosition = mPager.getCurrentItem();
 				initViewPager();
 			}
 		});
@@ -329,7 +326,11 @@ public class MainActivity extends Activity{
 		mMap = initData();
 		mAdapter.setData(mMap);
 		mPager.setAdapter(mAdapter);
-		mPager.setCurrentItem(2);
+		if (mBeforeSettingPosition != -1){
+			mPager.setCurrentItem(mBeforeSettingPosition);
+		} else {
+			mPager.setCurrentItem(2);
+		}
 	}
 
 	private SparseArray<Model> initData() {

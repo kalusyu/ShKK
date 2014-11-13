@@ -16,5 +16,31 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    
+    <!-- Resources -->
+   <!--  <style name="ResourceStyle">  
+        <item name="activity_background">@android:drawable/screen_background_dark</item>  
+        <item name="activity_button_show">@android:drawable/gallery_thumb</item>  
+        <item name="activity_button_show_text">@string/button_show_style0</item>  
+    </style>  
+      
+    <style name="ResourceStyle.r1" parent="@style/ResourceStyle">  
+        <item name="activity_background">@drawable/bj1</item>  
+        <item name="activity_button_show">@drawable/btn1</item>  
+        <item name="activity_button_show_text">@string/button_show_style1</item>  
+    </style>  
+      
+    <style name="ResourceStyle.r2" parent="@style/ResourceStyle">  
+        <item name="activity_background">@drawable/bj2</item>  
+        <item name="activity_button_show">@drawable/btn2</item>  
+        <item name="activity_button_show_text">@string/button_show_style2</item>  
+    </style>  
+      
+    <style name="ResourceStyle.r3" parent="@style/ResourceStyle">  
+        <item name="activity_background">@drawable/bj3</item>  
+        <item name="activity_button_show">@drawable/btn3</item>  
+        <item name="activity_button_show_text">@string/button_show_style3</item>  
+    </style>   -->
 
 </resources>

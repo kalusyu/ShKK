@@ -1,5 +1,9 @@
 package com.shower;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,7 +11,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +19,6 @@ import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,8 +34,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
@@ -167,6 +169,19 @@ public class MainActivity extends Activity{
 		mScond = findViewById(R.id.second_main_ui_id);
 		mFirst.setVisibility(View.VISIBLE);
 		mScond.setVisibility(View.GONE);
+		setUIEnable(false);
+	}
+	
+
+	private void setUIEnable(boolean b) {
+		View date = findViewById(R.id.main_datetime_text_show);
+		View color = findViewById(R.id.main_color_show);
+		View music = findViewById(R.id.main_music_show);
+		View lanya = findViewById(R.id.main_lanya_show);
+		date.setEnabled(b);
+		color.setEnabled(b);
+		music.setEnabled(b);
+		lanya.setEnabled(b);
 	}
 
 	private void initTempFlowData() {
@@ -805,6 +820,7 @@ public class MainActivity extends Activity{
 	
 	
 	public void modelPhoto(View v){
+		setUIEnable(true);
 		initTempFlowData();
 		mFirst = findViewById(R.id.first_main_ui_id);
 		mScond = findViewById(R.id.second_main_ui_id);

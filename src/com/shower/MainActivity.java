@@ -72,16 +72,7 @@ public class MainActivity extends Activity{
 			mMinuteText.setText(cal.get(Calendar.MINUTE) + "");
 			
 			// according to the save date
-			int month = cal.get(Calendar.MONTH) + 1;
-			if (month > 2 && month <=5){
-				mController.setSkin(SkinController.CHUN);
-			} else if (month > 5 && month <= 8){
-				mController.setSkin(SkinController.XIA);
-			} else if (month > 8 && month <= 11) {
-				mController.setSkin(SkinController.QIU);
-			} else {
-				mController.setSkin(SkinController.DONG);
-			}
+			changeSkin(cal);
 		}
 	};
 	
@@ -549,10 +540,10 @@ public class MainActivity extends Activity{
 	// wendushuzi0_chun_normal.png
 	private void handleUI(int ten, int unit) {
 		int identifyTen = getResources().getIdentifier(
-				String.format("wendushuzi%d_chun_normal", ten), "drawable",
+				String.format(mController.tempDrawableName, ten), "drawable",
 				"com.shower");
 		int identifyUnit = getResources().getIdentifier(
-				String.format("wendushuzi%d_chun_normal", unit), "drawable",
+				String.format(mController.tempDrawableName, unit), "drawable",
 				"com.shower");
 		mTemplatureTen.setBackgroundResource(identifyTen);
 		mTemplatureUnit.setBackgroundResource(identifyUnit);
@@ -870,11 +861,35 @@ public class MainActivity extends Activity{
 			public void onAnimationEnd(Animation animation) {
 				mFirst.setVisibility(View.GONE);
 				mScond.setVisibility(View.VISIBLE);
-				mBackground.setBackgroundResource(R.drawable.beijing_chun);
+				
+				int month = mCurrentDate.get(Calendar.MONTH) + 1;
+				if (month > 2 && month <=5){
+					mBackground.setBackgroundResource(R.drawable.beijing_chun);
+				} else if (month > 5 && month <= 8){
+					mBackground.setBackgroundResource(R.drawable.beijing_xia);
+				} else if (month > 8 && month <= 11) {
+					mBackground.setBackgroundResource(R.drawable.beijing_qiu);
+				} else {
+					mBackground.setBackgroundResource(R.drawable.beijing_dong);
+				}
 				displayAnima(mScond);
 			}
 		});
 		v0.startAnimation(anim);
+	}
+	
+	public void changeSkin(Calendar cal){
+		int month = cal.get(Calendar.MONTH) + 1;
+		if (month > 2 && month <=5){
+			mController.setSkin(SkinController.CHUN);
+		} else if (month > 5 && month <= 8){
+			mController.setSkin(SkinController.XIA);
+		} else if (month > 8 && month <= 11) {
+			mController.setSkin(SkinController.QIU);
+		} else {
+			mController.setSkin(SkinController.DONG);
+		}
+		handleTemplature(0);
 	}
 	
 	public void gotoMusic(View v){

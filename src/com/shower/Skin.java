@@ -11,8 +11,11 @@ public class Skin {
 	int mBeijing;
 	int mBeijingModel;
 	int[] shower = new int[4];
+	
 	int templatureReduce, templaturePlus;
-	int temp[] = new int[10];
+	String tempNumberName;
+	int sheshidu;
+	
 	int tempD;
 	int flowReduce, flowPlus;
 	int[] flowScrollBar = new int[3];

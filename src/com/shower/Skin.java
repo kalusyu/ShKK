@@ -12,6 +12,7 @@ public class Skin {
 	int mBeijingModel;
 	int[] shower = new int[4];
 	
+	// temperature
 	int templatureReduce, templaturePlus;
 	String tempNumberName;
 	int sheshidu;
@@ -19,6 +20,10 @@ public class Skin {
 	int tempD;
 	int flowReduce, flowPlus;
 	int[] flowScrollBar = new int[3];
+	
+	// shower buttons
+	int cepen,dingpen,pubu,shouchi;
+	int cepenon,dingpenon,pubuon,shouchion;
 
 	public Skin(Context context) {
 		mContext = context;

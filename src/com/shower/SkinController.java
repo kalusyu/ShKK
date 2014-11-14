@@ -18,8 +18,15 @@ public class SkinController {
 	Resources mRes;
 	String tempDrawableName;
 
+	SkinCallbacks mCallbacks;
+
+	public interface SkinCallbacks{
+		void handShower(ImageView view, int type, int resourceNormal, int reousrceOn);
+	}
+	
 	public SkinController(MainActivity context) {
 		mCtx = context;
+		mCallbacks = (SkinCallbacks) context;
 		initSkin(context);
 	}
 
@@ -34,6 +41,7 @@ public class SkinController {
 		init3(mSkin[3]);
 	}
 
+	// Wenst
 	private void init3(Skin skin) {
 		// TODO Auto-generated method stub
 		skin.mBeijingModel = R.drawable.beijing_model_dong;
@@ -44,8 +52,18 @@ public class SkinController {
 		skin.sheshidu = R.drawable.sheshidu_dong_normal;
 		skin.templaturePlus = R.drawable.wendu_p_btn_dong;
 		skin.templatureReduce = R.drawable.wendu_r_btn_dong;
+		
+		skin.cepen = R.drawable.cepeng_dong_btn;
+		skin.cepenon = R.drawable.cepeng_dong_btn_on;
+		skin.dingpen = R.drawable.dingpeng_dong_btn;
+		skin.dingpenon = R.drawable.dingpeng_dong_btn_on;
+		skin.pubu = R.drawable.pubu_dong_btn;
+		skin.pubuon = R.drawable.pubu_dong_btn_on;
+		skin.shouchi = R.drawable.shouchi_dong_btn;
+		skin.shouchion = R.drawable.shouchi_dong_btn_on;
 	}
 
+	// Aut
 	private void init2(Skin skin) {
 		// TODO Auto-generated method stub
 		skin.mBeijingModel = R.drawable.beijing_model_qiu;
@@ -55,8 +73,18 @@ public class SkinController {
 		skin.sheshidu = R.drawable.sheshidu_qiu_normal;
 		skin.templaturePlus = R.drawable.wendu_p_btn_qiu;
 		skin.templatureReduce = R.drawable.wendu_r_btn_qiu;
+		
+		skin.cepen = R.drawable.cepeng_btn;
+		skin.cepenon = R.drawable.cepeng_btn_on;
+		skin.dingpen = R.drawable.dingpeng_btn;
+		skin.dingpenon = R.drawable.dingpeng_btn_on;
+		skin.pubu = R.drawable.pubu_btn;
+		skin.pubuon = R.drawable.pubu_btn_on;
+		skin.shouchi = R.drawable.shouchi_btn;
+		skin.shouchion = R.drawable.shouchi_btn_on;
 	}
 
+	// Summer
 	private void init1(Skin skin) {
 		// TODO Auto-generated method stub
 		skin.mBeijingModel = R.drawable.beijing_model_xia;
@@ -66,8 +94,18 @@ public class SkinController {
 		skin.sheshidu = R.drawable.sheshidu_xia_normal;
 		skin.templaturePlus = R.drawable.wendu_p_btn_xia;
 		skin.templatureReduce = R.drawable.wendu_r_btn_xia;
+		
+		skin.cepen = R.drawable.cepeng_xia_btn;
+		skin.cepenon = R.drawable.cepeng_xia_btn_on;
+		skin.dingpen = R.drawable.dingpeng_xia_btn;
+		skin.dingpenon = R.drawable.dingpeng_xia_btn_on;
+		skin.pubu = R.drawable.pubu_xia_btn;
+		skin.pubuon = R.drawable.pubu_xia_btn_on;
+		skin.shouchi = R.drawable.shouchi_xia_btn;
+		skin.shouchion = R.drawable.shouchi_xia_btn_on;
 	}
 
+	// Spring
 	private void init0(Skin skin) {
 		skin.mBeijingModel = R.drawable.beijing_model_chun;
 		skin.mBeijing = R.drawable.beijing_chun;
@@ -75,6 +113,14 @@ public class SkinController {
 		skin.sheshidu = R.drawable.sheshidu_chun_normal;
 		skin.templaturePlus = R.drawable.wendu_p_btn;
 		skin.templatureReduce = R.drawable.wendu_r_btn;
+		skin.cepen = R.drawable.cepeng_btn;
+		skin.cepenon = R.drawable.cepeng_btn_on;
+		skin.dingpen = R.drawable.dingpeng_btn;
+		skin.dingpenon = R.drawable.dingpeng_btn_on;
+		skin.pubu = R.drawable.pubu_btn;
+		skin.pubuon = R.drawable.pubu_btn_on;
+		skin.shouchi = R.drawable.shouchi_btn;
+		skin.shouchion = R.drawable.shouchi_btn_on;
 	}
 
 	public void setSkin(int type) {
@@ -82,6 +128,11 @@ public class SkinController {
 		View sheshidu = mCtx.findViewById(R.id.templature_du);
 		ImageView tempReduce = (ImageView)mCtx.findViewById(R.id.templature_reduce);
 		ImageView tempPlus = (ImageView)mCtx.findViewById(R.id.templature_plus);
+		
+		ArcButton left = (ArcButton) mCtx.findViewById(R.id.left);
+		ArcButton top = (ArcButton) mCtx.findViewById(R.id.top);
+		ArcButton right = (ArcButton) mCtx.findViewById(R.id.right);
+		ArcButton bottom = (ArcButton) mCtx.findViewById(R.id.bottom);
 		switch (type) {
 		case CHUN:
 			v.setBackgroundResource(mSkin[0].mBeijingModel);
@@ -89,6 +140,11 @@ public class SkinController {
 			sheshidu.setBackgroundResource(mSkin[0].sheshidu);
 			tempReduce.setImageResource(mSkin[0].templatureReduce);
 			tempPlus.setImageResource(mSkin[0].templaturePlus);
+			
+			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[0].cepen,mSkin[0].cepenon);
+			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[0].dingpen,mSkin[0].dingpenon);
+			mCallbacks.handShower(right, MainActivity.CEPENG, mSkin[0].pubu,mSkin[0].pubuon);
+			mCallbacks.handShower(bottom, MainActivity.DINGPENG, mSkin[0].shouchi,mSkin[0].shouchion);
 			break;
 		case XIA:
 			v.setBackgroundResource(mSkin[1].mBeijingModel);
@@ -96,6 +152,11 @@ public class SkinController {
 			sheshidu.setBackgroundResource(mSkin[1].sheshidu);
 			tempReduce.setImageResource(mSkin[1].templatureReduce);
 			tempPlus.setImageResource(mSkin[1].templaturePlus);
+			
+			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[1].cepen,mSkin[1].cepenon);
+			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[1].dingpen,mSkin[1].dingpenon);
+			mCallbacks.handShower(right, MainActivity.CEPENG, mSkin[1].pubu,mSkin[1].pubuon);
+			mCallbacks.handShower(bottom, MainActivity.DINGPENG, mSkin[1].shouchi,mSkin[1].shouchion);
 			break;
 
 		case QIU:
@@ -104,13 +165,23 @@ public class SkinController {
 			sheshidu.setBackgroundResource(mSkin[2].sheshidu);
 			tempReduce.setImageResource(mSkin[2].templatureReduce);
 			tempPlus.setImageResource(mSkin[2].templaturePlus);
+			
+			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[2].cepen,mSkin[2].cepenon);
+			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[2].dingpen,mSkin[2].dingpenon);
+			mCallbacks.handShower(right, MainActivity.CEPENG, mSkin[2].pubu,mSkin[2].pubuon);
+			mCallbacks.handShower(bottom, MainActivity.DINGPENG, mSkin[2].shouchi,mSkin[2].shouchion);
 			break;
 		case DONG:
 			v.setBackgroundResource(mSkin[3].mBeijingModel);
 			tempDrawableName = mSkin[3].tempNumberName;
 			sheshidu.setBackgroundResource(mSkin[3].sheshidu);
 			tempReduce.setImageResource(mSkin[3].templatureReduce);
-			tempPlus.setImageResource(mSkin[0].templaturePlus);
+			tempPlus.setImageResource(mSkin[3].templaturePlus);
+			
+			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[3].cepen,mSkin[3].cepenon);
+			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[3].dingpen,mSkin[3].dingpenon);
+			mCallbacks.handShower(right, MainActivity.CEPENG, mSkin[3].pubu,mSkin[3].pubuon);
+			mCallbacks.handShower(bottom, MainActivity.DINGPENG, mSkin[3].shouchi,mSkin[3].shouchion);
 			break;
 
 		default:

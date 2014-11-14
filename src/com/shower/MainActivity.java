@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.shower.SkinController.SkinCallbacks;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -42,7 +44,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements SkinCallbacks{
 
 	public static final String PREF_SAVE = "com.shower.prefer.save";
 	public static final String PREF_DATE_SAVE_KEY = "pref_date_save_key";
@@ -75,6 +77,7 @@ public class MainActivity extends Activity{
 			changeSkin(cal);
 		}
 	};
+	
 	
 	RelativeLayout mTemplatureUI;
 	TextView mTemplatureTen, mTemplatureUnit;
@@ -405,52 +408,49 @@ public class MainActivity extends Activity{
 	// shower button
 	public void cepeng(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, CEPENG);
+		handShower(img, CEPENG, R.drawable.cepeng_btn, R.drawable.cepeng_btn_on);
 	}
 
 	public void dingpeng(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, DINGPENG);
+		handShower(img, DINGPENG, R.drawable.dingpeng_btn, R.drawable.dingpeng_btn_on);
 	}
 
 	public void pubu(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, PUBU);
+		handShower(img, PUBU, R.drawable.pubu_btn, R.drawable.pubu_btn_on);
 	}
 
 	public void shouchi(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, SHOUCHI);
+		handShower(img, SHOUCHI,R.drawable.shouchi_btn,R.drawable.shouchi_btn_on);
 	}
 
 	public void zhongjian(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, LAUNCH);
+		handShower(img, LAUNCH,R.drawable.zhongjian_btn,R.drawable.zhongjian_btn_on);
 	}
 
-	public void handShower(ImageView img, int type) {
+	@Override
+	public void handShower(ImageView img, int type, int resourceNormal,int resourceOn) {
 		Object tag = img.getTag();
 		if (tag == null) {
 			img.setTag(ON);
+			img.setImageResource(resourceOn);
 			switch (type) {
 			case CEPENG:
-				img.setImageResource(R.drawable.cepeng_btn_on);
 				mShower.cepengOn();
 				break;
 			case DINGPENG:
-				img.setImageResource(R.drawable.dingpeng_btn_on);
 				mShower.dingpengOn();
 				break;
 			case PUBU:
-				img.setImageResource(R.drawable.pubu_btn_on);
 				mShower.pubuOn();
 				break;
 			case SHOUCHI:
-				img.setImageResource(R.drawable.shouchi_btn_on);
 				mShower.shouchiOn();
 				break;
 			case LAUNCH:
-				img.setImageResource(R.drawable.zhongjian_btn_on);
 				mShower.startShower();
 				break;
 			}
@@ -459,47 +459,39 @@ public class MainActivity extends Activity{
 				int status = (Integer) tag;
 				if (status == ON) {
 					img.setTag(OFF);
+					img.setImageResource(resourceNormal);
 					if (type == CEPENG) {
 						mShower.cepengOff();
-						img.setImageResource(R.drawable.cepeng_btn);
 					}
 					if (type == DINGPENG) {
 						mShower.dingpengOff();
-						img.setImageResource(R.drawable.dingpeng_btn);
 					}
 					if (type == PUBU) {
 						mShower.pubuOff();
-						img.setImageResource(R.drawable.pubu_btn);
 					}
 					if (type == SHOUCHI) {
 						mShower.shouchiOff();
-						img.setImageResource(R.drawable.shouchi_btn);
 					}
 					if (type == LAUNCH) {
 						mShower.stopShower();
-						img.setImageResource(R.drawable.zhongjian_btn);
 					}
 				} else {
 					img.setTag(ON);
+					img.setImageResource(resourceOn);
 					if (type == CEPENG) {
 						mShower.cepengOn();
-						img.setImageResource(R.drawable.cepeng_btn_on);
 					}
 					if (type == DINGPENG) {
 						mShower.dingpengOn();
-						img.setImageResource(R.drawable.dingpeng_btn_on);
 					}
 					if (type == PUBU) {
 						mShower.pubuOn();
-						img.setImageResource(R.drawable.pubu_btn_on);
 					}
 					if (type == SHOUCHI) {
 						mShower.shouchiOn();
-						img.setImageResource(R.drawable.shouchi_btn_on);
 					}
 					if (type == LAUNCH) {
 						mShower.startShower();
-						img.setImageResource(R.drawable.zhongjian_btn_on);
 					}
 				}
 			}
@@ -546,7 +538,7 @@ public class MainActivity extends Activity{
 				String.format(mController.tempDrawableName, unit), "drawable",
 				"com.shower");
 		mTemplatureTen.setBackgroundResource(identifyTen);
-		mTemplatureUnit.setBackgroundResource(identifyUnit);
+		mTemplatureUnit.setBackgroundResource(identifyUnit); 
 	}
 
 	public boolean setTemplatureTag(int plusReduce) {

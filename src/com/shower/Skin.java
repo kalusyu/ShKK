@@ -17,9 +17,9 @@ public class Skin {
 	String tempNumberName;
 	int sheshidu;
 	
-	int tempD;
+	// flow
 	int flowReduce, flowPlus;
-	int[] flowScrollBar = new int[3];
+	String flowKuangName;
 	
 	// shower buttons
 	int cepen,dingpen,pubu,shouchi;

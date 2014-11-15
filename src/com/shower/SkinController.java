@@ -17,6 +17,7 @@ public class SkinController {
 	MainActivity mCtx;
 	Resources mRes;
 	String tempDrawableName;
+	String flowDrawableName;
 
 	SkinCallbacks mCallbacks;
 
@@ -61,6 +62,10 @@ public class SkinController {
 		skin.pubuon = R.drawable.pubu_dong_btn_on;
 		skin.shouchi = R.drawable.shouchi_dong_btn;
 		skin.shouchion = R.drawable.shouchi_dong_btn_on;
+		
+		skin.flowKuangName = "liuliangtiao%d_qiu_normal";
+		skin.flowPlus = R.drawable.liuliang_p_btn_dong;
+		skin.flowReduce = R.drawable.liuliang_r_btn_dong;
 	}
 
 	// Aut
@@ -82,6 +87,10 @@ public class SkinController {
 		skin.pubuon = R.drawable.pubu_btn_on;
 		skin.shouchi = R.drawable.shouchi_btn;
 		skin.shouchion = R.drawable.shouchi_btn_on;
+		
+		skin.flowKuangName = "liuliangtiao%d_qiu_normal";
+		skin.flowPlus = R.drawable.liuliang_p_btn_qiu;
+		skin.flowReduce = R.drawable.liuliang_r_btn_qiu;
 	}
 
 	// Summer
@@ -103,6 +112,10 @@ public class SkinController {
 		skin.pubuon = R.drawable.pubu_xia_btn_on;
 		skin.shouchi = R.drawable.shouchi_xia_btn;
 		skin.shouchion = R.drawable.shouchi_xia_btn_on;
+		
+		skin.flowKuangName = "liuliangtiao%d_xia_normal";
+		skin.flowPlus = R.drawable.liuliang_p_btn_xia;
+		skin.flowReduce = R.drawable.liuliang_r_btn_xia;
 	}
 
 	// Spring
@@ -121,6 +134,10 @@ public class SkinController {
 		skin.pubuon = R.drawable.pubu_btn_on;
 		skin.shouchi = R.drawable.shouchi_btn;
 		skin.shouchion = R.drawable.shouchi_btn_on;
+		
+		skin.flowKuangName = "liuliangtiao%d_chun_normal";
+		skin.flowPlus = R.drawable.liuliang_p_btn;
+		skin.flowReduce = R.drawable.liuliang_r_btn;
 	}
 
 	public void setSkin(int type) {
@@ -129,10 +146,17 @@ public class SkinController {
 		ImageView tempReduce = (ImageView)mCtx.findViewById(R.id.templature_reduce);
 		ImageView tempPlus = (ImageView)mCtx.findViewById(R.id.templature_plus);
 		
+		ImageView flowReduce = (ImageView)mCtx.findViewById(R.id.flow_reduce);
+		ImageView flowPlus = (ImageView)mCtx.findViewById(R.id.flow_plus);
+		
 		ArcButton left = (ArcButton) mCtx.findViewById(R.id.left);
 		ArcButton top = (ArcButton) mCtx.findViewById(R.id.top);
 		ArcButton right = (ArcButton) mCtx.findViewById(R.id.right);
 		ArcButton bottom = (ArcButton) mCtx.findViewById(R.id.bottom);
+		left.setTag(null);
+		top.setTag(null);
+		right.setTag(null);
+		bottom.setTag(null);
 		switch (type) {
 		case CHUN:
 			v.setBackgroundResource(mSkin[0].mBeijingModel);
@@ -141,10 +165,14 @@ public class SkinController {
 			tempReduce.setImageResource(mSkin[0].templatureReduce);
 			tempPlus.setImageResource(mSkin[0].templaturePlus);
 			
+			flowDrawableName = mSkin[0].flowKuangName;
+			flowReduce.setImageResource(mSkin[0].flowReduce);
+			flowPlus.setImageResource(mSkin[0].flowPlus);
+			
 			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[0].cepen,mSkin[0].cepenon);
 			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[0].dingpen,mSkin[0].dingpenon);
-			mCallbacks.handShower(right, MainActivity.CEPENG, mSkin[0].pubu,mSkin[0].pubuon);
-			mCallbacks.handShower(bottom, MainActivity.DINGPENG, mSkin[0].shouchi,mSkin[0].shouchion);
+			mCallbacks.handShower(right, MainActivity.PUBU, mSkin[0].pubu,mSkin[0].pubuon);
+			mCallbacks.handShower(bottom, MainActivity.SHOUCHI, mSkin[0].shouchi,mSkin[0].shouchion);
 			break;
 		case XIA:
 			v.setBackgroundResource(mSkin[1].mBeijingModel);
@@ -153,10 +181,14 @@ public class SkinController {
 			tempReduce.setImageResource(mSkin[1].templatureReduce);
 			tempPlus.setImageResource(mSkin[1].templaturePlus);
 			
+			flowDrawableName = mSkin[1].flowKuangName;
+			flowReduce.setImageResource(mSkin[1].flowReduce);
+			flowPlus.setImageResource(mSkin[1].flowPlus);
+			
 			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[1].cepen,mSkin[1].cepenon);
 			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[1].dingpen,mSkin[1].dingpenon);
-			mCallbacks.handShower(right, MainActivity.CEPENG, mSkin[1].pubu,mSkin[1].pubuon);
-			mCallbacks.handShower(bottom, MainActivity.DINGPENG, mSkin[1].shouchi,mSkin[1].shouchion);
+			mCallbacks.handShower(right, MainActivity.PUBU, mSkin[1].pubu,mSkin[1].pubuon);
+			mCallbacks.handShower(bottom, MainActivity.SHOUCHI, mSkin[1].shouchi,mSkin[1].shouchion);
 			break;
 
 		case QIU:
@@ -166,10 +198,14 @@ public class SkinController {
 			tempReduce.setImageResource(mSkin[2].templatureReduce);
 			tempPlus.setImageResource(mSkin[2].templaturePlus);
 			
+			flowDrawableName = mSkin[2].flowKuangName;
+			flowReduce.setImageResource(mSkin[2].flowReduce);
+			flowPlus.setImageResource(mSkin[2].flowPlus);
+			
 			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[2].cepen,mSkin[2].cepenon);
 			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[2].dingpen,mSkin[2].dingpenon);
-			mCallbacks.handShower(right, MainActivity.CEPENG, mSkin[2].pubu,mSkin[2].pubuon);
-			mCallbacks.handShower(bottom, MainActivity.DINGPENG, mSkin[2].shouchi,mSkin[2].shouchion);
+			mCallbacks.handShower(right, MainActivity.PUBU, mSkin[2].pubu,mSkin[2].pubuon);
+			mCallbacks.handShower(bottom, MainActivity.SHOUCHI, mSkin[2].shouchi,mSkin[2].shouchion);
 			break;
 		case DONG:
 			v.setBackgroundResource(mSkin[3].mBeijingModel);
@@ -178,10 +214,14 @@ public class SkinController {
 			tempReduce.setImageResource(mSkin[3].templatureReduce);
 			tempPlus.setImageResource(mSkin[3].templaturePlus);
 			
+			flowDrawableName = mSkin[3].flowKuangName;
+			flowReduce.setImageResource(mSkin[3].flowReduce);
+			flowPlus.setImageResource(mSkin[3].flowPlus);
+			
 			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[3].cepen,mSkin[3].cepenon);
 			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[3].dingpen,mSkin[3].dingpenon);
-			mCallbacks.handShower(right, MainActivity.CEPENG, mSkin[3].pubu,mSkin[3].pubuon);
-			mCallbacks.handShower(bottom, MainActivity.DINGPENG, mSkin[3].shouchi,mSkin[3].shouchion);
+			mCallbacks.handShower(right, MainActivity.PUBU, mSkin[3].pubu,mSkin[3].pubuon);
+			mCallbacks.handShower(bottom, MainActivity.SHOUCHI, mSkin[3].shouchi,mSkin[3].shouchion);
 			break;
 
 		default:

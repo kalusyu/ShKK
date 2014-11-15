@@ -142,6 +142,8 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	Calendar mCurrentDate = Calendar.getInstance();
 	
 	TextView mYearText,mMonthText,mDayText,mHourText,mMinuteText;
+	
+	int mCurrentModelPage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +166,9 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		mFirst.setVisibility(View.VISIBLE);
 		mScond.setVisibility(View.GONE);
 		setUIEnable(false);
+		if (mDatetimePicker.isShowing()){
+			mDatetimePicker.dismiss();
+		}
 	}
 	
 
@@ -172,14 +177,17 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		View color = findViewById(R.id.main_color_show);
 		View music = findViewById(R.id.main_music_show);
 		View lanya = findViewById(R.id.main_lanya_show);
+		View save = findViewById(R.id.on_save);
 		date.setEnabled(b);
 		color.setEnabled(b);
 		music.setEnabled(b);
 		lanya.setEnabled(b);
+		save.setEnabled(b);
 	}
 
 	private void initTempFlowData() {
 		int current = mPager.getCurrentItem();
+		mCurrentModelPage = current;
 		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
 		int temp = sp.getInt(PREF_TEMP_SAVE_KEY+current, mShower.getTempalture());//mShower.getTempalture() default templature
 		setCurrentTemplatrue(temp);
@@ -204,7 +212,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 
 	private void handleUI(int i) {
 		int identifyFlow = getResources().getIdentifier(
-				String.format("liuliangtiao%d_chun_normal", i), "drawable",
+				String.format(mController.flowDrawableName, i), "drawable",
 				"com.shower");
 		mFlowScrollBar.setImageResource(identifyFlow);
 	}
@@ -435,7 +443,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	public void handShower(ImageView img, int type, int resourceNormal,int resourceOn) {
 		Object tag = img.getTag();
 		if (tag == null) {
-			img.setTag(ON);
+			img.setTag(OFF);
 			img.setImageResource(resourceOn);
 			switch (type) {
 			case CEPENG:
@@ -525,7 +533,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		default:
 			break;
 		}
-
+		mOldTemplature = mTemplature;
 		handleUI(ten, unit);
 	}
 
@@ -882,6 +890,9 @@ public class MainActivity extends Activity implements SkinCallbacks{
 			mController.setSkin(SkinController.DONG);
 		}
 		handleTemplature(0);
+		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
+		int flow = sp.getInt(PREF_FLOW_SAVE_KEY+mCurrentModelPage, mShower.getFlow());
+		handleFlow(flow);
 	}
 	
 	public void gotoMusic(View v){

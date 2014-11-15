@@ -20,6 +20,9 @@ public class SkinController {
 	String flowDrawableName;
 
 	SkinCallbacks mCallbacks;
+	boolean isModel = true;
+	
+	int mCurrSeason  = CHUN;
 
 	public interface SkinCallbacks{
 		void handShower(ImageView view, int type, int resourceNormal, int reousrceOn);
@@ -141,6 +144,7 @@ public class SkinController {
 	}
 
 	public void setSkin(int type) {
+		mCurrSeason  = type;
 		View v = mCtx.findViewById(R.id.main_bg);
 		View sheshidu = mCtx.findViewById(R.id.templature_du);
 		ImageView tempReduce = (ImageView)mCtx.findViewById(R.id.templature_reduce);
@@ -157,9 +161,10 @@ public class SkinController {
 		top.setTag(null);
 		right.setTag(null);
 		bottom.setTag(null);
+		
 		switch (type) {
 		case CHUN:
-			v.setBackgroundResource(mSkin[0].mBeijingModel);
+			setBackground(v, isModel,mSkin[0]);
 			tempDrawableName = mSkin[0].tempNumberName;
 			sheshidu.setBackgroundResource(mSkin[0].sheshidu);
 			tempReduce.setImageResource(mSkin[0].templatureReduce);
@@ -175,7 +180,7 @@ public class SkinController {
 			mCallbacks.handShower(bottom, MainActivity.SHOUCHI, mSkin[0].shouchi,mSkin[0].shouchion);
 			break;
 		case XIA:
-			v.setBackgroundResource(mSkin[1].mBeijingModel);
+			setBackground(v, isModel,mSkin[1]);
 			tempDrawableName = mSkin[1].tempNumberName;
 			sheshidu.setBackgroundResource(mSkin[1].sheshidu);
 			tempReduce.setImageResource(mSkin[1].templatureReduce);
@@ -192,7 +197,7 @@ public class SkinController {
 			break;
 
 		case QIU:
-			v.setBackgroundResource(mSkin[2].mBeijingModel);
+			setBackground(v, isModel,mSkin[2]);
 			tempDrawableName = mSkin[2].tempNumberName;
 			sheshidu.setBackgroundResource(mSkin[2].sheshidu);
 			tempReduce.setImageResource(mSkin[2].templatureReduce);
@@ -208,7 +213,7 @@ public class SkinController {
 			mCallbacks.handShower(bottom, MainActivity.SHOUCHI, mSkin[2].shouchi,mSkin[2].shouchion);
 			break;
 		case DONG:
-			v.setBackgroundResource(mSkin[3].mBeijingModel);
+			setBackground(v, isModel,mSkin[3]);
 			tempDrawableName = mSkin[3].tempNumberName;
 			sheshidu.setBackgroundResource(mSkin[3].sheshidu);
 			tempReduce.setImageResource(mSkin[3].templatureReduce);
@@ -227,5 +232,13 @@ public class SkinController {
 		default:
 			break;
 		}
+	}
+
+	private void setBackground(View v, boolean isModel, Skin skin) {
+		if (isModel){
+			v.setBackgroundResource(skin.mBeijingModel);
+		} else {
+			v.setBackgroundResource(skin.mBeijing);
+		}		
 	}
 }

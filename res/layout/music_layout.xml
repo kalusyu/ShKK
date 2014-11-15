@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/music_layout_background"
     android:gravity="center_horizontal"
     android:background="@drawable/yinyuexiazaixuanzejiemian_chun_normal" >
 

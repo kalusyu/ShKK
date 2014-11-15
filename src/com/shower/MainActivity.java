@@ -872,6 +872,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 				} else {
 					mBackground.setBackgroundResource(R.drawable.beijing_dong);
 				}
+				mController.isModel = false;
 				displayAnima(mScond);
 			}
 		});
@@ -897,6 +898,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	
 	public void gotoMusic(View v){
 		Intent intent = new Intent(this,MusicActivity.class);
+		intent.putExtra("type", mController.mCurrSeason);
 		startActivity(intent);
 	}
 	

@@ -416,27 +416,73 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	// shower button
 	public void cepeng(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, CEPENG, R.drawable.cepeng_btn, R.drawable.cepeng_btn_on);
+//		handShower(img, CEPENG, R.drawable.cepeng_btn, R.drawable.cepeng_btn_on);
+		handShowerButton(img,CEPENG);
 	}
 
 	public void dingpeng(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, DINGPENG, R.drawable.dingpeng_btn, R.drawable.dingpeng_btn_on);
+//		handShower(img, DINGPENG, R.drawable.dingpeng_btn, R.drawable.dingpeng_btn_on);
+		handShowerButton(img,DINGPENG);
 	}
 
 	public void pubu(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, PUBU, R.drawable.pubu_btn, R.drawable.pubu_btn_on);
+//		handShower(img, PUBU, R.drawable.pubu_btn, R.drawable.pubu_btn_on);
+		handShowerButton(img,PUBU);
 	}
 
 	public void shouchi(View v) {
 		ImageView img = (ImageView) v;
-		handShower(img, SHOUCHI,R.drawable.shouchi_btn,R.drawable.shouchi_btn_on);
+//		handShower(img, SHOUCHI,R.drawable.shouchi_btn,R.drawable.shouchi_btn_on);
+		handShowerButton(img,SHOUCHI);
 	}
 
 	public void zhongjian(View v) {
 		ImageView img = (ImageView) v;
 		handShower(img, LAUNCH,R.drawable.zhongjian_btn,R.drawable.zhongjian_btn_on);
+	}
+	
+	public void handShowerButton(ImageView img,int type){
+		switch (mController.mCurrSeason) {
+		case SkinController.CHUN:
+		case SkinController.QIU:
+			if (type == CEPENG ){
+				handShower(img,type, R.drawable.cepeng_btn,R.drawable.cepeng_btn_on);
+			} else if (type == DINGPENG){
+				handShower(img,type, R.drawable.dingpeng_btn,R.drawable.dingpeng_btn_on);
+			} else if (type == PUBU){
+				handShower(img,type, R.drawable.pubu_btn,R.drawable.pubu_btn_on);
+			} else {
+				handShower(img,type, R.drawable.shouchi_btn,R.drawable.shouchi_btn_on);
+			}
+			break;
+		case SkinController.XIA:
+			if (type == CEPENG ){
+				handShower(img,type, R.drawable.cepeng_xia_btn,R.drawable.cepeng_xia_btn_on);
+			} else if (type == DINGPENG){
+				handShower(img,type, R.drawable.dingpeng_xia_btn,R.drawable.dingpeng_xia_btn_on);
+			} else if (type == PUBU){
+				handShower(img,type, R.drawable.pubu_xia_btn,R.drawable.pubu_xia_btn_on);
+			} else {
+				handShower(img,type, R.drawable.shouchi_xia_btn,R.drawable.shouchi_xia_btn_on);
+			}
+			break;
+		case SkinController.DONG:
+			if (type == CEPENG ){
+				handShower(img,type, R.drawable.cepeng_dong_btn,R.drawable.cepeng_dong_btn_on);
+			} else if (type == DINGPENG){
+				handShower(img,type, R.drawable.dingpeng_dong_btn,R.drawable.dingpeng_dong_btn_on);
+			} else if (type == PUBU){
+				handShower(img,type, R.drawable.pubu_dong_btn,R.drawable.pubu_dong_btn_on);
+			} else {
+				handShower(img,type, R.drawable.shouchi_dong_btn,R.drawable.shouchi_dong_btn_on);
+			}
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	@Override
@@ -444,19 +490,19 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		Object tag = img.getTag();
 		if (tag == null) {
 			img.setTag(OFF);
-			img.setImageResource(resourceOn);
+			img.setImageResource(resourceNormal);
 			switch (type) {
 			case CEPENG:
-				mShower.cepengOn();
+				mShower.cepengOff();
 				break;
 			case DINGPENG:
-				mShower.dingpengOn();
+				mShower.dingpengOff();
 				break;
 			case PUBU:
-				mShower.pubuOn();
+				mShower.pubuOff();
 				break;
 			case SHOUCHI:
-				mShower.shouchiOn();
+				mShower.shouchiOff();
 				break;
 			case LAUNCH:
 				mShower.startShower();

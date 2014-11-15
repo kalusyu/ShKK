@@ -1,9 +1,5 @@
 package com.shower;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,7 +48,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	public static final String PREF_TEMP_SAVE_KEY = "pref_temp_save_key";
 	public static final String PREF_FLOW_SAVE_KEY = "pref_flow_save_key";
 	public static final String FORMATTER = "yyyy-MM-dd HH:mm:ss";
-	public static final String DEFAULT_MODEL_DATA = "自定义（五）:女人;常规模式:男人;常规模式:女人;常规模式:男人;自定义（一）:女人;";
+	public static final String DEFAULT_MODEL_DATA = "自定义（五）:女;常规模式:男;常规模式:女;常规模式:男;自定义（一）:女;";
 	
 	interface OnShowerDateChangedListener {
 
@@ -156,6 +152,9 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		setContentView(R.layout.main);
 		initUI();
 		initWindowSize();
+		
+		// hide virtual key
+		enterLightsOutMode(getWindow());
 	}
 	
 	@Override
@@ -276,7 +275,8 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	private void initEditModelUI(View dateView) {
 		Model model = mMap.get(mPager.getCurrentItem());
 		EditText modelEdit = (EditText) dateView.findViewById(R.id.model_edit_name);
-		modelEdit.setText(model.modelName);
+		mModelName = model.modelName;
+		modelEdit.setText(mModelName);
 		modelEdit.addTextChangedListener(new TextWatcher() {
 			
 			@Override
@@ -290,6 +290,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 			
 			@Override
 			public void afterTextChanged(Editable s) {
+				// logic maybe some errors
 				mModelName = s.toString() != null ? s.toString() 
 						: (mPager.getCurrentItem() > 2 ? CUSTOM_MODEL_ONE : CUSTOM_MODEL_FIVE);
 			}
@@ -377,7 +378,8 @@ public class MainActivity extends Activity implements SkinCallbacks{
 			String[] custom = dataArray[i].split(":");
 			Model model = new Model();
 			model.modelName = custom[0];
-			model.modelResource = custom[1].equals(MAN) ? R.drawable.men_normal:R.drawable.women_normal;
+			String men = custom[1];
+			model.modelResource = "男".equals(men) ? R.drawable.men_normal:R.drawable.women_normal;
 			s.put(i, model);
 		}
 		return s;
@@ -505,6 +507,8 @@ public class MainActivity extends Activity implements SkinCallbacks{
 				mShower.shouchiOff();
 				break;
 			case LAUNCH:
+				img.setTag(ON);
+				img.setImageResource(resourceOn);
 				mShower.startShower();
 				break;
 			}

@@ -16,14 +16,17 @@
 
     <RelativeLayout
         android:id="@+id/wendu_ui_show"
-        android:layout_width="wrap_content"
+        android:layout_width="160px"
+        android:gravity="center_horizontal|center_vertical"
         android:layout_height="wrap_content" >
         <TextView 
             android:id="@+id/templature_shi"
             android:background="@drawable/wendushuzi3_chun_normal"
             android:layout_width="wrap_content"
         	android:layout_height="wrap_content"/>
+      
         <TextView 
+            android:layout_marginLeft="9px"
             android:id="@+id/templature_ge"
             android:layout_toRightOf="@id/templature_shi"
             android:background="@drawable/wendushuzi8_chun_normal"

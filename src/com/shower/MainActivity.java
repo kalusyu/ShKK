@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
@@ -698,6 +699,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		TextView timeShow = (TextView)findViewById(R.id.main_datetime_text_show);
 		DateFormat df = new SimpleDateFormat("HH:mm");
 		timeShow.setText(df.format(mCurrentDate.getTime()));
+		timeShow.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Arial.ttf"));
 	}
 
 	public void addDay(View v) {

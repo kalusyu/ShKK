@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
@@ -138,6 +139,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	Calendar mCurrentDate = Calendar.getInstance();
 	
 	TextView mYearText,mMonthText,mDayText,mHourText,mMinuteText;
+	TextView mYearHanzi,mMonthHanzi,mDayHanzi;
 	
 	int mCurrentModelPage;
 
@@ -775,6 +777,11 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		mDayText = (TextView) dateView.findViewById(R.id.day);
 		mHourText = (TextView) dateView.findViewById(R.id.hour);
 		mMinuteText = (TextView) dateView.findViewById(R.id.minute);
+		
+		mYearHanzi = (TextView) dateView.findViewById(R.id.year_hanzi);
+		mMonthHanzi = (TextView) dateView.findViewById(R.id.month_hanzi);
+		mDayHanzi = (TextView) dateView.findViewById(R.id.day_hanzi);
+		
 	}
 
 	public static final int SHOWER_MONTH = -101;
@@ -812,6 +819,13 @@ public class MainActivity extends Activity implements SkinCallbacks{
 			reduceHour.setVisibility(View.GONE);
 			addMinute.setVisibility(View.GONE);
 			reduceMinute.setVisibility(View.GONE);
+			mMonthText.setTextColor(Color.parseColor("#3bb1fe"));
+			mMonthHanzi.setTextColor(Color.parseColor("#3bb1fe"));
+			mDayHanzi.setTextColor(Color.parseColor("#ffffff"));
+			mDayText.setTextColor(Color.parseColor("#ffffff"));
+			mHourText.setTextColor(Color.parseColor("#ffffff"));
+			mMinuteText.setTextColor(Color.parseColor("#ffffff"));
+			
 			break;
 		case SHOWER_DAY:
 			addMonth.setVisibility(View.GONE);
@@ -822,6 +836,12 @@ public class MainActivity extends Activity implements SkinCallbacks{
 			reduceHour.setVisibility(View.GONE);
 			addMinute.setVisibility(View.GONE);
 			reduceMinute.setVisibility(View.GONE);
+			mMonthText.setTextColor(Color.parseColor("#ffffff"));
+			mDayText.setTextColor(Color.parseColor("#3bb1fe"));
+			mMonthHanzi.setTextColor(Color.parseColor("#ffffff"));
+			mDayHanzi.setTextColor(Color.parseColor("#3bb1fe"));
+			mHourText.setTextColor(Color.parseColor("#ffffff"));
+			mMinuteText.setTextColor(Color.parseColor("#ffffff"));
 			break;
 		case SHOWER_HOUR:
 			addMonth.setVisibility(View.GONE);
@@ -832,6 +852,12 @@ public class MainActivity extends Activity implements SkinCallbacks{
 			reduceHour.setVisibility(View.VISIBLE);
 			addMinute.setVisibility(View.GONE);
 			reduceMinute.setVisibility(View.GONE);
+			mMonthText.setTextColor(Color.parseColor("#ffffff"));
+			mDayText.setTextColor(Color.parseColor("#ffffff"));
+			mHourText.setTextColor(Color.parseColor("#3bb1fe"));
+			mMinuteText.setTextColor(Color.parseColor("#ffffff"));
+			mMonthHanzi.setTextColor(Color.parseColor("#ffffff"));
+			mDayHanzi.setTextColor(Color.parseColor("#ffffff"));
 			break;
 		case SHOWER_MINUTE:
 			addMonth.setVisibility(View.GONE);
@@ -842,6 +868,12 @@ public class MainActivity extends Activity implements SkinCallbacks{
 			reduceHour.setVisibility(View.GONE);
 			addMinute.setVisibility(View.VISIBLE);
 			reduceMinute.setVisibility(View.VISIBLE);
+			mMonthText.setTextColor(Color.parseColor("#ffffff"));
+			mDayText.setTextColor(Color.parseColor("#ffffff"));
+			mHourText.setTextColor(Color.parseColor("#ffffff"));
+			mMinuteText.setTextColor(Color.parseColor("#3bb1fe"));
+			mMonthHanzi.setTextColor(Color.parseColor("#ffffff"));
+			mDayHanzi.setTextColor(Color.parseColor("#ffffff"));
 			break;
 			default:
 				addMonth.setVisibility(View.GONE);
@@ -852,6 +884,12 @@ public class MainActivity extends Activity implements SkinCallbacks{
 				reduceHour.setVisibility(View.GONE);
 				addMinute.setVisibility(View.GONE);
 				reduceMinute.setVisibility(View.GONE);
+				mMonthText.setTextColor(Color.parseColor("#ffffff"));
+				mDayText.setTextColor(Color.parseColor("#ffffff"));
+				mHourText.setTextColor(Color.parseColor("#ffffff"));
+				mMinuteText.setTextColor(Color.parseColor("#ffffff"));
+				mMonthHanzi.setTextColor(Color.parseColor("#ffffff"));
+				mDayHanzi.setTextColor(Color.parseColor("#ffffff"));
 				break;
 		}
 	}
@@ -870,7 +908,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	
 	public void modelText(View v){
 		initEditModel();
-		mModelEditPop.showAtLocation(v, Gravity.TOP, 65, 150);
+		mModelEditPop.showAtLocation((View)v.getParent(), Gravity.CENTER_HORIZONTAL, 0, -160);
 		Window win = getWindow();
 		LayoutParams lp = win.getAttributes();
 		lp.dimAmount = 0.5f;

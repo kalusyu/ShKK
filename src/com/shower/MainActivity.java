@@ -171,6 +171,8 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		if (mDatetimePicker.isShowing()){
 			mDatetimePicker.dismiss();
 		}
+		mController.isModel = true;
+		changeSkin(mCurrentDate);
 	}
 	
 

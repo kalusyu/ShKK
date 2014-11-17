@@ -18,6 +18,7 @@
 
     <RelativeLayout
         android:layout_width="447px"
+        android:visibility="gone"
         android:layout_height="wrap_content" >
 
         <ImageView
@@ -39,12 +40,19 @@
             android:clickable="true"
             android:src="@drawable/liulianganniu_normal" />
     </RelativeLayout>
+    <SeekBar
+        android:layout_margin="20px"
+        android:id="@+id/seek_bar"
+        android:layout_width="397px"
+        android:layout_height="wrap_content"
+        android:progressDrawable="@drawable/seek_progress_drawable"
+        android:layout_gravity="center_vertical"
+        android:thumb="@drawable/liulianganniu_normal" />
 
     <ImageView
         android:id="@+id/flow_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="-60px"
         android:clickable="true"
         android:onClick="flowPlus"
         android:src="@drawable/liuliang_p_btn" >

@@ -39,10 +39,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements SkinCallbacks{
+public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarChangeListener{
 
 	public static final String PREF_SAVE = "com.shower.prefer.save";
 	public static final String PREF_DATE_SAVE_KEY = "pref_date_save_key";
@@ -246,10 +248,20 @@ public class MainActivity extends Activity implements SkinCallbacks{
 		mTemplatureUI = (RelativeLayout) findViewById(R.id.wendu_ui_show);
 		mTemplatureTen = (TextView) findViewById(R.id.templature_shi);
 		mTemplatureUnit = (TextView) findViewById(R.id.templature_ge);
-		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar);
+		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar); //TODO
 		initPicker();
 		initViewPager();
 		initEditModel();
+		initLiuliang();
+	}
+
+	private void initLiuliang() {
+		seekbar = (SeekBar) findViewById(R.id.seek_bar);
+
+		// 设置初值
+		seekbar.setMax(100);
+		seekbar.setProgress(0);
+		seekbar.setOnSeekBarChangeListener(this);
 	}
 
 	private void initEditModel() {
@@ -1019,4 +1031,52 @@ public class MainActivity extends Activity implements SkinCallbacks{
         params.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE;
         window.setAttributes(params);
     }
+	
+	
+	private SeekBar seekbar;
+
+	private int lastProgress = 0;
+	private int newProgress = 0;
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		if (progress > newProgress + 100 || progress < newProgress - 100)
+
+		{
+			newProgress = lastProgress;
+			seekBar.setProgress(lastProgress);
+			return;
+		}
+		newProgress = progress;
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		// TODO Auto-generated method stub
+		if (newProgress < 16) {
+			lastProgress = 0;
+			newProgress = 0;
+			seekBar.setProgress(0);
+		} else if (newProgress >= 16 && newProgress < 49) {
+			lastProgress = 33;
+			newProgress = 33;
+			seekBar.setProgress(33);
+		} else if (newProgress > 49 && newProgress <= 82) {
+			lastProgress = 66;
+			newProgress = 66;
+			seekBar.setProgress(66);
+
+		}  else {
+			lastProgress=100;
+            newProgress=100;
+            seekBar.setProgress(100);
+		}
+	}
 }

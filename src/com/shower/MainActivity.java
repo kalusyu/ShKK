@@ -6,14 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.shower.SkinController.SkinCallbacks;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
@@ -21,6 +21,7 @@ import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +45,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shower.SkinController.SkinCallbacks;
+
 public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarChangeListener{
 
 	public static final String PREF_SAVE = "com.shower.prefer.save";
@@ -51,9 +54,11 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	public static final String PREF_MODEL_SAVE_KEY = "pref_model_save_key";
 	public static final String PREF_TEMP_SAVE_KEY = "pref_temp_save_key";
 	public static final String PREF_FLOW_SAVE_KEY = "pref_flow_save_key";
+	public static final String PREF_FLOW_SEEK_SAVE_KEY = "pref_flow_seek_save_key";
 	public static final String FORMATTER = "yyyy-MM-dd HH:mm:ss";
 	public static final String DEFAULT_MODEL_DATA = "自定义（五）:女;常规模式:男;常规模式:女;常规模式:男;自定义（一）:女;";
 	
+	public static final int SEEK_VAR = 33;
 	interface OnShowerDateChangedListener {
 
         /**
@@ -199,10 +204,14 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		setCurrentTemplatrue(temp);
 		setTemplatureTag(0);
 		handleTemplature(0);
+		// useless
 		int flow = sp.getInt(PREF_FLOW_SAVE_KEY+current, mShower.getFlow());
 		setCurrentFlow(flow); 
 		setFlowTag(0);
 		handleFlow(flow);
+		// instead of above
+		newProgress = sp.getInt(PREF_FLOW_SEEK_SAVE_KEY + current, mShower.getFlow());
+		handSeekBarProgress(seekbar);
 	}
 
 	private void initWindowSize() {
@@ -423,6 +432,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			handleFlow(mFlowRate);
 			mShower.reduceFlow(1);
 		}
+		newProgress = lastProgress - SEEK_VAR;
+		handSeekBarProgress(seekbar);
 	}
 
 	public void flowPlus(View v) {
@@ -430,30 +441,29 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			handleFlow(mFlowRate);
 			mShower.addFlow(1);
 		}
+		newProgress = lastProgress + SEEK_VAR;
+		handSeekBarProgress(seekbar);
+		
 	}
 
 	// shower button
 	public void cepeng(View v) {
 		ImageView img = (ImageView) v;
-//		handShower(img, CEPENG, R.drawable.cepeng_btn, R.drawable.cepeng_btn_on);
 		handShowerButton(img,CEPENG);
 	}
 
 	public void dingpeng(View v) {
 		ImageView img = (ImageView) v;
-//		handShower(img, DINGPENG, R.drawable.dingpeng_btn, R.drawable.dingpeng_btn_on);
 		handShowerButton(img,DINGPENG);
 	}
 
 	public void pubu(View v) {
 		ImageView img = (ImageView) v;
-//		handShower(img, PUBU, R.drawable.pubu_btn, R.drawable.pubu_btn_on);
 		handShowerButton(img,PUBU);
 	}
 
 	public void shouchi(View v) {
 		ImageView img = (ImageView) v;
-//		handShower(img, SHOUCHI,R.drawable.shouchi_btn,R.drawable.shouchi_btn_on);
 		handShowerButton(img,SHOUCHI);
 	}
 
@@ -652,9 +662,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		mDatetimePicker = new PopupWindow(dateView,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-		mDatetimePicker.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.datetime_picker_bg)); 
-		mDatetimePicker.getBackground().setAlpha(0);
+		mDatetimePicker.setBackgroundDrawable(new ColorDrawable(0x55000000)); 
+//		mDatetimePicker.getBackground().setAlpha((int)(255*0.7));
 		mDatetimePicker.setOutsideTouchable(true);
 
 		// use system animation
@@ -977,17 +986,17 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 				mFirst.setVisibility(View.GONE);
 				mScond.setVisibility(View.VISIBLE);
 				
-				int month = mCurrentDate.get(Calendar.MONTH) + 1;
-				if (month > 2 && month <=5){
-					mBackground.setBackgroundResource(R.drawable.beijing_chun);
-				} else if (month > 5 && month <= 8){
-					mBackground.setBackgroundResource(R.drawable.beijing_xia);
-				} else if (month > 8 && month <= 11) {
-					mBackground.setBackgroundResource(R.drawable.beijing_qiu);
-				} else {
-					mBackground.setBackgroundResource(R.drawable.beijing_dong);
-				}
-				mController.isModel = false;
+//				int month = mCurrentDate.get(Calendar.MONTH) + 1;
+//				if (month > 2 && month <=5){
+//					mBackground.setBackgroundResource(R.drawable.beijing_chun);
+//				} else if (month > 5 && month <= 8){
+//					mBackground.setBackgroundResource(R.drawable.beijing_xia);
+//				} else if (month > 8 && month <= 11) {
+//					mBackground.setBackgroundResource(R.drawable.beijing_qiu);
+//				} else {
+//					mBackground.setBackgroundResource(R.drawable.beijing_dong);
+//				}
+//				mController.isModel = true;//TODO
 				displayAnima(mScond);
 			}
 		});
@@ -1021,7 +1030,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		int current = mPager.getCurrentItem();
 		SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
 		sp.edit().putInt(PREF_TEMP_SAVE_KEY+current, mTemplature)
-			.putInt(PREF_FLOW_SAVE_KEY+current, mFlowRate).apply();
+			.putInt(PREF_FLOW_SAVE_KEY+current, mFlowRate)
+			.putInt(PREF_FLOW_SEEK_SAVE_KEY+current, newProgress).apply();
 		Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 	}
 	
@@ -1041,9 +1051,7 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
-		if (progress > newProgress + 100 || progress < newProgress - 100)
-
-		{
+		if (progress > newProgress + 100 || progress < newProgress - 100){
 			newProgress = lastProgress;
 			seekBar.setProgress(lastProgress);
 			return;
@@ -1060,6 +1068,10 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub
+		handSeekBarProgress(seekBar);
+	}
+	
+	public void handSeekBarProgress(SeekBar seekBar){
 		if (newProgress < 16) {
 			lastProgress = 0;
 			newProgress = 0;
@@ -1079,4 +1091,16 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
             seekBar.setProgress(100);
 		}
 	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event)  {  
+        if (keyCode == KeyEvent.KEYCODE_BACK )  {  
+        	Intent i = new Intent(this,ResultActivity.class);
+        	i.putExtra("tempD", mTemplature);
+        	i.putExtra("timeD", 12);//TODO 需要填写使用时间
+        	i.putExtra("flowD", 96);
+        	startActivity(i);
+        	this.finish();
+        }  
+        return true;  
+    }  
 }

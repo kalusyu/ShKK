@@ -17,6 +17,12 @@ public interface IShower {
 	
 	void setFlow(int flow);
 	
+	/**
+	 * 流量以100分计算 33 代表一格
+	 * TODO
+	 * @return
+	 * 2014年11月17日 下午9:07:06
+	 */
 	int getFlow();
 	
 	void dingpengOn();

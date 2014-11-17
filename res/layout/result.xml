@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/today_shower_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400px"
+        android:text="今天您的淋浴数据......"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/txt_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200px"
+        android:layout_marginTop="40px"
+        android:textColor="#0000ff" />
+
+    <TextView
+        android:id="@+id/txt_flow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200px"
+        android:layout_marginTop="40px"
+        android:textColor="#0000ff" />
+
+    <TextView
+        android:id="@+id/txt_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200px"
+        android:layout_marginTop="40px"
+        android:textColor="#0000ff" />
+
+    <TextView
+        android:id="@+id/cm_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200px"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="请珍惜水资源 ●JOMOO 水科技" />
+
+</LinearLayout>

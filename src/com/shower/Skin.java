@@ -20,6 +20,7 @@ public class Skin {
 	// flow
 	int flowReduce, flowPlus;
 	String flowKuangName;
+	int seekDrawable;
 	
 	// shower buttons
 	int cepen,dingpen,pubu,shouchi;

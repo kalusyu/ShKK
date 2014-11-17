@@ -26,6 +26,11 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="sensorPortrait">
         </activity>
+        
+        <activity android:name=".ResultActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="sensorPortrait">
+        </activity>
     </application>
 
 </manifest>

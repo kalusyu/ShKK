@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
@@ -13,16 +13,17 @@
         android:layout_height="wrap_content"/>
     
     <include 
+        android:layout_marginTop="600px"
         android:id="@+id/wendu_ui_layout"
         layout="@layout/wendu_ui_layout"
-        android:layout_marginTop="-14px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     
     <include 
+        android:layout_marginTop="800px"
         android:id="@+id/liuliang_ui_layout"
         layout="@layout/liuliang_ui_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-</LinearLayout>
+</FrameLayout>

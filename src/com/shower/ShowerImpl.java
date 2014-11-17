@@ -2,6 +2,12 @@ package com.shower;
 
 public class ShowerImpl implements IShower{
 
+	MainActivity activity;
+	
+	public ShowerImpl(MainActivity mainActivity) {
+		activity = mainActivity;
+	}
+
 	@Override
 	public void addTemplatuer(int templature) {
 		// TODO Auto-generated method stub
@@ -107,6 +113,12 @@ public class ShowerImpl implements IShower{
 	public int getFlow() {
 		// TODO Auto-generated method stub
 		return 1;
+	}
+
+	
+	@Override
+	public void setShowerButtonState(boolean on) {
+		activity.setShowerButtonState(on);
 	}
 
 }

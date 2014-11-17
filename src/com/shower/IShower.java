@@ -34,4 +34,10 @@ public interface IShower {
 	void startShower();
 	void stopShower();
 	
+	/**
+	 * 设置中间按钮状态
+	 * @param on
+	 */
+	void setShowerButtonState(boolean on);
+	
 }

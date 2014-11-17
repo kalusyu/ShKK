@@ -146,7 +146,7 @@ public class MainActivity extends Activity implements SkinCallbacks{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		mShower = new ShowerImpl();
+		mShower = new ShowerImpl(this);
 		mController = new SkinController(this);
 
 		super.onCreate(savedInstanceState);
@@ -448,6 +448,17 @@ public class MainActivity extends Activity implements SkinCallbacks{
 	public void zhongjian(View v) {
 		ImageView img = (ImageView) v;
 		handShower(img, LAUNCH,R.drawable.zhongjian_btn,R.drawable.zhongjian_btn_on);
+	}
+	
+	public void setShowerButtonState(boolean on){
+		ImageView v = (ImageView) findViewById(R.id.center);
+		if (on){
+			v.setTag(ON);
+			v.setImageResource(R.drawable.zhongjian_btn_on);
+		} else {
+			v.setTag(OFF);
+			v.setImageResource(R.drawable.zhongjian_btn);
+		}
 	}
 	
 	public void handShowerButton(ImageView img,int type){

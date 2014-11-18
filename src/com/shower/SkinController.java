@@ -2,7 +2,11 @@ package com.shower;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -71,7 +75,7 @@ public class SkinController {
 		skin.flowKuangName = "liuliangtiao%d_qiu_normal";
 		skin.flowPlus = R.drawable.liuliang_p_btn_dong;
 		skin.flowReduce = R.drawable.liuliang_r_btn_dong;
-		skin.seekDrawable = R.drawable.seek_progress_drawable_dong;
+		skin.seekDrawable = R.drawable.liuliangtiao3_qiu_normal;
 	}
 
 	// Aut
@@ -97,7 +101,7 @@ public class SkinController {
 		skin.flowKuangName = "liuliangtiao%d_qiu_normal";
 		skin.flowPlus = R.drawable.liuliang_p_btn_qiu;
 		skin.flowReduce = R.drawable.liuliang_r_btn_qiu;
-		skin.seekDrawable = R.drawable.seek_progress_drawable_qiu;
+		skin.seekDrawable = R.drawable.liuliangtiao3_chun_normal;
 	}
 
 	// Summer
@@ -123,7 +127,7 @@ public class SkinController {
 		skin.flowKuangName = "liuliangtiao%d_xia_normal";
 		skin.flowPlus = R.drawable.liuliang_p_btn_xia;
 		skin.flowReduce = R.drawable.liuliang_r_btn_xia;
-		skin.seekDrawable = R.drawable.seek_progress_drawable_xia;
+		skin.seekDrawable = R.drawable.liuliangtiao3_xia_normal;
 	}
 
 	// Spring
@@ -146,7 +150,7 @@ public class SkinController {
 		skin.flowKuangName = "liuliangtiao%d_chun_normal";
 		skin.flowPlus = R.drawable.liuliang_p_btn;
 		skin.flowReduce = R.drawable.liuliang_r_btn;
-		skin.seekDrawable = R.drawable.seek_progress_drawable;
+		skin.seekDrawable = R.drawable.liuliangtiao3_chun_normal;
 	}
 
 	public void setSkin(int type) {
@@ -168,7 +172,7 @@ public class SkinController {
 		top.setTag(null);
 		right.setTag(null);
 		bottom.setTag(null);
-		Drawable progressDrawable;
+		LayerDrawable progressDrawable = null;
 		
 		switch (type) {
 		case CHUN:
@@ -181,7 +185,7 @@ public class SkinController {
 			flowDrawableName = mSkin[0].flowKuangName;
 			flowReduce.setImageResource(mSkin[0].flowReduce);
 			flowPlus.setImageResource(mSkin[0].flowPlus);
-//			seekbar.setProgressDrawable(mCtx.getResources().getDrawable(mSkin[0].seekDrawable));
+			changeSeekbarSkin(progressDrawable,seekbar,mSkin[0].seekDrawable);
 			
 			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[0].cepen,mSkin[0].cepenon);
 			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[0].dingpen,mSkin[0].dingpenon);
@@ -198,7 +202,7 @@ public class SkinController {
 			flowDrawableName = mSkin[1].flowKuangName;
 			flowReduce.setImageResource(mSkin[1].flowReduce);
 			flowPlus.setImageResource(mSkin[1].flowPlus);
-//			seekbar.setProgressDrawable(mCtx.getResources().getDrawable(mSkin[1].seekDrawable));
+			changeSeekbarSkin(progressDrawable,seekbar,mSkin[1].seekDrawable);			
 			
 			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[1].cepen,mSkin[1].cepenon);
 			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[1].dingpen,mSkin[1].dingpenon);
@@ -216,10 +220,7 @@ public class SkinController {
 			flowDrawableName = mSkin[2].flowKuangName;
 			flowReduce.setImageResource(mSkin[2].flowReduce);
 			flowPlus.setImageResource(mSkin[2].flowPlus);
-//			progressDrawable = mCtx.getResources().getDrawable(mSkin[2].seekDrawable);
-//			progressDrawable.setBounds(0,0,134,16);
-//			seekbar.setProgressDrawable(progressDrawable);
-//			seekbar.setProgress(0);
+			changeSeekbarSkin(progressDrawable,seekbar,mSkin[2].seekDrawable);
 			
 			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[2].cepen,mSkin[2].cepenon);
 			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[2].dingpen,mSkin[2].dingpenon);
@@ -236,7 +237,7 @@ public class SkinController {
 			flowDrawableName = mSkin[3].flowKuangName;
 			flowReduce.setImageResource(mSkin[3].flowReduce);
 			flowPlus.setImageResource(mSkin[3].flowPlus);
-//			seekbar.setProgressDrawable(mCtx.getResources().getDrawable(mSkin[3].seekDrawable));
+			changeSeekbarSkin(progressDrawable,seekbar,mSkin[3].seekDrawable);
 			
 			mCallbacks.handShower(left, MainActivity.CEPENG, mSkin[3].cepen,mSkin[3].cepenon);
 			mCallbacks.handShower(top, MainActivity.DINGPENG, mSkin[3].dingpen,mSkin[3].dingpenon);
@@ -248,7 +249,36 @@ public class SkinController {
 			break;
 		}
 	}
-
+	
+	public void changeSeekbarSkin(LayerDrawable progressDrawable, SeekBar seekbar,int typeResource){
+		LayerDrawable layerDrawable = (LayerDrawable)seekbar.getProgressDrawable();
+		Drawable[] out = new Drawable[layerDrawable.getNumberOfLayers()];
+		for (int i=0,size=out.length; i < size; i++){
+			switch(layerDrawable.getId(i)){
+			case android.R.id.background:
+				out[i] = mCtx.getResources().getDrawable(R.drawable.liuliangkuang_normal);
+				break;
+			case android.R.id.secondaryProgress:
+				out[i] = mCtx.getResources().getDrawable(R.drawable.liuliangkuang_normal);
+				break;
+			case android.R.id.progress:
+				Drawable drawable = mCtx.getResources().getDrawable(typeResource);
+				ClipDrawable oidDrawable = (ClipDrawable) layerDrawable
+						.getDrawable(i);
+				ClipDrawable proDrawable = new ClipDrawable(drawable,Gravity.LEFT, ClipDrawable.HORIZONTAL);
+				proDrawable.setLevel(oidDrawable.getLevel());
+				out[i] = proDrawable;
+				break;
+				default:
+					break;
+			}
+		}
+		if (out[0] != null && out[1] != null && out[2] != null){
+			progressDrawable = new LayerDrawable(out);
+			seekbar.setProgressDrawable(progressDrawable);
+		}
+	}
+	
 	private void setBackground(View v, boolean isModel, Skin skin) {
 		if (isModel){
 			v.setBackgroundResource(skin.mBeijingModel);

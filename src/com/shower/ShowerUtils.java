@@ -25,7 +25,7 @@ public class ShowerUtils {
         bmp.compress(Bitmap.CompressFormat.JPEG, 10, baos);
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
 		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
-
+		view.destroyDrawingCache();
         return bitmap;
     }
 	

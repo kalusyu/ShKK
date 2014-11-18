@@ -276,6 +276,7 @@ public class SkinController {
 			l.setId(2, android.R.id.progress);
 			seekbar.setProgressDrawable(l);
 			seekbar.setThumb(mCtx.getResources().getDrawable(R.drawable.liulianganniu_normal));
+			seekbar.setThumbOffset(0);
 		} 
 	}
 	

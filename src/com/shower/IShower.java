@@ -46,4 +46,8 @@ public interface IShower {
 	 */
 	void setShowerButtonState(boolean on);
 	
+	int getShowerFlow();
+	
+	int getShowerTime();
+	
 }

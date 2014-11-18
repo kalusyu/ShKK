@@ -1,5 +1,6 @@
 package com.shower;
 
+
 public class ShowerImpl implements IShower{
 
 	MainActivity activity;
@@ -119,6 +120,18 @@ public class ShowerImpl implements IShower{
 	@Override
 	public void setShowerButtonState(boolean on) {
 		activity.setShowerButtonState(on);
+	}
+
+	@Override
+	public int getShowerFlow() {
+		// TODO Auto-generated method stub
+		return  (int)(Math.random() * 100);//test
+	}
+
+	@Override
+	public int getShowerTime() {
+		// TODO Auto-generated method stub
+		return (int)(Math.random() * 1000);//test
 	}
 
 }

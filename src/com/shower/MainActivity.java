@@ -1103,8 +1103,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
         if (keyCode == KeyEvent.KEYCODE_BACK )  {  
         	Intent i = new Intent(this,ResultActivity.class);
         	i.putExtra("tempD", mTemplature);
-        	i.putExtra("timeD", 12);//TODO 需要填写使用时间
-        	i.putExtra("flowD", 96);
+        	i.putExtra("timeD", mShower.getShowerTime());//TODO 需要填写使用时间 
+        	i.putExtra("flowD", mShower.getShowerFlow());
         	startActivity(i);
         	this.finish();
         }  

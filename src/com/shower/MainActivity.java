@@ -165,6 +165,7 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		
 		// hide virtual key
 		enterLightsOutMode(getWindow());
+		mBackground.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LOW_PROFILE);
 	}
 	
 	@Override
@@ -1045,7 +1046,7 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	//TODO hide virtual key
 	public static void enterLightsOutMode(Window window) {
         WindowManager.LayoutParams params = window.getAttributes();
-        params.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         window.setAttributes(params);
     }
 	

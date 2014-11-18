@@ -75,7 +75,7 @@ public class SkinController {
 		skin.flowKuangName = "liuliangtiao%d_qiu_normal";
 		skin.flowPlus = R.drawable.liuliang_p_btn_dong;
 		skin.flowReduce = R.drawable.liuliang_r_btn_dong;
-		skin.seekDrawable = R.drawable.liuliangtiao3_qiu_normal;
+		skin.seekDrawable = R.drawable.liuliangtiao3_dong_normal;
 	}
 
 	// Aut

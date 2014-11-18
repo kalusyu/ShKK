@@ -7,10 +7,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -649,6 +649,11 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	}
 
 	public void setDateTime(View v) {
+		Bitmap bmp = ShowerUtils.blurBitmap(ShowerUtils.getScreenShortcut(this,mWindowWidth,mWindowHeight),this);
+		ImageView iv = new ImageView(this);
+		iv.setImageBitmap(bmp);
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.main_bg);
+		rl.addView(iv);
 		mDatetimePicker.showAtLocation(v, Gravity.RIGHT | Gravity.BOTTOM, 0, 100);
 	}
 	
@@ -676,6 +681,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 
 			@Override
 			public void onDismiss() {
+				RelativeLayout rl = (RelativeLayout) findViewById(R.id.main_bg);
+				rl.removeViewAt(rl.getChildCount() - 1);;
 				mDateTimePickerBg.setBackgroundResource(R.drawable.datetime_picker);
 				setAddReduceVisible(Integer.MAX_VALUE);
 				saveDate();

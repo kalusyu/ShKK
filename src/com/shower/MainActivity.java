@@ -155,7 +155,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	protected void onCreate(Bundle savedInstanceState) {
 		mShower = new ShowerImpl(this);
 		mController = new SkinController(this);
-
+//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION); 
 		super.onCreate(savedInstanceState);
 		
 		// 1024 * 600
@@ -164,8 +165,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		initWindowSize();
 		
 		// hide virtual key
-		enterLightsOutMode(getWindow());
-		mBackground.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LOW_PROFILE);
+//		enterLightsOutMode(getWindow());
+//		mBackground.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LOW_PROFILE);
 	}
 	
 	@Override
@@ -1046,7 +1047,7 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	//TODO hide virtual key
 	public static void enterLightsOutMode(Window window) {
         WindowManager.LayoutParams params = window.getAttributes();
-        params.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE;
         window.setAttributes(params);
     }
 	

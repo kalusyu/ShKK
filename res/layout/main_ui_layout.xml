@@ -5,15 +5,6 @@
     android:gravity="center_vertical|center_horizontal"
     android:orientation="horizontal" >
 
-    <FrameLayout
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -22,8 +13,8 @@
                     android:id="@+id/center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="90dip"
-                    android:layout_marginTop="85dip"
+                    android:layout_marginLeft="184px"
+                    android:layout_marginTop="180px"
                     android:clickable="true"
                     android:onClick="zhongjian"
                     android:src="@drawable/zhongjian_btn" />
@@ -32,41 +23,46 @@
                     android:id="@+id/left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dip"
+                    android:layout_marginTop="100px"
                     android:clickable="true"
                     android:onClick="cepeng"
+                    android:src="@drawable/cepeng_btn"
                      />
 
                 <com.shower.ArcButton
                     android:id="@+id/bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dip"
-                    android:layout_marginTop="175dip"
+                    android:layout_marginTop="370px"
+                    android:layout_gravity="center_horizontal"
                     android:clickable="true"
+                    android:layout_marginLeft="10px"
                     android:onClick="shouchi"
-                     />
-
-                <com.shower.ArcButton
-                    android:id="@+id/right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="175dip"
-                    android:layout_marginTop="40dip"
-                    android:clickable="true"
-                    android:onClick="pubu"
+                    android:src="@drawable/shouchi_btn"
                      />
 
                 <com.shower.ArcButton
                     android:id="@+id/top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dip"
                     android:clickable="true"
                     android:onClick="dingpeng"
+                    android:layout_marginTop="10px"
+                    android:layout_marginLeft="10px"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/dingpeng_btn"
                      />
+
+                <com.shower.ArcButton
+                    android:id="@+id/right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="360px"
+                    android:layout_marginTop="100px"
+                    android:clickable="true"
+                    android:onClick="pubu"
+                    android:src="@drawable/pubu_btn" />
+
             </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
 
 </LinearLayout>

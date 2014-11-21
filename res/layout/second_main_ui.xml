@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"/>
     
     <include 
-        android:layout_marginTop="800px"
+        android:layout_marginTop="750px"
         android:id="@+id/liuliang_ui_layout"
         layout="@layout/liuliang_ui_layout"
         android:layout_width="match_parent"

@@ -26,7 +26,6 @@
                     android:layout_marginTop="100px"
                     android:clickable="true"
                     android:onClick="cepeng"
-                    android:src="@drawable/cepeng_btn"
                      />
 
                 <com.shower.ArcButton
@@ -38,7 +37,6 @@
                     android:clickable="true"
                     android:layout_marginLeft="10px"
                     android:onClick="shouchi"
-                    android:src="@drawable/shouchi_btn"
                      />
 
                 <com.shower.ArcButton
@@ -50,7 +48,6 @@
                     android:layout_marginTop="10px"
                     android:layout_marginLeft="10px"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/dingpeng_btn"
                      />
 
                 <com.shower.ArcButton
@@ -61,7 +58,7 @@
                     android:layout_marginTop="100px"
                     android:clickable="true"
                     android:onClick="pubu"
-                    android:src="@drawable/pubu_btn" />
+                   />
 
             </FrameLayout>
 

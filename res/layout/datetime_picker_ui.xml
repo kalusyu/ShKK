@@ -16,16 +16,20 @@
         android:gravity="center_vertical"
         android:orientation="vertical" >
 
-        <!-- <ImageView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dip"
             android:clickable="true"
-            android:padding="15dip"
-            android:src="@drawable/rilingtou_shang_btn" /> -->
+            android:visibility="gone"
+            android:id="@+id/addYear"
+            android:onClick="addYear"
+            android:src="@drawable/rilingtou_shang_btn" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:onClick="yearOnClick" >
 
             <TextView
                 android:id="@+id/year"
@@ -49,12 +53,15 @@
                 android:textSize="8dip" />
         </RelativeLayout>
 
-        <!-- <ImageView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:padding="15dip"
-            android:src="@drawable/rilingtou_xia_btn" /> -->
+            android:padding="10dip"
+            android:visibility="gone"
+            android:id="@+id/reduceYear"
+            android:onClick="reduceYear"
+            android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 
     <!-- 月 -->

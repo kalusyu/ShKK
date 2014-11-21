@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/model_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="292px"
+        android:layout_height="332px"
         android:layout_centerHorizontal="true"
         android:background="@drawable/mokuaikapian_shang_btn"
         android:padding="20dip"
@@ -18,9 +18,10 @@
 
     <TextView
         android:id="@+id/model_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="292px"
+        android:layout_height="100px"
+        android:layout_marginTop="-10px"
+        android:layout_below="@+id/model_photo"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:background="@drawable/mokuaikapian_xia_btn"
@@ -28,6 +29,6 @@
         android:onClick="modelText"
         android:text="常规模式"
         android:textColor="#ffffff"
-        android:textSize="11.21dip" />
+        android:textSize="11.21px" />
 
 </RelativeLayout>

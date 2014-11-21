@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_bg"
+    android:onClick="fullScreen"
     android:background="@drawable/beijing_model_chun"
     android:gravity="center_horizontal" >
     
@@ -58,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="10px"
             android:layout_weight="2" 
             android:clickable="true"
             android:src="@drawable/dengguan_btn">
@@ -66,6 +68,7 @@
             android:id="@+id/main_music_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
             android:layout_weight="2"
             android:layout_gravity="center_vertical"
             android:clickable="true"
@@ -75,6 +78,7 @@
             android:id="@+id/main_lanya_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
             android:layout_weight="2" 
             android:layout_gravity="center_vertical"
             android:clickable="true"
@@ -84,14 +88,15 @@
             android:id="@+id/main_datetime_text_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
             android:layout_weight="1.45"
             android:clickable="true"
             android:text="21:30"
             android:onClick="setDateTime"
             android:gravity="center"
-            android:textSize="20dip"
+            android:textSize="20px"
             android:textColor="@color/time_color">
         </TextView>
     </LinearLayout>
-
+	<requestFocus />
 </RelativeLayout>

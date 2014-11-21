@@ -11,8 +11,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -136,6 +138,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	
 	// date time
 	LinearLayout mDateTimePickerBg;
+	ImageView addYear;
+	ImageView reduceYear;
 	ImageView addMonth;
 	ImageView reduceMonth;
 	ImageView addDay;
@@ -156,7 +160,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		mShower = new ShowerImpl(this);
 		mController = new SkinController(this);
 //		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION); 
+//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//		enterLightsOutMode(getWindow());
 		super.onCreate(savedInstanceState);
 		
 		// 1024 * 600
@@ -165,8 +170,21 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		initWindowSize();
 		
 		// hide virtual key
-//		enterLightsOutMode(getWindow());
+		
 //		mBackground.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LOW_PROFILE);
+	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+	}
+	
+	public void fullScreen(View v){
+		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+		mBackground.requestFocus();
 	}
 	
 	@Override
@@ -711,6 +729,23 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			e.printStackTrace();
 		}
 	}
+	
+	public void addYear(View v) {
+		int oldVal = mCurrentDate.get(Calendar.YEAR);
+		int newVal = oldVal + 1;
+		onChangeYear(oldVal, newVal);
+	}
+	
+	public void reduceYear(View v) {
+		int oldVal = mCurrentDate.get(Calendar.YEAR);
+		int newVal = oldVal - 1;
+		onChangeYear(oldVal, newVal);
+	}
+	
+	public void onChangeYear(int oldVal, int newVal){
+        mCurrentDate.add(Calendar.YEAR, newVal - oldVal);
+		notifyDateChanged();
+	}
 
 	public void addMonth(View v) {
 		int oldVal = mCurrentDate.get(Calendar.MONTH);
@@ -808,6 +843,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	}
 	
 	private void initPopupUI(View dateView) {
+		addYear = (ImageView)dateView.findViewById(R.id.addYear);
+		reduceYear = (ImageView)dateView.findViewById(R.id.reduceYear);
 		addMonth = (ImageView)dateView.findViewById(R.id.addMonth);
 		reduceMonth = (ImageView)dateView.findViewById(R.id.reduceMonth);
 		addDay = (ImageView)dateView.findViewById(R.id.addDay);
@@ -829,10 +866,29 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		
 	}
 
+	public static final int SHOWER_YEAR = -105;
 	public static final int SHOWER_MONTH = -101;
 	public static final int SHOWER_DAY = -102;
 	public static final int SHOWER_HOUR = -103;
 	public static final int SHOWER_MINUTE = -104;
+	public void yearOnClick(View v) {
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeResource(getResources(), R.drawable.datetime_picker_year,options);
+		
+		int inSample = 1;
+		if (options.outWidth > 467 && options.outHeight > 255){
+			inSample = Math.max((int)Math.ceil((float)options.outWidth/467), (int)Math.ceil((float)options.outHeight / 255));
+		}
+		options.inJustDecodeBounds = false;
+		options.inSampleSize = inSample;
+		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.datetime_picker_year, options);
+		
+		
+		mDateTimePickerBg.setBackground(new BitmapDrawable(getResources(), bmp));
+		setAddReduceVisible(SHOWER_YEAR);
+	}
+	
 	public void monthOnClick(View v) {
 		mDateTimePickerBg.setBackgroundResource(R.drawable.datetime_picker_month);
 		setAddReduceVisible(SHOWER_MONTH);
@@ -855,6 +911,26 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	
 	private void setAddReduceVisible(int showerMonth) {
 		switch(showerMonth){
+		case SHOWER_YEAR:
+			addYear.setVisibility(View.VISIBLE);
+			reduceYear.setVisibility(View.VISIBLE);
+			addMonth.setVisibility(View.GONE);
+			reduceMonth.setVisibility(View.GONE);
+			addDay.setVisibility(View.GONE);
+			reduceDay.setVisibility(View.GONE);
+			addHour.setVisibility(View.GONE);
+			reduceHour.setVisibility(View.GONE);
+			addMinute.setVisibility(View.GONE);
+			reduceMinute.setVisibility(View.GONE);
+			mYearText.setTextColor(Color.parseColor("#3bb1fe"));
+			mYearHanzi.setTextColor(Color.parseColor("#3bb1fe"));
+			mMonthText.setTextColor(Color.parseColor("#ffffff"));
+			mMonthHanzi.setTextColor(Color.parseColor("#ffffff"));
+			mDayHanzi.setTextColor(Color.parseColor("#ffffff"));
+			mDayText.setTextColor(Color.parseColor("#ffffff"));
+			mHourText.setTextColor(Color.parseColor("#ffffff"));
+			mMinuteText.setTextColor(Color.parseColor("#ffffff"));
+			break;
 		case SHOWER_MONTH:
 			addMonth.setVisibility(View.VISIBLE);
 			reduceMonth.setVisibility(View.VISIBLE);

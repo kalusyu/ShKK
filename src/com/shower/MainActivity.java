@@ -154,6 +154,10 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	TextView mYearHanzi,mMonthHanzi,mDayHanzi;
 	
 	int mCurrentModelPage;
+	
+	PopupWindow mColorPop;
+	
+	PopupWindow mMusicPop;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +201,12 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		setUIEnable(false);
 		if (mDatetimePicker.isShowing()){
 			mDatetimePicker.dismiss();
+		}
+		if (mColorPop.isShowing()){
+			mColorPop.dismiss();
+		}
+		if (mMusicPop.isShowing()){
+			mMusicPop.dismiss();
 		}
 		mController.isModel = true;
 		changeSkin(mCurrentDate);
@@ -282,6 +292,78 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		initViewPager();
 		initEditModel();
 		initLiuliang();
+		
+		initColorPop();
+		initMusicPop();
+	}
+	
+	private void initMusicPop() {
+		View dateView = getLayoutInflater().inflate(R.layout.music_main_ui_layout, null);
+		mMusicPop = new PopupWindow(dateView,
+				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
+				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+		mMusicPop.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.dengbiaoyanse_bai_normal)); 
+		mMusicPop.getBackground().setAlpha(0);
+		mMusicPop.setOutsideTouchable(false); // set false
+
+		// use system animation
+		mMusicPop.setAnimationStyle(android.R.style.Animation_Dialog);
+		mMusicPop.update();
+		mMusicPop.setTouchable(true);
+		mMusicPop.setFocusable(true);
+		
+		mMusicPop.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				RelativeLayout rl = (RelativeLayout) findViewById(R.id.main_bg);
+				rl.removeViewAt(rl.getChildCount() - 1);;
+				saveMusic();
+			}
+
+			private void saveMusic() {
+				// TODO
+//				String date = new SimpleDateFormat(FORMATTER).format(mCurrentDate.getTime());
+//				SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
+//				sp.edit().putString(PREF_DATE_SAVE_KEY, date).apply();
+			}
+		});
+	}
+
+	private void initColorPop() {
+		View dateView = getLayoutInflater().inflate(R.layout.color_main_ui_layout, null);
+//		initEditModelUI(dateView);
+		mColorPop = new PopupWindow(dateView,
+				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
+				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+		mColorPop.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.dengbiaoyanse_bai_normal)); 
+		mColorPop.getBackground().setAlpha(0);
+		mColorPop.setOutsideTouchable(false); // set false
+
+		// use system animation
+		mColorPop.setAnimationStyle(android.R.style.Animation_Dialog);
+		mColorPop.update();
+		mColorPop.setTouchable(true);
+		mColorPop.setFocusable(true);
+		
+		mColorPop.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				RelativeLayout rl = (RelativeLayout) findViewById(R.id.main_bg);
+				rl.removeViewAt(rl.getChildCount() - 1);;
+				saveColor();
+			}
+
+			private void saveColor() {
+				// TODO
+//				String date = new SimpleDateFormat(FORMATTER).format(mCurrentDate.getTime());
+//				SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
+//				sp.edit().putString(PREF_DATE_SAVE_KEY, date).apply();
+			}
+		});
 	}
 
 	private void initLiuliang() {
@@ -675,6 +757,24 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.main_bg);
 		rl.addView(iv);
 		mDatetimePicker.showAtLocation(v, Gravity.RIGHT | Gravity.BOTTOM, 0, 100);
+	}
+	
+	public void musicClick(View v){
+		Bitmap bmp = ShowerUtils.blurBitmap(ShowerUtils.getScreenShortcut(this,mWindowWidth,mWindowHeight),this);
+		ImageView iv = new ImageView(this);
+		iv.setImageBitmap(bmp);
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.main_bg);
+		rl.addView(iv);
+		mMusicPop.showAtLocation(v, Gravity.CENTER | Gravity.BOTTOM, 0, 100);
+	}
+	
+	public void colorClick(View v){
+		Bitmap bmp = ShowerUtils.blurBitmap(ShowerUtils.getScreenShortcut(this,mWindowWidth,mWindowHeight),this);
+		ImageView iv = new ImageView(this);
+		iv.setImageBitmap(bmp);
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.main_bg);
+		rl.addView(iv);
+		mColorPop.showAtLocation(v, Gravity.LEFT | Gravity.BOTTOM, 0, 100);
 	}
 	
 	private void initPicker(){

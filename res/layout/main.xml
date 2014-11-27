@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="10px"
+            android:onClick="colorClick"
             android:layout_weight="2" 
             android:clickable="true"
             android:src="@drawable/dengguan_btn">
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10px"
             android:layout_weight="2"
+            android:onClick="musicClick"
             android:layout_gravity="center_vertical"
             android:clickable="true"
             android:src="@drawable/yinyue_btn">

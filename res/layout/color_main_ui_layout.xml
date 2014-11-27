@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dengguangzijiemianbeijing_normal"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <com.shower.VerticalSeekBar
+            android:id="@+id/color_seek_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="281px"
+            android:progressDrawable="@drawable/vertical_seek_progress_drawable"
+            android:thumb="@drawable/dengguangqiangruoanniu_normal"
+            android:thumbOffset="0dip" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/color_seek_bar"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/dengbiaoyanse_fenhong_normal" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <com.shower.ArcButton
+                        android:id="@+id/shenlan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="115dip"
+                        android:layout_marginTop="115dip"
+                        android:src="@drawable/shenlan_btn"
+                        android:clickable="true"
+                        android:onClick="shenlan" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/zise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="133dip"
+                        android:layout_marginTop="90dip"
+                        android:src="@drawable/zi_btn"
+                        android:clickable="true"
+                        android:onClick="zise" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/fenhong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="132dip"
+                        android:layout_marginTop="50dip"
+                        android:src="@drawable/fenhong_btn"
+                        android:clickable="true"
+                        android:onClick="fenhong" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/hongse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="116dip"
+                        android:layout_marginTop="24dip"
+                        android:src="@drawable/hong_btn"
+                        android:clickable="true"
+                        android:onClick="hongse" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/juhong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="95dip"
+                        android:layout_marginTop="13dip"
+                        android:src="@drawable/juhong_btn"
+                        android:clickable="true"
+                        android:onClick="juhong" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/chengse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="57dip"
+                        android:layout_marginTop="13dip"
+                        android:src="@drawable/chengse_btn"
+                        android:clickable="true"
+                        android:onClick="chengse" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/tuhuang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dip"
+                        android:layout_marginTop="23dip"
+                        android:src="@drawable/tuhuang_btn"
+                        android:clickable="true"
+                        android:onClick="tuhuang" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/huangse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dip"
+                        android:layout_marginTop="51dip"
+                        android:src="@drawable/huang_btn"
+                        android:clickable="true"
+                        android:onClick="huangse" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/caolvse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dip"
+                        android:layout_marginTop="90dip"
+                        android:src="@drawable/caolv_btn"
+                        android:clickable="true"
+                        android:onClick="caolvse" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/lvse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="28dip"
+                        android:layout_marginTop="113dip"
+                        android:src="@drawable/lv_btn"
+                        android:clickable="true"
+                        android:onClick="lvse" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/hulan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="55dip"
+                        android:layout_marginTop="130dip"
+                        android:src="@drawable/hulan_btn"
+                        android:clickable="true"
+                        android:onClick="hulan" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/gulan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="95dip"
+                        android:layout_marginTop="130dip"
+                        android:src="@drawable/gulan_btn"
+                        android:clickable="true"
+                        android:onClick="gulan" />
+
+                    <ImageView
+                        android:id="@+id/center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="133px"
+                        android:layout_marginTop="128px"
+                        android:clickable="true"
+                        android:onClick="colorzhongjian"
+                        android:src="@drawable/yansexianshi_caolv_normal" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

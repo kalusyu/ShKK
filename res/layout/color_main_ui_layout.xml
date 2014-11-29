@@ -171,7 +171,6 @@
                         android:layout_marginLeft="133px"
                         android:layout_marginTop="128px"
                         android:clickable="true"
-                        android:onClick="colorzhongjian"
                         android:src="@drawable/yansexianshi_caolv_normal" />
                 </FrameLayout>
             </LinearLayout>

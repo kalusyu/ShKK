@@ -19,7 +19,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -328,7 +332,7 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		mTemplatureUI = (RelativeLayout) findViewById(R.id.wendu_ui_show);
 		mTemplatureTen = (TextView) findViewById(R.id.templature_shi);
 		mTemplatureUnit = (TextView) findViewById(R.id.templature_ge);
-		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar); //TODO
+		mFlowScrollBar = (ImageView) findViewById(R.id.flow_scroll_bar); 
 		initPicker();
 		initViewPager();
 		initEditModel();
@@ -379,9 +383,38 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	MediaPlayer mPlayer = new MediaPlayer();
 	ArrayList<String> mLists = new ArrayList<String>();
 	private int currIndex = 0;
+	VerticalSeekBar mMusicSoundSeekBar;
 	private void initMusicUI(View dateView) {
 		mTextMusicTitle = (TextView) dateView.findViewById(R.id.music_title);
 		mTextMusicAuthor = (TextView) dateView.findViewById(R.id.music_author);
+		mMusicSoundSeekBar = (VerticalSeekBar) dateView.findViewById(R.id.music_seek_bar);
+		AudioManager mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+		int currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		mMusicSoundSeekBar.setMax(maxVolume);
+		mMusicSoundSeekBar.setProgress(currentVolume);
+		mMusicSoundSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				AudioManager mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+				mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);    
+                int currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);  //获取当前值  
+                mMusicSoundSeekBar.setProgress(currentVolume);    
+			}
+		});
 	}
 	
 	private boolean checkLoadedMusicData(){
@@ -465,7 +498,7 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 
 	private void initColorPop() {
 		View dateView = getLayoutInflater().inflate(R.layout.color_main_ui_layout, null);
-//		initEditModelUI(dateView);
+		initColorUI(dateView);
 		mColorPop = new PopupWindow(dateView,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
@@ -494,6 +527,32 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 //				String date = new SimpleDateFormat(FORMATTER).format(mCurrentDate.getTime());
 //				SharedPreferences sp = getSharedPreferences(PREF_SAVE, Context.MODE_PRIVATE);
 //				sp.edit().putString(PREF_DATE_SAVE_KEY, date).apply();
+			}
+		});
+	}
+
+	private void initColorUI(View dateView) {
+		mImageColor = (ImageView) dateView.findViewById(R.id.center);
+		mColorSeekBar = (VerticalSeekBar) dateView.findViewById(R.id.color_seek_bar);
+		mColorSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
@@ -1409,4 +1468,104 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
         }  
         return true;  
     }  
+	
+	// color
+	private ImageView mImageColor;
+	private VerticalSeekBar mColorSeekBar;
+	
+	public void handColorUI(int centerRes,int seekbarResource){
+		mImageColor.setImageResource(centerRes);
+		changeSeekbarSkin(mColorSeekBar,seekbarResource);
+	}
+	
+	public void changeSeekbarSkin(SeekBar seekbar,int typeResource){
+		LayerDrawable layerDrawable = (LayerDrawable)seekbar.getProgressDrawable();
+		Drawable[] out = new Drawable[layerDrawable.getNumberOfLayers()];
+		for (int i=0,size=out.length; i < size; i++){
+			switch(layerDrawable.getId(i)){
+			case android.R.id.background:
+				out[i] = getResources().getDrawable(R.drawable.dengguangqiangruokuang_normal);
+				break;
+			case android.R.id.secondaryProgress:
+				out[i] = getResources().getDrawable(R.drawable.dengguangqiangruokuang_normal);
+				break;
+			case android.R.id.progress:
+				Drawable drawable = getResources().getDrawable(typeResource);
+				ClipDrawable oidDrawable = (ClipDrawable) layerDrawable
+						.getDrawable(i);
+				ClipDrawable proDrawable = new ClipDrawable(drawable,Gravity.LEFT, ClipDrawable.HORIZONTAL);
+				proDrawable.setLevel(oidDrawable.getLevel());
+				out[i] = proDrawable;
+				break;
+				default:
+					break;
+			}
+		}
+		if (out[0] != null && out[1] != null && out[2] != null){
+			LayerDrawable l = new LayerDrawable(out);
+			l.setId(0, android.R.id.background);
+			l.setId(1, android.R.id.secondaryProgress);
+			l.setId(2, android.R.id.progress);
+			seekbar.setProgressDrawable(l);
+			seekbar.setThumb(getResources().getDrawable(R.drawable.dengguangqiangruoanniu_normal));
+			seekbar.setThumbOffset(0);
+		} 
+	}
+	
+	public void shenlan(View v){
+		handColorUI(R.drawable.yansexianshi_shenlan_normal,R.drawable.dengguangqiangruotiaoshang_shenlan_normal);
+		mShower.setBulbColor("shenlan");
+	}
+	
+	public void zise(View v){
+		handColorUI(R.drawable.yansexianshi_zi_normal,R.drawable.dengguangqiangruotiaoshang_zi_normal);
+		mShower.setBulbColor("zise");
+	}
+	
+	public void fenhong(View v){
+		handColorUI(R.drawable.yansexianshi_fenhong_normal,R.drawable.dengguangqiangruotiaoshang_fenhong_normal);
+		mShower.setBulbColor("fenhong");
+	}
+	
+	public void hongse(View v){
+		handColorUI(R.drawable.yansexianshi_hong_normal,R.drawable.dengguangqiangruotiaoshang_hong_normal);
+		mShower.setBulbColor("hongse");
+	}
+	public void juhong(View v){
+		handColorUI(R.drawable.yansexianshi_juhong_normal,R.drawable.dengguangqiangruotiaoshang_juhong_normal);
+		mShower.setBulbColor("juhong");
+	}
+	
+	public void chengse(View v){
+		handColorUI(R.drawable.yansexianshi_cheng_normal,R.drawable.dengguangqiangruotiaoshang_cheng_normal);
+		mShower.setBulbColor("chengse");
+	}
+	public void tuhuang(View v){
+		handColorUI(R.drawable.yansexianshi_tuhuang_normal,R.drawable.dengguangqiangruotiaoshang_tuhuang_normal);
+		mShower.setBulbColor("tuhuang");
+	}
+	
+	public void huangse(View v){
+		handColorUI(R.drawable.yansexianshi_huang_normal,R.drawable.dengguangqiangruotiaoshang_huang_normal);
+		mShower.setBulbColor("huangse");
+	}
+	public void caolvse(View v){
+		handColorUI(R.drawable.yansexianshi_caolv_normal,R.drawable.dengguangqiangruotiaoshang_caolv__normal);
+		mShower.setBulbColor("caolvse");
+	}
+	
+	public void lvse(View v){
+		handColorUI(R.drawable.yansexianshi_lv_normal,R.drawable.dengguangqiangruotiaoshang_lv_normal);
+		mShower.setBulbColor("lvse");
+	}
+	
+	public void hulan(View v){
+		handColorUI(R.drawable.yansexianshi_hulan_normal,R.drawable.dengguangqiangruotiaoshang_hulan_normal);
+		mShower.setBulbColor("hulan");
+	}
+	
+	public void gulan(View v){
+		handColorUI(R.drawable.yansexianshi_gulan_normal,R.drawable.dengguangqiangruotiaoshang_gulan_normal);
+		mShower.setBulbColor("gulan");
+	}
 }

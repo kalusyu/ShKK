@@ -1,8 +1,11 @@
 package com.shower;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,13 +13,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Audio.Media;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -172,12 +180,45 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		setContentView(R.layout.main);
 		initUI();
 		initWindowSize();
+		initMusicData();
 		
 		// hide virtual key
 		
 //		mBackground.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LOW_PROFILE);
 	}
 	
+	private void initMusicData() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separatorChar + "Music" ;
+				search(new File(dir),new String[]{"mp3"});
+			}
+		}).start();
+	}
+	
+	private void search(File file, String[] ext) {  
+        if (file != null) {  
+            if (file.isDirectory()) {  
+                File[] listFile = file.listFiles();  
+                if (listFile != null) {  
+                    for (int i = 0; i < listFile.length; i++) {  
+                        search(listFile[i], ext);  
+                    }  
+                }  
+            } else {  
+                String filename = file.getAbsolutePath();  
+                for (int i = 0; i < ext.length; i++) {  
+                    if (filename.endsWith(ext[i])) {  
+                        mLists.add(filename);  
+                        break;  
+                    }  
+                }  
+            }  
+        }  
+    }  
+
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
@@ -299,6 +340,7 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	
 	private void initMusicPop() {
 		View dateView = getLayoutInflater().inflate(R.layout.music_main_ui_layout, null);
+		initMusicUI(dateView);
 		mMusicPop = new PopupWindow(dateView,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
 				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
@@ -329,6 +371,96 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 //				sp.edit().putString(PREF_DATE_SAVE_KEY, date).apply();
 			}
 		});
+	}
+
+
+	// Music
+	TextView mTextMusicTitle,mTextMusicAuthor;
+	MediaPlayer mPlayer = new MediaPlayer();
+	ArrayList<String> mLists = new ArrayList<String>();
+	private int currIndex = 0;
+	private void initMusicUI(View dateView) {
+		mTextMusicTitle = (TextView) dateView.findViewById(R.id.music_title);
+		mTextMusicAuthor = (TextView) dateView.findViewById(R.id.music_author);
+	}
+	
+	private boolean checkLoadedMusicData(){
+		return mLists != null && mLists.size() > 0;
+	}
+	
+	public void onNext(View v){
+		if (checkLoadedMusicData()){
+		
+			if(currIndex+1 < mLists.size()){  
+	            currIndex++;  
+	            start();  
+	        }else{  
+	            Toast.makeText(this, "当前已经是最后一首歌曲了", Toast.LENGTH_SHORT).show();  
+	        }  
+		}
+	}
+	
+	public void onPre(View v){
+		if (checkLoadedMusicData()){
+			if((currIndex-1)>=0){  
+	            currIndex--;  
+	            start();  
+	        }else{  
+	            Toast.makeText(this, "当前已经是第一首歌曲了", Toast.LENGTH_SHORT).show();  
+	        } 
+		}
+	}
+	
+	private void start() {  
+        if (mLists.size() > 0 && currIndex < mLists.size()) {  
+            String songPath = mLists.get(currIndex);
+            Cursor cursor = getContentResolver().query(Media.EXTERNAL_CONTENT_URI, new String[]{Media.TITLE,Media.ARTIST} 
+            				,"_data=?", new String[]{songPath}, null);
+            
+            int titleIndex = cursor
+                    .getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
+            int artistIndex = cursor
+                    .getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
+            cursor.moveToFirst();
+            mTextMusicTitle.setText(cursor.getString(titleIndex));
+            mTextMusicAuthor.setText(cursor.getString(artistIndex));
+            mPlayer.reset();  
+            try {  
+                mPlayer.setDataSource(songPath);  
+                mPlayer.prepare();  
+                mPlayer.start();  
+            } catch (IOException e) {  
+                e.printStackTrace();  
+            }  
+        }else{  
+            Toast.makeText(this, "播放列表为空", Toast.LENGTH_SHORT).show();  
+        }  
+    }  
+	
+	public void startStop(View v){
+		ImageView view = (ImageView) v;
+		if (view.getTag() == null){
+			view.setTag(ON);
+			view.setImageResource(R.drawable.bofang_btn_on);
+			start();
+		} else {
+			Integer status = (Integer) view.getTag();
+			if (status == ON){
+				view.setTag(OFF);
+				view.setImageResource(R.drawable.bofang_btn);
+				mPlayer.stop();
+			} else if (status == OFF){
+				view.setTag(ON);
+				view.setImageResource(R.drawable.bofang_btn_on);
+				start();
+			}
+		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mPlayer.stop();
 	}
 
 	private void initColorPop() {
@@ -574,14 +706,16 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		handShower(img, LAUNCH,R.drawable.zhongjian_btn,R.drawable.zhongjian_btn_on);
 	}
 	
-	public void setShowerButtonState(boolean on){
+	public void setShowerButtonState(int status){
 		ImageView v = (ImageView) findViewById(R.id.center);
-		if (on){
+		if (status == ON){
 			v.setTag(ON);
 			v.setImageResource(R.drawable.zhongjian_btn_on);
-		} else {
+		} else if (status == OFF){
 			v.setTag(OFF);
 			v.setImageResource(R.drawable.zhongjian_btn);
+		} else {
+			// TODO other things
 		}
 	}
 	
@@ -1171,17 +1305,6 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 				mFirst.setVisibility(View.GONE);
 				mScond.setVisibility(View.VISIBLE);
 				
-//				int month = mCurrentDate.get(Calendar.MONTH) + 1;
-//				if (month > 2 && month <=5){
-//					mBackground.setBackgroundResource(R.drawable.beijing_chun);
-//				} else if (month > 5 && month <= 8){
-//					mBackground.setBackgroundResource(R.drawable.beijing_xia);
-//				} else if (month > 8 && month <= 11) {
-//					mBackground.setBackgroundResource(R.drawable.beijing_qiu);
-//				} else {
-//					mBackground.setBackgroundResource(R.drawable.beijing_dong);
-//				}
-//				mController.isModel = true;//TODO
 				displayAnima(mScond);
 			}
 		});
@@ -1246,13 +1369,11 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
 		handSeekBarProgress(seekBar);
 	}
 	

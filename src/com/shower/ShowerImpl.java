@@ -118,8 +118,8 @@ public class ShowerImpl implements IShower{
 
 	
 	@Override
-	public void setShowerButtonState(boolean on) {
-		activity.setShowerButtonState(on);
+	public void setShowerButtonState(int status) {
+		activity.setShowerButtonState(status);
 	}
 
 	@Override
@@ -132,6 +132,30 @@ public class ShowerImpl implements IShower{
 	public int getShowerTime() {
 		// TODO Auto-generated method stub
 		return (int)(Math.random() * 1000);//test
+	}
+
+	@Override
+	public boolean setBulbColor(String color) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void addBulbLight(int light) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reduceBulbLight(int light) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setBulbLight(int light) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

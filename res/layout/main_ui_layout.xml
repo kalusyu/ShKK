@@ -14,7 +14,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="184px"
-                    android:layout_marginTop="180px"
+                    android:layout_marginTop="190px"
                     android:clickable="true"
                     android:onClick="zhongjian"
                     android:src="@drawable/zhongjian_btn" />

@@ -6,7 +6,8 @@
     android:orientation="horizontal" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="380px"
+        android:layout_marginLeft="20px"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
@@ -36,7 +37,7 @@
                 android:id="@+id/houtui"
                 android:layout_width="58px"
                 android:layout_height="58px"
-                android:layout_marginTop="33px"
+                android:layout_marginTop="25px"
                 android:clickable="true"
                 android:onClick="onPre"
                 android:src="@drawable/houtui_btn" />
@@ -54,7 +55,7 @@
                 android:id="@+id/qianjin"
                 android:layout_width="58px"
                 android:layout_height="58px"
-                android:layout_marginTop="33px"
+                android:layout_marginTop="25px"
                 android:layout_toRightOf="@id/bofang"
                 android:clickable="true"
                 android:onClick="onNext"
@@ -63,13 +64,14 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:layout_marginLeft="-14px"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60px" >
+        android:layout_height="wrap_content">
 
         <com.shower.VerticalSeekBar
             android:id="@+id/music_seek_bar"
             android:layout_width="wrap_content"
+            android:layout_marginTop="20px"
             android:layout_height="281px"
             android:progressDrawable="@drawable/vertical_seek_progress_drawable"
             android:thumb="@drawable/dengguangqiangruoanniu_normal"

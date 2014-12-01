@@ -25,7 +25,7 @@
         android:id="@+id/model_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
+        android:layout_marginLeft="20px"
         android:onClick="modelRight"
         android:clickable="true"
         android:src="@drawable/youjian_select_btn" />

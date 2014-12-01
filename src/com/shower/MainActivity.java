@@ -536,23 +536,45 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		mColorSeekBar = (VerticalSeekBar) dateView.findViewById(R.id.color_seek_bar);
 		mColorSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			private int lastProgress = 0;
+			private int newProgress = 0;
+
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
+				if (progress > newProgress + 100 || progress < newProgress - 100){
+					newProgress = lastProgress;
+					seekBar.setProgress(lastProgress);
+					return;
+				}
+				newProgress = progress;
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+
+			}
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				
+				handSeekBarProgress(seekBar);
+			}
+			
+			public void handSeekBarProgress(SeekBar seekBar){
+				if (newProgress < 25) {
+					lastProgress = 0;
+					newProgress = 0;
+					seekBar.setProgress(0);
+				} else if (newProgress >= 25 && newProgress < 70) {
+					lastProgress = 50;
+					newProgress = 50;
+					seekBar.setProgress(50);
+				}  else {
+					lastProgress=100;
+		            newProgress=100;
+		            seekBar.setProgress(100);
+				}
 			}
 		});
 	}
@@ -1225,6 +1247,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			mMinuteText.setTextColor(Color.parseColor("#ffffff"));
 			break;
 		case SHOWER_MONTH:
+			addYear.setVisibility(View.GONE);
+			reduceYear.setVisibility(View.GONE);
 			addMonth.setVisibility(View.VISIBLE);
 			reduceMonth.setVisibility(View.VISIBLE);
 			addDay.setVisibility(View.GONE);
@@ -1233,6 +1257,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			reduceHour.setVisibility(View.GONE);
 			addMinute.setVisibility(View.GONE);
 			reduceMinute.setVisibility(View.GONE);
+			mYearText.setTextColor(Color.parseColor("#ffffff"));
+			mYearHanzi.setTextColor(Color.parseColor("#ffffff"));
 			mMonthText.setTextColor(Color.parseColor("#3bb1fe"));
 			mMonthHanzi.setTextColor(Color.parseColor("#3bb1fe"));
 			mDayHanzi.setTextColor(Color.parseColor("#ffffff"));
@@ -1242,6 +1268,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			
 			break;
 		case SHOWER_DAY:
+			addYear.setVisibility(View.GONE);
+			reduceYear.setVisibility(View.GONE);
 			addMonth.setVisibility(View.GONE);
 			reduceMonth.setVisibility(View.GONE);
 			addDay.setVisibility(View.VISIBLE);
@@ -1250,6 +1278,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			reduceHour.setVisibility(View.GONE);
 			addMinute.setVisibility(View.GONE);
 			reduceMinute.setVisibility(View.GONE);
+			mYearText.setTextColor(Color.parseColor("#ffffff"));
+			mYearHanzi.setTextColor(Color.parseColor("#ffffff"));
 			mMonthText.setTextColor(Color.parseColor("#ffffff"));
 			mDayText.setTextColor(Color.parseColor("#3bb1fe"));
 			mMonthHanzi.setTextColor(Color.parseColor("#ffffff"));
@@ -1258,6 +1288,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			mMinuteText.setTextColor(Color.parseColor("#ffffff"));
 			break;
 		case SHOWER_HOUR:
+			addYear.setVisibility(View.GONE);
+			reduceYear.setVisibility(View.GONE);
 			addMonth.setVisibility(View.GONE);
 			reduceMonth.setVisibility(View.GONE);
 			addDay.setVisibility(View.GONE);
@@ -1266,6 +1298,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			reduceHour.setVisibility(View.VISIBLE);
 			addMinute.setVisibility(View.GONE);
 			reduceMinute.setVisibility(View.GONE);
+			mYearText.setTextColor(Color.parseColor("#ffffff"));
+			mYearHanzi.setTextColor(Color.parseColor("#ffffff"));
 			mMonthText.setTextColor(Color.parseColor("#ffffff"));
 			mDayText.setTextColor(Color.parseColor("#ffffff"));
 			mHourText.setTextColor(Color.parseColor("#3bb1fe"));
@@ -1274,6 +1308,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			mDayHanzi.setTextColor(Color.parseColor("#ffffff"));
 			break;
 		case SHOWER_MINUTE:
+			addYear.setVisibility(View.GONE);
+			reduceYear.setVisibility(View.GONE);
 			addMonth.setVisibility(View.GONE);
 			reduceMonth.setVisibility(View.GONE);
 			addDay.setVisibility(View.GONE);
@@ -1282,6 +1318,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			reduceHour.setVisibility(View.GONE);
 			addMinute.setVisibility(View.VISIBLE);
 			reduceMinute.setVisibility(View.VISIBLE);
+			mYearText.setTextColor(Color.parseColor("#ffffff"));
+			mYearHanzi.setTextColor(Color.parseColor("#ffffff"));
 			mMonthText.setTextColor(Color.parseColor("#ffffff"));
 			mDayText.setTextColor(Color.parseColor("#ffffff"));
 			mHourText.setTextColor(Color.parseColor("#ffffff"));
@@ -1290,6 +1328,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 			mDayHanzi.setTextColor(Color.parseColor("#ffffff"));
 			break;
 			default:
+				addYear.setVisibility(View.GONE);
+				reduceYear.setVisibility(View.GONE);
 				addMonth.setVisibility(View.GONE);
 				reduceMonth.setVisibility(View.GONE);
 				addDay.setVisibility(View.GONE);
@@ -1298,6 +1338,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 				reduceHour.setVisibility(View.GONE);
 				addMinute.setVisibility(View.GONE);
 				reduceMinute.setVisibility(View.GONE);
+				mYearText.setTextColor(Color.parseColor("#ffffff"));
+				mYearHanzi.setTextColor(Color.parseColor("#ffffff"));
 				mMonthText.setTextColor(Color.parseColor("#ffffff"));
 				mDayText.setTextColor(Color.parseColor("#ffffff"));
 				mHourText.setTextColor(Color.parseColor("#ffffff"));

@@ -19,6 +19,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margintBotton"
             android:padding="10dip"
             android:clickable="true"
             android:visibility="gone"
@@ -59,6 +60,7 @@
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
+            android:layout_marginTop="@dimen/margintTop"
             android:id="@+id/reduceYear"
             android:onClick="reduceYear"
             android:src="@drawable/rilingtou_xia_btn" />
@@ -73,11 +75,12 @@
         android:orientation="vertical" >
 
         <ImageView
+            android:layout_marginBottom="@dimen/margintBotton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:padding="10dip"
             android:clickable="true"
-            android:visibility="gone"
             android:id="@+id/addMonth"
             android:onClick="addMonth"
             android:src="@drawable/rilingtou_shang_btn" />
@@ -116,6 +119,7 @@
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
+            android:layout_marginTop="@dimen/margintTop"
             android:id="@+id/reduceMonth"
             android:onClick="reduceMonth"
             android:src="@drawable/rilingtou_xia_btn" />
@@ -132,6 +136,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margintBotton"
             android:padding="10dip"
             android:clickable="true"
             android:visibility="gone"
@@ -175,6 +180,7 @@
             android:visibility="gone"
             android:id="@+id/reduceDay"
             android:onClick="reduceDay"
+            android:layout_marginTop="@dimen/margintTop"
             android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 
@@ -188,6 +194,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margintBotton"
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
@@ -214,6 +221,7 @@
             android:visibility="gone"
             android:id="@+id/reduceHour"
             android:onClick="reduceHour"
+            android:layout_marginTop="@dimen/margintTop"
             android:src="@drawable/rilingtou_xia_btn" />
     </LinearLayout>
 
@@ -229,6 +237,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:visibility="gone"
+            android:layout_marginBottom="@dimen/margintBotton"
             android:padding="10dip"
             android:id="@+id/addMinute"
             android:onClick="addMinute"
@@ -251,6 +260,7 @@
             android:clickable="true"
             android:padding="10dip"
             android:visibility="gone"
+            android:layout_marginTop="@dimen/margintTop"
             android:id="@+id/reduceMinute"
             android:onClick="reduceMinute"
             android:src="@drawable/rilingtou_xia_btn" />

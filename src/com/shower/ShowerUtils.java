@@ -170,18 +170,18 @@ public class ShowerUtils {
     }
 
 	public static Bitmap blurBitmap(Bitmap overlay, Context ctx) {
-//		RenderScript rs = RenderScript.create(ctx);
-//		Allocation overlayAlloc = Allocation.createFromBitmap(
-//		rs, overlay);
-//		ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(
-//		rs, overlayAlloc.getElement());
-//		blur.setInput(overlayAlloc);
-//		blur.setRadius(20);
-//		blur.forEach(overlayAlloc);
-//		overlayAlloc.copyTo(overlay);
-//		return overlay;
 		try{
-			return FastBlur.doBlur(overlay, 2, true);
+			RenderScript rs = RenderScript.create(ctx);
+			Allocation overlayAlloc = Allocation.createFromBitmap(
+					rs, overlay);
+			ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(
+					rs, overlayAlloc.getElement());
+			blur.setInput(overlayAlloc);
+			blur.setRadius(20);
+			blur.forEach(overlayAlloc);
+			overlayAlloc.copyTo(overlay);
+			return overlay;
+//			return FastBlur.doBlur(overlay, 2, true);
 		} catch (Exception e){
 			e.printStackTrace();
 			return overlay;

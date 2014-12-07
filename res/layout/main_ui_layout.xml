@@ -2,40 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="horizontal" >
 
             <FrameLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content" >
 
                 <ImageView
                     android:id="@+id/center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="184px"
-                    android:layout_marginTop="190px"
+                    android:layout_marginLeft="145px"
+                    android:layout_marginTop="170px"
                     android:clickable="true"
                     android:onClick="zhongjian"
                     android:src="@drawable/zhongjian_btn" />
 
                 <com.shower.ArcButton
-                    android:id="@+id/left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="100px"
-                    android:clickable="true"
-                    android:onClick="cepeng"
-                     />
-
-                <com.shower.ArcButton
                     android:id="@+id/bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="370px"
+                    android:layout_marginTop="320px"
                     android:layout_gravity="center_horizontal"
                     android:clickable="true"
-                    android:layout_marginLeft="10px"
+                    android:layout_marginLeft="5px"
                     android:onClick="shouchi"
                      />
 
@@ -45,8 +38,8 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:onClick="dingpeng"
-                    android:layout_marginTop="10px"
-                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="30px"
+                    android:layout_marginLeft="5px"
                     android:layout_gravity="center_horizontal"
                      />
 
@@ -54,11 +47,20 @@
                     android:id="@+id/right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="360px"
+                    android:layout_marginLeft="290px"
                     android:layout_marginTop="100px"
                     android:clickable="true"
                     android:onClick="pubu"
                    />
+
+                <com.shower.ArcButton
+                    android:id="@+id/left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100px"
+                    android:clickable="true"
+                    android:onClick="cepeng"
+                    />
 
             </FrameLayout>
 

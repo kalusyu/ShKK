@@ -19,7 +19,7 @@
             android:text="音乐下载"
             android:textColor="#53680E"
             android:gravity="center_horizontal"
-            android:textSize="10dip" />
+            android:textSize="30px" />
 
         <com.shower.ShowerTextView
             android:id="@+id/model_text"
@@ -33,5 +33,5 @@
             android:drawablePadding="5dip"
             android:textColor="#53680E"
             android:gravity="center_horizontal"
-            android:textSize="10dip" />
+            android:textSize="30px" />
 </LinearLayout>

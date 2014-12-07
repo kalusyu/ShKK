@@ -170,6 +170,9 @@ public class ShowerUtils {
     }
 
 	public static Bitmap blurBitmap(Bitmap overlay, Context ctx) {
+		if (true){
+			return overlay;
+		}
 		try{
 			RenderScript rs = RenderScript.create(ctx);
 			Allocation overlayAlloc = Allocation.createFromBitmap(

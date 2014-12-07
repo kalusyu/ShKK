@@ -534,6 +534,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	private void initColorUI(View dateView) {
 		mImageColor = (ImageView) dateView.findViewById(R.id.center);
 		mColorSeekBar = (VerticalSeekBar) dateView.findViewById(R.id.color_seek_bar);
+		mColorSeekBar.setMax(100);
+		mColorSeekBar.setProgress(0);
 		mColorSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			private int lastProgress = 0;
@@ -549,6 +551,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 				}
 				newProgress = progress;
 			}
+			
+		
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
@@ -592,8 +596,8 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		View dateView = getLayoutInflater().inflate(R.layout.model_edit_ui_layout, null);
 		initEditModelUI(dateView);
 		mModelEditPop = new PopupWindow(dateView,
-				android.app.ActionBar.LayoutParams.WRAP_CONTENT,
-				android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+				288,
+				233);
 //		mModelEditPop.setBackgroundDrawable(getResources().getDrawable(
 //				R.drawable.datetime_picker_bg)); 
 //		mModelEditPop.getBackground().setAlpha(0);

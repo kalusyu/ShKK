@@ -7,7 +7,6 @@
 
     <LinearLayout
         android:layout_width="380px"
-        android:layout_marginLeft="20px"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
@@ -64,8 +63,9 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginLeft="-14px"
-        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="20px"
+        android:layout_width="30px"
         android:layout_height="wrap_content">
 
         <com.shower.VerticalSeekBar

@@ -50,8 +50,8 @@
                         android:id="@+id/shenlan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="115dip"
-                        android:layout_marginTop="115dip"
+                        android:layout_marginLeft="192px"
+                        android:layout_marginTop="219px"
                         android:src="@drawable/shenlan_btn"
                         android:clickable="true"
                         android:onClick="shenlan" />
@@ -60,28 +60,18 @@
                         android:id="@+id/zise"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="133dip"
-                        android:layout_marginTop="90dip"
+                        android:layout_marginLeft="225px"
+                        android:layout_marginTop="188px"
                         android:src="@drawable/zi_btn"
                         android:clickable="true"
                         android:onClick="zise" />
 
                     <com.shower.ArcButton
-                        android:id="@+id/fenhong"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="132dip"
-                        android:layout_marginTop="50dip"
-                        android:src="@drawable/fenhong_btn"
-                        android:clickable="true"
-                        android:onClick="fenhong" />
-
-                    <com.shower.ArcButton
                         android:id="@+id/hongse"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="116dip"
-                        android:layout_marginTop="24dip"
+                        android:layout_marginLeft="230px"
+                        android:layout_marginTop="75px"
                         android:src="@drawable/hong_btn"
                         android:clickable="true"
                         android:onClick="hongse" />
@@ -90,8 +80,8 @@
                         android:id="@+id/juhong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="95dip"
-                        android:layout_marginTop="13dip"
+                        android:layout_marginLeft="198px"
+                        android:layout_marginTop="38px"
                         android:src="@drawable/juhong_btn"
                         android:clickable="true"
                         android:onClick="juhong" />
@@ -100,8 +90,8 @@
                         android:id="@+id/chengse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="57dip"
-                        android:layout_marginTop="13dip"
+                        android:layout_marginLeft="145px"
+                        android:layout_marginTop="32px"
                         android:src="@drawable/chengse_btn"
                         android:clickable="true"
                         android:onClick="chengse" />
@@ -110,8 +100,8 @@
                         android:id="@+id/tuhuang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dip"
-                        android:layout_marginTop="23dip"
+                        android:layout_marginLeft="82px"
+                        android:layout_marginTop="36px"
                         android:src="@drawable/tuhuang_btn"
                         android:clickable="true"
                         android:onClick="tuhuang" />
@@ -120,8 +110,8 @@
                         android:id="@+id/huangse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dip"
-                        android:layout_marginTop="51dip"
+                        android:layout_marginLeft="46px"
+                        android:layout_marginTop="70px"
                         android:src="@drawable/huang_btn"
                         android:clickable="true"
                         android:onClick="huangse" />
@@ -130,8 +120,8 @@
                         android:id="@+id/caolvse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dip"
-                        android:layout_marginTop="90dip"
+                        android:layout_marginLeft="40px"
+                        android:layout_marginTop="131px"
                         android:src="@drawable/caolv_btn"
                         android:clickable="true"
                         android:onClick="caolvse" />
@@ -140,8 +130,8 @@
                         android:id="@+id/lvse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="28dip"
-                        android:layout_marginTop="113dip"
+                        android:layout_marginLeft="45px"
+                        android:layout_marginTop="185px"
                         android:src="@drawable/lv_btn"
                         android:clickable="true"
                         android:onClick="lvse" />
@@ -150,30 +140,41 @@
                         android:id="@+id/hulan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="55dip"
-                        android:layout_marginTop="130dip"
+                        android:layout_marginLeft="78px"
+                        android:layout_marginTop="217px"
                         android:src="@drawable/hulan_btn"
                         android:clickable="true"
                         android:onClick="hulan" />
-
-                    <com.shower.ArcButton
-                        android:id="@+id/gulan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="95dip"
-                        android:layout_marginTop="130dip"
-                        android:src="@drawable/gulan_btn"
-                        android:clickable="true"
-                        android:onClick="gulan" />
 
                     <ImageView
                         android:id="@+id/center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="133px"
-                        android:layout_marginTop="128px"
+                        android:layout_marginLeft="125px"
+                        android:layout_marginTop="120px"
                         android:clickable="true"
                         android:src="@drawable/yansexianshi_caolv_normal" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/gulan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="139px"
+                        android:layout_marginTop="236px"
+                        android:clickable="true"
+                        android:onClick="gulan"
+                        android:src="@drawable/gulan_btn" />
+
+                    <com.shower.ArcButton
+                        android:id="@+id/fenhong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="246px"
+                        android:layout_marginTop="136px"
+                        android:clickable="true"
+                        android:onClick="fenhong"
+                        android:src="@drawable/fenhong_btn" />
+
                 </FrameLayout>
             </LinearLayout>
         </FrameLayout>

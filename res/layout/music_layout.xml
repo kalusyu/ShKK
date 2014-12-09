@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:background="@drawable/yinyuexiazaixuanzejiemian_chun_normal" >
 
-        <com.shower.ShowerTextView
+        <com.shower.ui.ShowerTextView
             android:id="@+id/music_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -21,7 +21,7 @@
             android:gravity="center_horizontal"
             android:textSize="30px" />
 
-        <com.shower.ShowerTextView
+        <com.shower.ui.ShowerTextView
             android:id="@+id/model_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

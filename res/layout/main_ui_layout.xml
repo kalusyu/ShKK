@@ -21,18 +21,18 @@
                     android:onClick="zhongjian"
                     android:src="@drawable/zhongjian_btn" />
 
-                <com.shower.ArcButton
+                <com.shower.ui.ArcButton
                     android:id="@+id/bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="320px"
+                    android:layout_marginTop="310px"
                     android:layout_gravity="center_horizontal"
                     android:clickable="true"
                     android:layout_marginLeft="5px"
                     android:onClick="shouchi"
                      />
 
-                <com.shower.ArcButton
+                <com.shower.ui.ArcButton
                     android:id="@+id/top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                     android:layout_gravity="center_horizontal"
                      />
 
-                <com.shower.ArcButton
+                <com.shower.ui.ArcButton
                     android:id="@+id/right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                     android:onClick="pubu"
                    />
 
-                <com.shower.ArcButton
+                <com.shower.ui.ArcButton
                     android:id="@+id/left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

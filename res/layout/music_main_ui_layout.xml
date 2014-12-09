@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="466px"
     android:layout_height="wrap_content"
     android:background="@drawable/yinyuezijiemianbeijing_normal"
     android:orientation="horizontal" >
 
     <LinearLayout
+        android:layout_marginLeft="-10px"
         android:layout_width="380px"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -62,17 +63,20 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_weight="1"
-        android:layout_marginBottom="20px"
-        android:layout_width="30px"
+    <LinearLayout
+        android:layout_marginLeft="-20px"
+        android:layout_marginTop="20px"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.shower.VerticalSeekBar
+        <com.shower.ui.VerticalSeekBar
             android:id="@+id/music_seek_bar"
             android:layout_width="wrap_content"
-            android:layout_marginTop="20px"
             android:layout_height="281px"
+            android:minHeight="16px"
+        	android:maxHeight="16px"
             android:progressDrawable="@drawable/vertical_seek_progress_drawable"
             android:thumb="@drawable/dengguangqiangruoanniu_normal"
             android:thumbOffset="0dip" />
@@ -83,7 +87,8 @@
             android:layout_below="@id/music_seek_bar"
             android:layout_centerHorizontal="true"
             android:clickable="true"
+            android:paddingBottom="20px"
             android:src="@drawable/yinliang_btn" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

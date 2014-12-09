@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="468px"
+    android:layout_height="385px"
     android:background="@drawable/dengguangzijiemianbeijing_normal"
     android:orientation="horizontal" >
 
     <RelativeLayout
         android:layout_marginTop="20px"
-        android:layout_marginLeft="7px"
+        android:layout_marginLeft="22px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-        <com.shower.VerticalSeekBar
+        <com.shower.ui.VerticalSeekBar
             android:id="@+id/color_seek_bar"
             android:layout_width="wrap_content"
             android:layout_height="281px"
-            android:progressDrawable="@drawable/vertical_seek_progress_drawable"
+            android:minHeight="16px"
+        	android:maxHeight="16px"
+            android:layout_marginBottom="10px"
+            android:progressDrawable="@drawable/dengguang_vertical_seek_progress_drawable"
             android:thumb="@drawable/dengguangqiangruoanniu_normal"
             android:thumbOffset="0dip" />
 
@@ -46,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/shenlan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -56,7 +59,7 @@
                         android:clickable="true"
                         android:onClick="shenlan" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/zise"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -66,7 +69,7 @@
                         android:clickable="true"
                         android:onClick="zise" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/hongse"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -76,7 +79,7 @@
                         android:clickable="true"
                         android:onClick="hongse" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/juhong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -86,7 +89,7 @@
                         android:clickable="true"
                         android:onClick="juhong" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/chengse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -96,7 +99,7 @@
                         android:clickable="true"
                         android:onClick="chengse" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/tuhuang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -106,7 +109,7 @@
                         android:clickable="true"
                         android:onClick="tuhuang" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/huangse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -116,7 +119,7 @@
                         android:clickable="true"
                         android:onClick="huangse" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/caolvse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -126,7 +129,7 @@
                         android:clickable="true"
                         android:onClick="caolvse" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/lvse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +139,7 @@
                         android:clickable="true"
                         android:onClick="lvse" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/hulan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -155,7 +158,7 @@
                         android:clickable="true"
                         android:src="@drawable/yansexianshi_caolv_normal" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/gulan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -165,7 +168,7 @@
                         android:onClick="gulan"
                         android:src="@drawable/gulan_btn" />
 
-                    <com.shower.ArcButton
+                    <com.shower.ui.ArcButton
                         android:id="@+id/fenhong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

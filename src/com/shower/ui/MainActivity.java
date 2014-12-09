@@ -47,7 +47,9 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -433,7 +435,9 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 	ArrayList<String> mLists = new ArrayList<String>();
 	private int currIndex = 0;
 	VerticalSeekBar mMusicSoundSeekBar;
+	ImageView mRoate;
 	private void initMusicUI(View dateView) {
+		mRoate = (ImageView) dateView.findViewById(R.id.music_rotate);
 		mTextMusicTitle = (TextView) dateView.findViewById(R.id.music_title);
 		mTextMusicAuthor = (TextView) dateView.findViewById(R.id.music_author);
 		mMusicSoundSeekBar = (VerticalSeekBar) dateView.findViewById(R.id.music_seek_bar);
@@ -493,7 +497,16 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 		}
 	}
 	
+	AnimationSet aset;
 	private void start() {  
+	    aset = new AnimationSet(true);
+		RotateAnimation rAnimation = new RotateAnimation(0,360,Animation.RELATIVE_TO_PARENT,1f,Animation.RELATIVE_TO_PARENT,0f);
+		//设置动画执行过程用的时间,单位毫秒
+		rAnimation.setDuration(1000);
+		//将动画加入动画集合中
+		aset.addAnimation(rAnimation);
+		//imageView是要旋转的控件的引用.
+		mRoate.startAnimation(aset);
         if (mLists.size() > 0 && currIndex < mLists.size()) {  
             String songPath = mLists.get(currIndex);
             Cursor cursor = getContentResolver().query(Media.EXTERNAL_CONTENT_URI, new String[]{Media.TITLE,Media.ARTIST} 
@@ -531,6 +544,7 @@ public class MainActivity extends Activity implements SkinCallbacks,OnSeekBarCha
 				view.setTag(OFF);
 				view.setImageResource(R.drawable.bofang_btn);
 				mPlayer.stop();
+				aset.cancel();
 			} else if (status == OFF){
 				view.setTag(ON);
 				view.setImageResource(R.drawable.bofang_btn_on);
